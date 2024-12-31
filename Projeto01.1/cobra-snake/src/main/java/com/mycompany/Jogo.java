@@ -1,0 +1,430 @@
+package com.mycompany;
+
+import java.security.interfaces.XECPublicKey;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Jogo {
+    private int[][] area; //area do jogo
+    private int[] xyTamanhoArea; //tamanho horizontal e vertical da area
+    private int[] xyCabecaCobra;
+    private ArrayList<int[]> xyHistoricoCabeca= new ArrayList<int[]>(); //hostorico para orientar a posicao do corpo da cobra 
+    private int tamanhoCobra;
+    private int direcao;
+    private int tempoAndar; //quantidade de tempo em milisegundos que a cobra leva pra andar uma casa
+    private int[] xyComida;
+    //xy vazios para sortear a comida diretamente em um dos espacos vazios:
+    private ArrayList<int[]> xyVazios= new ArrayList<int[]>();
+
+    //constantes que ocuparao as areas:
+    private final int COBRA=1;
+    private final int COMIDA=2;
+    private final int ESPACO=3;
+    //direcoes
+    public final int DIREITA=4;
+    public final int ESQUERDA=5;
+    public final int CIMA=6;
+    public final int BAIXO=7;
+    private final int X=0; //referencia x dos arrays xy
+    private final int Y=1; //referencia y dos arrays xy
+    
+    public Jogo(int xArea, int yArea){
+        //ajustando largura e altura da area
+        xyTamanhoArea= new int[2];
+        xyTamanhoArea[X]= xArea;
+        xyTamanhoArea[Y]= yArea;
+        
+        //iniciando cobra na posicao [0][0] do tabuleiro
+        xyCabecaCobra= new int[2];
+        xyCabecaCobra[X]= 0; 
+        xyCabecaCobra[Y]= 0;
+
+        //iniciando tamanho da cobra como 1:
+        tamanhoCobra=1;
+
+        //iniciando direcao da cobra para direita
+        direcao= DIREITA;
+
+        //iniciando area:
+        area= new int[yArea][xArea];
+        
+        //definindo espacos vazios na area:
+        for(int y=0; y<yArea; y++){
+            for (int x=0; x<xArea; x++){
+                area[y][x]= ESPACO;
+                int [] xyVazio= {x,y};
+                xyVazios.add(xyVazio);
+            }
+        }
+        
+        //definindo a posicao da cobra na area:
+        area[xyCabecaCobra[Y]][xyCabecaCobra[X]] = COBRA; //posicao [0][0] = cobra
+
+        //atualizando espacos vazios:
+        addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+
+        //definindo tempo que a cobra leva pra andar um bloco para 1 segundo
+        tempoAndar= 800;
+
+        //iniciando array de xy da comida
+        xyComida= new int[2];
+        //gerando a primeira comida
+        gerarComida();
+
+        
+    }
+
+    public void exibirArea(){
+        for(int y=0; y<xyTamanhoArea[Y]; y++){
+            for(int x=0; x<xyTamanhoArea[X]; x++){
+                if(area[y][x]==COBRA){
+                    System.out.print('+');
+                }
+                else if(area[y][x]==COMIDA){
+                    System.out.print('º');
+                }
+                else{
+                    System.out.print('-');
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void cobraAndarUm(){
+        if(direcao==DIREITA){
+            int passoDireita=1;
+            //verificar se dps de andar ela bate na borda:
+            if (xyCabecaCobra[X]+passoDireita == area[0].length) {
+                //perdeu
+                return;
+            }
+
+            //verificar se o proximo passo é vazio:
+            if(area[xyCabecaCobra[Y]][xyCabecaCobra[X]+passoDireita] == ESPACO){
+                //adicionar o local onde ele tava no historico:
+                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
+                xyHistoricoCabeca.add(xyAddHistorico);
+
+                //adicionar novo local na area:
+                xyCabecaCobra[X]++; //passo à direita
+                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+
+                //a calda esta na primeira insersao (nao exluida ate entao)
+                int indiceCaldaHistorico= 0; 
+                int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
+
+                //remover na area:
+                area[xyCalda[Y]][xyCalda[X]]= ESPACO;
+
+                //corrigir ocupaçoes:
+                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+                removerOcupacao(xyCalda[X], xyCalda[Y]);
+
+                //remover do historico
+                xyHistoricoCabeca.remove(indiceCaldaHistorico);
+
+
+
+            }
+            //verificar se o proximo passo é comida
+            else if(area[xyCabecaCobra[Y]][xyCabecaCobra[X]+passoDireita] == COMIDA){
+                //adicionar o local onde ele tava no historico:
+                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
+                xyHistoricoCabeca.add(xyAddHistorico);
+
+                //adicionar novo local na area:
+                xyCabecaCobra[X]++; //passo à direita
+                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+
+                //corrigir ocupaçoes:
+                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+
+
+                gerarComida();
+                tamanhoCobra++;
+
+            }
+            //verificar se a cobra bate na borda ou em si mesma
+            else{
+                //bateu
+                return;
+            }
+        
+        }
+        else if (direcao==ESQUERDA) {
+            int passoEsquerda=-1;
+            //verificar se dps de andar ela bate na borda:
+            if (xyCabecaCobra[X]+passoEsquerda == -1) {
+                //perdeu
+                return;
+            }
+
+            //verificar se o proximo passo é vazio:
+            if(area[xyCabecaCobra[Y]][xyCabecaCobra[X]+passoEsquerda] == ESPACO){
+                //adicionar o local onde ele tava no historico:
+                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
+                xyHistoricoCabeca.add(xyAddHistorico);
+
+                //adicionar novo local da cobra na area:
+                xyCabecaCobra[X]--; //passo à esquerda
+                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+
+                //a calda esta na primeira insersao (nao exluida ate entao)
+                int indiceCaldaHistorico= 0; 
+                int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
+
+                //remover na area:
+                area[xyCalda[Y]][xyCalda[X]]= ESPACO;
+
+                //corrigir ocupaçoes:
+                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+                removerOcupacao(xyCalda[X], xyCalda[Y]);
+
+                //remover do historico
+                xyHistoricoCabeca.remove(indiceCaldaHistorico);
+
+
+
+            }
+            //verificar se o proximo passo é comida
+            else if(area[xyCabecaCobra[Y]][xyCabecaCobra[X]+passoEsquerda] == COMIDA){
+                //adicionar o local onde ele tava no historico:
+                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
+                xyHistoricoCabeca.add(xyAddHistorico);
+
+                //adicionar novo local na area:
+                xyCabecaCobra[X]--; //passo à esquerda
+                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+
+                //corrigir ocupaçoes:
+                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+
+
+                gerarComida();
+                tamanhoCobra++;
+
+            }
+            //verificar se a cobra bate na borda ou em si mesma
+            else{
+                //bateu
+                return;
+            }
+        
+        }
+        else if (direcao==BAIXO) {
+            int passoBaixo=1;
+            //verificar se dps de andar ela bate na borda:
+            if (xyCabecaCobra[Y]+passoBaixo == area.length) {
+                //perdeu
+                return;
+            }
+
+            //verificar se o proximo passo é vazio:
+            if(area[xyCabecaCobra[Y]+passoBaixo][xyCabecaCobra[X]] == ESPACO){
+                //adicionar o local onde ele tava no historico:
+                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
+                xyHistoricoCabeca.add(xyAddHistorico);
+
+                //adicionar novo local na area:
+                xyCabecaCobra[Y]++; //passo para baixo
+                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+
+                //a calda esta na primeira insersao (nao exluida ate entao)
+                int indiceCaldaHistorico= 0; 
+                int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
+
+                //remover na area:
+                area[xyCalda[Y]][xyCalda[X]]= ESPACO;
+
+                //corrigir ocupaçoes:
+                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+                removerOcupacao(xyCalda[X], xyCalda[Y]);
+
+                //remover do historico
+                xyHistoricoCabeca.remove(indiceCaldaHistorico);
+
+
+
+            }
+            //verificar se o proximo passo é comida
+            else if(area[xyCabecaCobra[Y]+passoBaixo][xyCabecaCobra[X]] == COMIDA){
+                //adicionar o local onde ele tava no historico:
+                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
+                xyHistoricoCabeca.add(xyAddHistorico);
+
+                //adicionar novo local na area:
+                xyCabecaCobra[Y]++; //passo para baixo
+                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+
+                //corrigir ocupaçoes:
+                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+
+
+                gerarComida();
+                tamanhoCobra++;
+
+            }
+            //verificar se a cobra bate na borda ou em si mesma
+            else{
+                //bateu
+                return;
+            }
+        }
+        else{ //CIMA
+            int passoCima=-1;
+            //verificar se dps de andar ela bate na borda:
+            if (xyCabecaCobra[Y]+passoCima == -1) {
+                //perdeu
+                return;
+            }
+
+            //verificar se o proximo passo é vazio:
+            if(area[xyCabecaCobra[Y]+passoCima][xyCabecaCobra[X]] == ESPACO){
+                //adicionar o local onde ele tava no historico:
+                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
+                xyHistoricoCabeca.add(xyAddHistorico);
+
+                //adicionar novo local na area:
+                xyCabecaCobra[Y]--; //passo para cima
+                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+
+                //a calda esta na primeira insersao (nao exluida ate entao)
+                int indiceCaldaHistorico= 0; 
+                int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
+
+                //remover na area:
+                area[xyCalda[Y]][xyCalda[X]]= ESPACO;
+
+                //corrigir ocupaçoes:
+                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+                removerOcupacao(xyCalda[X], xyCalda[Y]);
+
+                //remover do historico
+                xyHistoricoCabeca.remove(indiceCaldaHistorico);
+
+
+
+            }
+            //verificar se o proximo passo é comida
+            else if(area[xyCabecaCobra[Y]+passoCima][xyCabecaCobra[X]] == COMIDA){
+                //adicionar o local onde ele tava no historico:
+                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
+                xyHistoricoCabeca.add(xyAddHistorico);
+
+                //adicionar novo local na area:
+                xyCabecaCobra[Y]--; //passo para cima
+                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+
+                //corrigir ocupaçoes:
+                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+
+
+                gerarComida();
+                tamanhoCobra++;
+
+            }
+            //verificar se a cobra bate na borda ou em si mesma
+            else{
+                //bateu
+                return;
+            }
+        }
+    }
+
+    
+
+    public void gerarComida(){
+        Random rand= new Random();
+        int indiceSorteado= rand.nextInt(xyVazios.size());
+        int[] xySorteado= xyVazios.get(indiceSorteado);
+
+        area[xySorteado[Y]][xySorteado[X]]= COMIDA;
+
+        //removendo o local da comida dos espacos vazios:
+        xyVazios.remove(xySorteado);
+    }
+
+    public void pausarCobra(){
+        try {
+            Thread.sleep(tempoAndar);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void setTempoAndar(int tempoAndar){
+        this.tempoAndar= tempoAndar;
+    }
+
+    public void addOcupacao(int x, int y){
+        for(int i=0; i<xyVazios.size(); i++){
+            if(xyVazios.get(i)[X]==x  && xyVazios.get(i)[Y]==y){
+                xyVazios.remove(xyVazios.get(i));
+                return;
+            }
+        }
+        return;
+        
+    }
+    
+    public void removerOcupacao(int x, int y){
+        int [] xy= {x, y};
+        xyVazios.add(xy);
+        return;
+        
+    }
+
+    public void teste(){
+        for(int[] xyvazio : xyVazios){
+            for(int i=0; i<2; i++){
+                System.out.print(xyvazio[i] + "  ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void setDirecao(int DIRECAO){
+        //se for setar para uma direção oposta, nao faça nada
+        if(direcao==ESQUERDA && DIRECAO==DIREITA || direcao==DIREITA && DIRECAO==ESQUERDA
+        || direcao==CIMA && DIRECAO==BAIXO || direcao==BAIXO && DIRECAO==CIMA){
+            return;
+        }
+        else{
+            direcao=DIRECAO;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Jogo j=new Jogo(10, 7);
+        for(int i=2; i<j.area[0].length; i++){
+            System.out.println();
+            j.pausarCobra();
+            j.exibirArea();
+            j.cobraAndarUm();
+        }
+        j.setDirecao(j.BAIXO);
+        for(int i=2; i<j.area.length; i++){
+            System.out.println();
+            j.pausarCobra();
+            j.exibirArea();
+            j.cobraAndarUm();
+        }
+        j.setDirecao(j.ESQUERDA);
+        for(int i=2; i<j.area[0].length; i++){
+            System.out.println();
+            j.pausarCobra();
+            j.exibirArea();
+            j.cobraAndarUm();
+        }
+        j.setDirecao(j.CIMA);
+        for(int i=2; i<j.area.length; i++){
+            System.out.println();
+            j.pausarCobra();
+            j.exibirArea();
+            j.cobraAndarUm();
+        }
+    }
+    
+}
