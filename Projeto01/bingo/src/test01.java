@@ -1,11 +1,11 @@
 public class test01 {
     public static void main(String[] args) throws Exception {
         Bingo bingo= new Bingo();
-        Jogador j[]= new Jogador[1];
+        Jogador j[]= new Jogador[1000];
 
         for(int i=0; i<j.length; i++){
             j[i]= new Jogador("jogador "+ (i+1));
-            j[i].comprarCartelas(1, bingo);
+            j[i].comprarCartelas(3, bingo);
         }
 
         do {
@@ -18,10 +18,11 @@ public class test01 {
                 if(j[i].ganhou()){
                     bingo.addGanhador(j[i]);
                 }
-                System.out.println(j[i].getNome()+":");
-                j[i].exibirCartelas();
+                //ystem.out.println(j[i].getNome()+":");
+                //j[i].exibirCartelas();
             }
-            Thread.sleep(1500);
+            System.out.println();
+            Thread.sleep(100);
         } while (bingo.getGanhadores().isEmpty());
 
         System.out.println();
