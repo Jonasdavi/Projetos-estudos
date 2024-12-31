@@ -10,7 +10,7 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         TelaJogo tJogo= new TelaJogo();
-        Jogo jogo= new Jogo(20, 20, tJogo);
+        Jogo jogo= new Jogo(50, 50, tJogo);
         
         //pega tecla clicada:
         tJogo.addKeyListener(new KeyAdapter() {

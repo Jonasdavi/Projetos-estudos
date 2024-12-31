@@ -77,7 +77,7 @@ public class Jogo {
         addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
 
         //definindo tempo que a cobra leva pra andar um bloco para 1 segundo
-        tempoAndar= 100;
+        tempoAndar= 50;
 
         //iniciando array de xy da comida
         xyComida= new int[2];
