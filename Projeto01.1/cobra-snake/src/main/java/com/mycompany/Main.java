@@ -37,7 +37,7 @@ public class Main {
             jogo.cobraAndarUm();
             //jogo.exibirArea();
             jogo.pausarCobra();
-            System.out.println();
+            //System.out.println();
         }
     }
 }

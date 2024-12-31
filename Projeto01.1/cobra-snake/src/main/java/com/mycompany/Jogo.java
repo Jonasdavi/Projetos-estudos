@@ -106,256 +106,89 @@ public class Jogo {
     }
 
     public void cobraAndarUm(){
+        int passoHorizontal, passoVertical;
+        int PDIREITA, PBAIXO, PCIMA, PESQUERDA, PARADO;//definindo constantes da direçao em relacao ao passo na matriz
+        PDIREITA= PBAIXO =  1; 
+        PESQUERDA= PCIMA= -1;
+        PARADO=0;
+        
+        int bordaDirecao; //borda que a cobra esta indo em direcao
+        int proximoPasso;// proximo passo da cabeca da cobra em relacao a direcao que ela está
+        
         if(direcao==DIREITA){
-            int passoDireita=1;
-            //verificar se dps de andar ela bate na borda:
-            if (xyCabecaCobra[X]+passoDireita == area[0].length) {
-                //perdeu
-                return;
-            }
-
-            //verificar se o proximo passo é vazio:
-            if(area[xyCabecaCobra[Y]][xyCabecaCobra[X]+passoDireita] == ESPACO){
-                //adicionar o local onde ele tava no historico:
-                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
-                xyHistoricoCabeca.add(xyAddHistorico);
-
-                //adicionar novo local na area e tela:
-                xyCabecaCobra[X]++; //passo à direita
-                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
-                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
-
-                //a calda esta na primeira insersao (nao exluida ate entao)
-                int indiceCaldaHistorico= 0; 
-                int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
-
-                //remover na area e tela:
-                area[xyCalda[Y]][xyCalda[X]]= ESPACO;
-                tJogo.ajustarCor(xyCalda[Y], xyCalda[X], CORESPACO);
-
-                //corrigir ocupaçoes:
-                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
-                removerOcupacao(xyCalda[X], xyCalda[Y]);
-
-                //remover do historico
-                xyHistoricoCabeca.remove(indiceCaldaHistorico);
-
-
-
-            }
-            //verificar se o proximo passo é comida
-            else if(area[xyCabecaCobra[Y]][xyCabecaCobra[X]+passoDireita] == COMIDA){
-                //adicionar o local onde ele tava no historico:
-                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
-                xyHistoricoCabeca.add(xyAddHistorico);
-
-                //adicionar novo local na area e tela:
-                xyCabecaCobra[X]++; //passo à direita
-                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
-                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
-
-                //corrigir ocupaçoes:
-                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
-
-
-                gerarComida();
-                tamanhoCobra++;
-
-            }
-            //verificar se a cobra bate na borda ou em si mesma
-            else{
-                //bateu
-                return;
-            }
-        
+            passoHorizontal= PDIREITA;
+            passoVertical= PARADO;
+            bordaDirecao= area[0].length; 
+            proximoPasso= xyCabecaCobra[X]+passoHorizontal;
         }
-        else if (direcao==ESQUERDA) {
-            int passoEsquerda=-1;
-            //verificar se dps de andar ela bate na borda:
-            if (xyCabecaCobra[X]+passoEsquerda == -1) {
-                //perdeu
-                return;
-            }
-
-            //verificar se o proximo passo é vazio:
-            if(area[xyCabecaCobra[Y]][xyCabecaCobra[X]+passoEsquerda] == ESPACO){
-                //adicionar o local onde ele tava no historico:
-                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
-                xyHistoricoCabeca.add(xyAddHistorico);
-
-                //adicionar novo local da cobra na area e tela:
-                xyCabecaCobra[X]--; //passo à esquerda
-                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
-                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
-
-                //a calda esta na primeira insersao (nao exluida ate entao)
-                int indiceCaldaHistorico= 0; 
-                int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
-
-                //remover na area e tela:
-                area[xyCalda[Y]][xyCalda[X]]= ESPACO;
-                tJogo.ajustarCor(xyCalda[Y], xyCalda[X], CORESPACO);
-
-                //corrigir ocupaçoes:
-                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
-                removerOcupacao(xyCalda[X], xyCalda[Y]);
-
-                //remover do historico
-                xyHistoricoCabeca.remove(indiceCaldaHistorico);
-
-
-
-            }
-            //verificar se o proximo passo é comida
-            else if(area[xyCabecaCobra[Y]][xyCabecaCobra[X]+passoEsquerda] == COMIDA){
-                //adicionar o local onde ele tava no historico:
-                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
-                xyHistoricoCabeca.add(xyAddHistorico);
-
-                //adicionar novo local na area e tela:
-                xyCabecaCobra[X]--; //passo à esquerda
-                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
-                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
-
-                //corrigir ocupaçoes:
-                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
-
-
-                gerarComida();
-                tamanhoCobra++;
-
-            }
-            //verificar se a cobra bate na borda ou em si mesma
-            else{
-                //bateu
-                return;
-            }
-        
+        else if(direcao==ESQUERDA){
+            passoHorizontal= PESQUERDA;
+            passoVertical= PARADO;
+            bordaDirecao= -1;
+            proximoPasso= xyCabecaCobra[X]+passoHorizontal;
         }
-        else if (direcao==BAIXO) {
-            int passoBaixo=1;
-            //verificar se dps de andar ela bate na borda:
-            if (xyCabecaCobra[Y]+passoBaixo == area.length) {
-                //perdeu
-                return;
-            }
-
-            //verificar se o proximo passo é vazio:
-            if(area[xyCabecaCobra[Y]+passoBaixo][xyCabecaCobra[X]] == ESPACO){
-                //adicionar o local onde ele tava no historico:
-                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
-                xyHistoricoCabeca.add(xyAddHistorico);
-
-                //adicionar novo local na area e tela:
-                xyCabecaCobra[Y]++; //passo para baixo
-                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
-                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
-
-                //a calda esta na primeira insersao (nao exluida ate entao)
-                int indiceCaldaHistorico= 0; 
-                int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
-
-                //remover na area e tela:
-                area[xyCalda[Y]][xyCalda[X]]= ESPACO;
-                tJogo.ajustarCor(xyCalda[Y], xyCalda[X], CORESPACO);
-
-                //corrigir ocupaçoes:
-                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
-                removerOcupacao(xyCalda[X], xyCalda[Y]);
-
-                //remover do historico
-                xyHistoricoCabeca.remove(indiceCaldaHistorico);
-
-
-
-            }
-            //verificar se o proximo passo é comida
-            else if(area[xyCabecaCobra[Y]+passoBaixo][xyCabecaCobra[X]] == COMIDA){
-                //adicionar o local onde ele tava no historico:
-                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
-                xyHistoricoCabeca.add(xyAddHistorico);
-
-                //adicionar novo local na area e tela:
-                xyCabecaCobra[Y]++; //passo para baixo
-                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
-                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
-
-                //corrigir ocupaçoes:
-                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
-
-
-                gerarComida();
-                tamanhoCobra++;
-
-            }
-            //verificar se a cobra bate na borda ou em si mesma
-            else{
-                //bateu
-                return;
-            }
+        else if(direcao==BAIXO){
+            passoHorizontal= PARADO;
+            passoVertical= PBAIXO;
+            bordaDirecao= area.length;
+            proximoPasso= xyCabecaCobra[Y]+passoVertical;
         }
         else{ //CIMA
-            int passoCima=-1;
-            //verificar se dps de andar ela bate na borda:
-            if (xyCabecaCobra[Y]+passoCima == -1) {
+            passoHorizontal= PARADO;
+            passoVertical= PCIMA;
+            bordaDirecao=-1;
+            proximoPasso= xyCabecaCobra[Y]+passoVertical;
+        }
+        
+        if (proximoPasso == bordaDirecao) {
                 //perdeu
                 return;
-            }
-
-            //verificar se o proximo passo é vazio:
-            if(area[xyCabecaCobra[Y]+passoCima][xyCabecaCobra[X]] == ESPACO){
-                //adicionar o local onde ele tava no historico:
-                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
-                xyHistoricoCabeca.add(xyAddHistorico);
-
-                //adicionar novo local na area e tela:
-                xyCabecaCobra[Y]--; //passo para cima
-                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
-                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
-
-                //a calda esta na primeira insersao (nao exluida ate entao)
-                int indiceCaldaHistorico= 0; 
-                int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
-
-                //remover na area e tela:
-                area[xyCalda[Y]][xyCalda[X]]= ESPACO;
-                tJogo.ajustarCor(xyCalda[Y], xyCalda[X], CORESPACO);
-
-                //corrigir ocupaçoes:
-                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
-                removerOcupacao(xyCalda[X], xyCalda[Y]);
-
-                //remover do historico
-                xyHistoricoCabeca.remove(indiceCaldaHistorico);
-
-
-
-            }
-            //verificar se o proximo passo é comida
-            else if(area[xyCabecaCobra[Y]+passoCima][xyCabecaCobra[X]] == COMIDA){
-                //adicionar o local onde ele tava no historico:
-                int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
-                xyHistoricoCabeca.add(xyAddHistorico);
-
-                //adicionar novo local na area e tela:
-                xyCabecaCobra[Y]--; //passo para cima
-                area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
-                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
-
-                //corrigir ocupaçoes:
-                addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
-
-
-                gerarComida();
-                tamanhoCobra++;
-
-            }
-            //verificar se a cobra bate na borda ou em si mesma
-            else{
-                //bateu
-                return;
-            }
         }
+        
+        //posicao xy da cobra caso ela ande:
+        int posicaoYCabeca= xyCabecaCobra[Y]+passoVertical;
+        int posicaoXCabeca= xyCabecaCobra[X]+passoHorizontal;
+        
+        //verificar se o proximo passo é o proprio corpo da cobra
+        if(area[posicaoYCabeca][posicaoXCabeca] == COBRA){
+            //perdeu
+            return;
+        }
+        
+        //se nao perdeu, entao:
+        //adicionar o local onde ele tava no historico:
+        int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
+        xyHistoricoCabeca.add(xyAddHistorico);
+        
+        //se o proximo passo for comida
+        if(area[posicaoYCabeca][posicaoXCabeca] == COMIDA){
+            gerarComida();
+        }
+        else{ //se for espaco vazio
+            //entao corte a calda que ficaria no final da cobra
+            //a calda esta na primeira insersao (nao exluida ate entao)
+            int indiceCaldaHistorico= 0; 
+            int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
+            //remover na area e tela:
+            area[xyCalda[Y]][xyCalda[X]]= ESPACO;
+            tJogo.ajustarCor(xyCalda[Y], xyCalda[X], CORESPACO);
+
+            //removendo ocupacao onde a calda da cobra estava
+            removerOcupacao(xyCalda[X], xyCalda[Y]);
+            System.out.println("t");
+        }
+        
+
+        //adicionar novo local na area e tela:
+        xyCabecaCobra[Y]= posicaoYCabeca;
+        xyCabecaCobra[X]= posicaoXCabeca;
+        
+        area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+        tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
+
+        //adicionando a nova ocupacao da area no historico: 
+        addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
+        
     }
 
     
