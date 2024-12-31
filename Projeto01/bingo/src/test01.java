@@ -5,7 +5,7 @@ public class test01 {
 
         for(int i=0; i<j.length; i++){
             j[i]= new Jogador("jogador "+ (i+1));
-            j[i].comprarCartelas(3, bingo);
+            j[i].comprarCartelas(5, bingo);
         }
 
         do {
