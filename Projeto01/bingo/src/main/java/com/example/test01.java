@@ -1,7 +1,9 @@
+package com.example;
+
 public class test01 {
     public static void main(String[] args) throws Exception {
         Bingo bingo= new Bingo();
-        Jogador j[]= new Jogador[1000];
+        Jogador j[]= new Jogador[2000];
 
         for(int i=0; i<j.length; i++){
             j[i]= new Jogador("jogador "+ (i+1));
@@ -22,7 +24,7 @@ public class test01 {
                 //j[i].exibirCartelas();
             }
             System.out.println();
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } while (bingo.getGanhadores().isEmpty());
 
         System.out.println();
