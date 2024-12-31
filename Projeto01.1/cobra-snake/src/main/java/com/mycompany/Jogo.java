@@ -1,10 +1,12 @@
 package com.mycompany;
 
+import java.awt.Color;
 import java.security.interfaces.XECPublicKey;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Jogo {
+    private TelaJogo tJogo;
     private int[][] area; //area do jogo
     private int[] xyTamanhoArea; //tamanho horizontal e vertical da area
     private int[] xyCabecaCobra;
@@ -20,6 +22,10 @@ public class Jogo {
     private final int COBRA=1;
     private final int COMIDA=2;
     private final int ESPACO=3;
+    //constantes que ocuparao as areas na tela do jogo (cores):
+    private final Color CORCOBRA= Color.GREEN;
+    private final Color CORCOMIDA= Color.ORANGE;
+    private final Color CORESPACO= Color.darkGray;
     //direcoes
     public final int DIREITA=4;
     public final int ESQUERDA=5;
@@ -28,11 +34,16 @@ public class Jogo {
     private final int X=0; //referencia x dos arrays xy
     private final int Y=1; //referencia y dos arrays xy
     
-    public Jogo(int xArea, int yArea){
+    public Jogo(int xArea, int yArea, TelaJogo tj){
+        tJogo=tj;//variavel da tela do jogo 
+        
         //ajustando largura e altura da area
         xyTamanhoArea= new int[2];
         xyTamanhoArea[X]= xArea;
         xyTamanhoArea[Y]= yArea;
+        
+        //ajustando altura e largura da area na tela
+        tJogo.ajustarTamanho(yArea, xArea); 
         
         //iniciando cobra na posicao [0][0] do tabuleiro
         xyCabecaCobra= new int[2];
@@ -52,14 +63,16 @@ public class Jogo {
         for(int y=0; y<yArea; y++){
             for (int x=0; x<xArea; x++){
                 area[y][x]= ESPACO;
+                tJogo.ajustarCor(y, x, CORESPACO);
                 int [] xyVazio= {x,y};
                 xyVazios.add(xyVazio);
             }
         }
         
-        //definindo a posicao da cobra na area:
+        //definindo a posicao da cobra na area e tela:
         area[xyCabecaCobra[Y]][xyCabecaCobra[X]] = COBRA; //posicao [0][0] = cobra
-
+        tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
+        
         //atualizando espacos vazios:
         addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
 
@@ -81,7 +94,7 @@ public class Jogo {
                     System.out.print('+');
                 }
                 else if(area[y][x]==COMIDA){
-                    System.out.print('º');
+                    System.out.print('*');
                 }
                 else{
                     System.out.print('-');
@@ -106,16 +119,18 @@ public class Jogo {
                 int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
                 xyHistoricoCabeca.add(xyAddHistorico);
 
-                //adicionar novo local na area:
+                //adicionar novo local na area e tela:
                 xyCabecaCobra[X]++; //passo à direita
                 area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
 
                 //a calda esta na primeira insersao (nao exluida ate entao)
                 int indiceCaldaHistorico= 0; 
                 int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
 
-                //remover na area:
+                //remover na area e tela:
                 area[xyCalda[Y]][xyCalda[X]]= ESPACO;
+                tJogo.ajustarCor(xyCalda[Y], xyCalda[X], CORESPACO);
 
                 //corrigir ocupaçoes:
                 addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
@@ -133,9 +148,10 @@ public class Jogo {
                 int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
                 xyHistoricoCabeca.add(xyAddHistorico);
 
-                //adicionar novo local na area:
+                //adicionar novo local na area e tela:
                 xyCabecaCobra[X]++; //passo à direita
                 area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
 
                 //corrigir ocupaçoes:
                 addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
@@ -166,16 +182,18 @@ public class Jogo {
                 int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
                 xyHistoricoCabeca.add(xyAddHistorico);
 
-                //adicionar novo local da cobra na area:
+                //adicionar novo local da cobra na area e tela:
                 xyCabecaCobra[X]--; //passo à esquerda
                 area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
 
                 //a calda esta na primeira insersao (nao exluida ate entao)
                 int indiceCaldaHistorico= 0; 
                 int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
 
-                //remover na area:
+                //remover na area e tela:
                 area[xyCalda[Y]][xyCalda[X]]= ESPACO;
+                tJogo.ajustarCor(xyCalda[Y], xyCalda[X], CORESPACO);
 
                 //corrigir ocupaçoes:
                 addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
@@ -193,9 +211,10 @@ public class Jogo {
                 int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
                 xyHistoricoCabeca.add(xyAddHistorico);
 
-                //adicionar novo local na area:
+                //adicionar novo local na area e tela:
                 xyCabecaCobra[X]--; //passo à esquerda
                 area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
 
                 //corrigir ocupaçoes:
                 addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
@@ -226,16 +245,18 @@ public class Jogo {
                 int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
                 xyHistoricoCabeca.add(xyAddHistorico);
 
-                //adicionar novo local na area:
+                //adicionar novo local na area e tela:
                 xyCabecaCobra[Y]++; //passo para baixo
                 area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
 
                 //a calda esta na primeira insersao (nao exluida ate entao)
                 int indiceCaldaHistorico= 0; 
                 int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
 
-                //remover na area:
+                //remover na area e tela:
                 area[xyCalda[Y]][xyCalda[X]]= ESPACO;
+                tJogo.ajustarCor(xyCalda[Y], xyCalda[X], CORESPACO);
 
                 //corrigir ocupaçoes:
                 addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
@@ -253,9 +274,10 @@ public class Jogo {
                 int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
                 xyHistoricoCabeca.add(xyAddHistorico);
 
-                //adicionar novo local na area:
+                //adicionar novo local na area e tela:
                 xyCabecaCobra[Y]++; //passo para baixo
                 area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
 
                 //corrigir ocupaçoes:
                 addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
@@ -285,16 +307,18 @@ public class Jogo {
                 int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
                 xyHistoricoCabeca.add(xyAddHistorico);
 
-                //adicionar novo local na area:
+                //adicionar novo local na area e tela:
                 xyCabecaCobra[Y]--; //passo para cima
                 area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
 
                 //a calda esta na primeira insersao (nao exluida ate entao)
                 int indiceCaldaHistorico= 0; 
                 int[] xyCalda= xyHistoricoCabeca.get(indiceCaldaHistorico);
 
-                //remover na area:
+                //remover na area e tela:
                 area[xyCalda[Y]][xyCalda[X]]= ESPACO;
+                tJogo.ajustarCor(xyCalda[Y], xyCalda[X], CORESPACO);
 
                 //corrigir ocupaçoes:
                 addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
@@ -312,9 +336,10 @@ public class Jogo {
                 int[] xyAddHistorico= {xyCabecaCobra[X], xyCabecaCobra[Y]}; //mudando referencia
                 xyHistoricoCabeca.add(xyAddHistorico);
 
-                //adicionar novo local na area:
+                //adicionar novo local na area e tela:
                 xyCabecaCobra[Y]--; //passo para cima
                 area[xyCabecaCobra[Y]][xyCabecaCobra[X]]= COBRA;
+                tJogo.ajustarCor(xyCabecaCobra[Y], xyCabecaCobra[X], CORCOBRA);
 
                 //corrigir ocupaçoes:
                 addOcupacao(xyCabecaCobra[X], xyCabecaCobra[Y]);
@@ -340,6 +365,7 @@ public class Jogo {
         int[] xySorteado= xyVazios.get(indiceSorteado);
 
         area[xySorteado[Y]][xySorteado[X]]= COMIDA;
+        tJogo.ajustarCor(xySorteado[Y], xySorteado[X], CORCOMIDA);
 
         //removendo o local da comida dos espacos vazios:
         xyVazios.remove(xySorteado);
@@ -396,35 +422,35 @@ public class Jogo {
         }
     }
     
-    public static void main(String[] args) {
-        Jogo j=new Jogo(10, 7);
-        for(int i=2; i<j.area[0].length; i++){
-            System.out.println();
-            j.pausarCobra();
-            j.exibirArea();
-            j.cobraAndarUm();
-        }
-        j.setDirecao(j.BAIXO);
-        for(int i=2; i<j.area.length; i++){
-            System.out.println();
-            j.pausarCobra();
-            j.exibirArea();
-            j.cobraAndarUm();
-        }
-        j.setDirecao(j.ESQUERDA);
-        for(int i=2; i<j.area[0].length; i++){
-            System.out.println();
-            j.pausarCobra();
-            j.exibirArea();
-            j.cobraAndarUm();
-        }
-        j.setDirecao(j.CIMA);
-        for(int i=2; i<j.area.length; i++){
-            System.out.println();
-            j.pausarCobra();
-            j.exibirArea();
-            j.cobraAndarUm();
-        }
-    }
-    
+//    public static void main(String[] args) {
+//        Jogo j=new Jogo(10, 7);
+//        for(int i=2; i<j.area[0].length; i++){
+//            System.out.println();
+//            j.pausarCobra();
+//            j.exibirArea();
+//            j.cobraAndarUm();
+//        }
+//        j.setDirecao(j.BAIXO);
+//        for(int i=2; i<j.area.length; i++){
+//            System.out.println();
+//            j.pausarCobra();
+//            j.exibirArea();
+//            j.cobraAndarUm();
+//        }
+//        j.setDirecao(j.ESQUERDA);
+//        for(int i=2; i<j.area[0].length; i++){
+//            System.out.println();
+//            j.pausarCobra();
+//            j.exibirArea();
+//            j.cobraAndarUm();
+//        }
+//        j.setDirecao(j.CIMA);
+//        for(int i=2; i<j.area.length; i++){
+//            System.out.println();
+//            j.pausarCobra();
+//            j.exibirArea();
+//            j.cobraAndarUm();
+//        }
+//    }
+//    
 }

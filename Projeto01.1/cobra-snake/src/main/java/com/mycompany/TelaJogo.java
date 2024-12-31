@@ -4,15 +4,21 @@
  */
 package com.mycompany;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Jonas
  */
 public class TelaJogo extends javax.swing.JFrame {
+    JPanel[][] casas;
 
     /**
      * Creates new form TelaJogo
@@ -20,7 +26,23 @@ public class TelaJogo extends javax.swing.JFrame {
     public TelaJogo() {
         initComponents();
     }
+    
+    public void ajustarTamanho(int linhas, int colunas){
+        jpPrincipal.setLayout(new java.awt.GridLayout(linhas, colunas));
+        casas= new JPanel[linhas][colunas];
+        
+        for(int l=0; l<linhas; l++){
+            for(int c=0; c<colunas; c++){
+                casas[l][c]= new JPanel();
+                jpPrincipal.add(casas[l][c]);
+            }
+        }
+        this.setSize(600, 600);
+    }
 
+    public void ajustarCor(int l, int c, Color cor){
+        casas[l][c].setBackground(cor);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,18 +52,12 @@ public class TelaJogo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpPrincipal = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jpPrincipal.setLayout(new java.awt.GridLayout());
+        getContentPane().add(jpPrincipal, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -83,6 +99,7 @@ public class TelaJogo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jpPrincipal;
     // End of variables declaration//GEN-END:variables
 
 }
