@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartela</title>
 
-    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <header></header>
@@ -62,5 +61,52 @@
     <footer></footer>
 </body>
 
-<script src="/script.js"></script>
+<style>
+    
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box; /*conteudo + padding (tudo)*/
+    /*box-sizing: content-box; padrao, apenas altura e largura do conteudo (fonte)*/
+}
+
+button {
+    background-color: gray;
+    padding: 1rem;
+    font-size: 2rem;
+}
+
+table{
+    width: 20%;
+    border-collapse: collapse; /*tirar duplicacao da borda da tabela*/
+}
+
+th{
+    background-color: rgb(62, 7, 150);
+    border: solid black;
+    color: white;
+    padding: 1.5rem;
+    font-size: 2rem;
+    
+}
+
+td{
+    
+    text-align: center; /*alinha texto no centro*/
+
+}
+</style>
+
+<script>
+    function mudarCor(){
+        var botao= event.target;
+    
+        if(botao.style.backgroundColor=="yellow"){
+            botao.style.backgroundColor="gray";
+        }
+        else{
+            botao.style.backgroundColor="yellow"
+        }
+    }
+</script>
 </html>
