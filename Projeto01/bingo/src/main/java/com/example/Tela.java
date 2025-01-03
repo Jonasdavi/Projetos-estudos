@@ -25,7 +25,7 @@ public class Tela extends javax.swing.JFrame {
         initComponents();
         card.add(pSorteio, PSORTEIO);
         card.add(pInicial, PINICIAL);
-        ((CardLayout) (card.getLayout())).show(card, PINICIAL);
+        ((CardLayout) (card.getLayout())).show(card, PSORTEIO);
     }
 
     /**
