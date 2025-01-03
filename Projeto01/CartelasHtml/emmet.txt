@@ -1,0 +1,1 @@
+tr*5>td*5>button.botao[onclick="mudarCor()"]{00}  //quase todas funcionalidades do emmet
