@@ -20,6 +20,9 @@ public class Tela extends javax.swing.JFrame {
     
     private PanelGUICartela pGuiCartela= new PanelGUICartela(new Cartela(), new Jogador("jonas"));
     public final String PGUICARTELA= "3";
+    
+    private PanelDetalheCompra pDetalheCompra= new PanelDetalheCompra(2);
+    public final String PDETALHECOMPRA= "4";
 
     /**
      * Creates new form Tela
@@ -29,7 +32,8 @@ public class Tela extends javax.swing.JFrame {
         card.add(pSorteio, PSORTEIO);
         card.add(pInicial, PINICIAL);
         card.add(pGuiCartela, PGUICARTELA);
-        ((CardLayout) (card.getLayout())).show(card, PGUICARTELA);
+        card.add(pDetalheCompra, PDETALHECOMPRA);
+        ((CardLayout) (card.getLayout())).show(card, PDETALHECOMPRA);
         
         setSize(350, 450);
     }
