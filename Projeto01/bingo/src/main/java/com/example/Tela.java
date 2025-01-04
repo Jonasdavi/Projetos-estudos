@@ -30,6 +30,8 @@ public class Tela extends javax.swing.JFrame {
         card.add(pInicial, PINICIAL);
         card.add(pGuiCartela, PGUICARTELA);
         ((CardLayout) (card.getLayout())).show(card, PGUICARTELA);
+        
+        setSize(350, 450);
     }
 
     /**

@@ -13,7 +13,7 @@ public class Cartela{
     private final int TAMANHOLC=5; //tamanho da quantidade de linhas e colunas da cartela
     private final int LUGARFREE=0;
     
-    private static int idIncrement=0;
+    private static int idIncrement=1;
     private final int ID;
 
     private Random rand= new Random();

@@ -21,6 +21,8 @@ public class PanelGUICartela extends javax.swing.JPanel {
         
         
         addNumsInterface(c, dono);
+        setLbId(c.getId());
+        setLbJogador(dono.getNome());
     }
     
     public void addNumsInterface(Cartela cart, Jogador dono){
@@ -33,7 +35,10 @@ public class PanelGUICartela extends javax.swing.JPanel {
                 lbNumeros[l][c]= new JLabel();
                 
                 String num;
-                if(cartela[l][c]<=9){
+                if(cartela[l][c]==0){
+                    num= "--";
+                }
+                else if(cartela[l][c]<=9){
                     num= "0" + String.valueOf(cartela[l][c]);
                 }
                 else{
@@ -41,9 +46,26 @@ public class PanelGUICartela extends javax.swing.JPanel {
                 }
                 
                 lbNumeros[l][c].setText(num);
+                
+                //centralizando texto:
+                lbNumeros[l][c].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                
+                //adicionando borda
+                lbNumeros[l][c].setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 1));
+                
+                //almentando tamanho da fonte
+                lbNumeros[l][c].setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+                
                 jpNumeros.add(lbNumeros[l][c]);
             }
         }
+    }
+    
+    private void setLbId(int id){
+        txtId.setText(("ID: " + String.valueOf(id)));
+    }
+    private void setLbJogador(String nome){
+        txtNomeJogador.setText("Jogador: " + nome);
     }
 
     /**
@@ -79,9 +101,11 @@ public class PanelGUICartela extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(new java.awt.GridLayout(2, 1));
 
+        txtId.setFont(new java.awt.Font("Sitka Display", 0, 18)); // NOI18N
         txtId.setText("ID: ");
         jPanel2.add(txtId);
 
+        txtNomeJogador.setFont(new java.awt.Font("Sitka Text", 0, 18)); // NOI18N
         txtNomeJogador.setText("Jogador: ");
         jPanel2.add(txtNomeJogador);
 
