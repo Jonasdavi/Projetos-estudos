@@ -8,7 +8,7 @@ public class Bingo{
     private ArrayList<Integer> numsRestantes= new ArrayList<Integer>(); //para verificar numeros repetidos
     private ArrayList<Jogador> jogadores= new ArrayList<Jogador>();
     private ArrayList<Jogador> ganhadores= new ArrayList<Jogador>();
-
+    
     private int qtNumsSorteados;
 
     Random rand= new Random();
@@ -31,11 +31,13 @@ public class Bingo{
         Cartela c= new Cartela();
         boolean cartelaRepetida= false;
 
+        
         do{ //faça isso enquanto a cartela for repetida
-            c.gerarCartela();
+            //c.gerarCartela();
             for (Cartela cartelas : cartelasVendidas) {
                 if(c.equals(cartelas)){
                     cartelaRepetida=true;
+                    c.gerarCartela();
                     break;
                 }
             }

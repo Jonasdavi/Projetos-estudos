@@ -12,17 +12,23 @@ public class Cartela{
     private final int QTNUMS=24; //Quantidade de numeros de uma cartela
     private final int TAMANHOLC=5; //tamanho da quantidade de linhas e colunas da cartela
     private final int LUGARFREE=0;
+    
+    private static int idIncrement=0;
+    private final int ID;
 
     private Random rand= new Random();
 
     public Cartela(){
+        //iniciando id:
+        ID= idIncrement++;
+        
         //inicializando variaveis:
         cartela= new int[TAMANHOLC][TAMANHOLC];
         cartelaMarcada= new int[TAMANHOLC][TAMANHOLC];
         colunas= new Integer[TAMANHOLC][TAMANHOLC];
         qtNumsMarcados=0;
 
-
+        gerarCartela();
     }
 
 
@@ -125,4 +131,7 @@ public class Cartela{
         return colunas;
     }
 
+    public int getId(){
+        return ID;
+    }
 }
