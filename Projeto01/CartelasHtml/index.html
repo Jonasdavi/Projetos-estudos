@@ -14,7 +14,7 @@
             <table border="1">
                 <thead>
                     <tr>
-                        <th colspan="5">Cartela</th>
+                        <th colspan="5">Cartela</th> <!--colspan= quantidade de colunas a se ocupar-->
                     </tr>
                 </thead>
                 <tbody>
@@ -54,6 +54,14 @@
                         <td><button id="botao25" onclick="mudarCor()">00</button></td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" >ID:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">Jogador:</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </main>
@@ -93,6 +101,11 @@ th{
 td{
     background-color: gray;
     text-align: center; /*alinha texto no centro*/
+}
+
+tfoot td{
+    text-align: left;
+    border: solid black 1px;
 }
 </style>
 
