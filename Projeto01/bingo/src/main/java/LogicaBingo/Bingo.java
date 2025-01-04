@@ -1,4 +1,4 @@
-package com.example;
+package LogicaBingo;
 
 import java.util.ArrayList;
 import java.util.Random;

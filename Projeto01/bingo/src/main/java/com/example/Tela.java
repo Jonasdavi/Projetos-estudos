@@ -4,6 +4,9 @@
  */
 package com.example;
 
+import LogicaBingo.Cartela;
+import LogicaBingo.Jogador;
+
 import java.awt.CardLayout;
 
 /**

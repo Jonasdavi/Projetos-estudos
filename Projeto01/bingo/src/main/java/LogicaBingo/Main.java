@@ -1,4 +1,4 @@
-package com.example;
+package LogicaBingo;
 
 public class Main {
     public static void main(String[] args) {

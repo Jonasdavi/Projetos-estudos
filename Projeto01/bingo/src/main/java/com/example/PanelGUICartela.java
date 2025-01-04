@@ -4,6 +4,8 @@
  */
 package com.example;
 
+import LogicaBingo.Cartela;
+import LogicaBingo.Jogador;
 import javax.swing.JLabel;
 
 /**

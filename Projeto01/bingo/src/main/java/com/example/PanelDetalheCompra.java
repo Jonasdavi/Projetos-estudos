@@ -20,8 +20,8 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
     public PanelDetalheCompra(int qtCartelas) {
         initComponents();
         
-        //mudando o panel dos dados para gridLayout com a quantidade de linhas de acordo com a quantidade de cartelas e duas colunas 
-        panelDados.setLayout(new GridLayout(qtCartelas, 2));
+        //mudando o panel dos dados para gridLayout com a quantidade de linhas de acordo com a quantidade de cartelas + a linha dos botoes de como salvar cartela e duas colunas 
+        panelDados.setLayout(new GridLayout(qtCartelas+1, 2));
         
         for(int i=1; i<=qtCartelas; i++){
             String cartelaNum= "Cartela " + String.valueOf(i);
@@ -32,6 +32,13 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
             panelDados.add(jlb);
             panelDados.add(jbt);
         }
+        
+        //adicionando os botoes de como salvar cartela
+        JButton btImprimir= new JButton("Imprimir Cartela");
+        JButton btVisualizarNoCll= new JButton("Marcar Pelo Celular");
+        
+        panelDados.add(btImprimir);
+        panelDados.add(btVisualizarNoCll);
     }
 
     /**
