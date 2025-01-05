@@ -64,11 +64,11 @@ public class PanelCompraCartela extends javax.swing.JPanel {
 
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
         // TODO add your handling code here:
-        Integer qtCartelas= (Integer)(qtCartelasComprar.getValue());
+        int qtCartelas= (int)(qtCartelasComprar.getValue());
         String nome = jtNome.getText()==null? "" : jtNome.getText();
         
         //criando jogador
-        Jogador jogador= new Jogador(nome, 2, tela.getBingo());
+        Jogador jogador= new Jogador(nome, qtCartelas, tela.getBingo());
         
         tela.irDetalheCompra(jogador);
     }//GEN-LAST:event_btConfirmarActionPerformed

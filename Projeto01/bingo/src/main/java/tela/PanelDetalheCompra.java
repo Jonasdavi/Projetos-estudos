@@ -4,6 +4,7 @@
  */
 package tela;
 
+import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -17,14 +18,18 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
     
     private Tela tela;
     private JButton btCartelas[];
+    
+    private Jogador jogador;
 
     /**
      * Creates new form PanelDetalheCompra
      */
-    public PanelDetalheCompra(Tela t, int qtCartelas) {
+    public PanelDetalheCompra(Tela t, Jogador jogador) {
         initComponents();
-        
+        this.jogador= jogador;
         tela= t;
+        
+        int qtCartelas= jogador.getQtCartelas();
         
         
         //mudando o panel dos dados para gridLayout com a quantidade de linhas de acordo com a quantidade de cartelas + a linha dos botoes de como salvar cartela e duas colunas 
@@ -33,22 +38,36 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
         //um botao para cada cartela:
         btCartelas= new JButton[qtCartelas];
         
-        for(int i=1; i<=qtCartelas; i++){
-            String cartelaNum= "Cartela " + String.valueOf(i);
+        for(int i=0; i<qtCartelas; i++){
+            String cartelaNum= "Cartela " + String.valueOf(i+1);
             
             JLabel jlb= new JLabel(cartelaNum);
-            btCartelas[i-1]= new JButton("Visualizar cartela");
+            btCartelas[i]= new JButton("Visualizar cartela");
             
             jlb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             
-//            btCartelas[i].addActionListener(new java.awt.event.ActionListener() {
-//                public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                    //codigo caso um dos botoes da cartela seja apertado:
-//                }
-//            });
+            btCartelas[i].addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    //codigo caso um dos botoes da cartela seja apertado:
+                    
+                    //pegando a referencia do botao clicado:
+                    JButton btClicado= (JButton) (evt.getSource());
+                    Cartela cartelaExibir;
+                    
+                    //verificando qual botao foi apertado e mostrando a cartela de acordo 
+                    for(int i=0; i<btCartelas.length; i++){
+                        if(btClicado == btCartelas[i]){
+                            cartelaExibir= jogador.getCartelas().get(i);
+                            tela.irCartela(cartelaExibir, jogador);
+                        }
+                    }
+                    
+                    tela.irCartela(jogador.getCartelas().get(0), jogador);
+                }
+            });
             
             panelDados.add(jlb);
-            panelDados.add(btCartelas[i-1]);
+            panelDados.add(btCartelas[i]);
         }
         
         //adicionando os botoes de como salvar cartela

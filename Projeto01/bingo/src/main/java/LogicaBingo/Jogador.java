@@ -14,16 +14,15 @@ public class Jogador{
 
     public Jogador(String nome, int qtCartelas, Bingo b){
         this.nome=nome;
-        qtCartelas=0;
         ganhou= false;
         
         bingo=b;
         
         this.qtCartelas= qtCartelas;
-        comprarCartelas(qtCartelas);
+        comprarCartelas();
     }
 
-    private void comprarCartelas(int qtCartelas){
+    private void comprarCartelas(){
         for(int i=0; i<qtCartelas; i++){
             bingo.venderCartela(this);
         }

@@ -40,6 +40,8 @@ public class PanelGUICartela extends javax.swing.JPanel {
         setLbJogador(dono.getNome());
     }
     
+    
+    
     public void setNumsInterface(Cartela cart, Jogador dono){
         int[][] cartela= cart.getCartela();
         String nome= dono.getNome();
@@ -95,7 +97,8 @@ public class PanelGUICartela extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         txtId = new javax.swing.JLabel();
         txtNomeJogador = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btMudarCartela = new javax.swing.JButton();
+        btVoltar = new javax.swing.JButton();
         jpNumeros = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
@@ -113,7 +116,7 @@ public class PanelGUICartela extends javax.swing.JPanel {
 
         jPanel2.setBackground(java.awt.Color.gray);
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(new java.awt.GridLayout(3, 1));
+        jPanel2.setLayout(new java.awt.GridLayout(4, 1));
 
         txtId.setFont(new java.awt.Font("Sitka Display", 0, 18)); // NOI18N
         txtId.setText("ID: ");
@@ -123,14 +126,23 @@ public class PanelGUICartela extends javax.swing.JPanel {
         txtNomeJogador.setText("Jogador: ");
         jPanel2.add(txtNomeJogador);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 204));
-        jButton1.setText("Trocar Cartela");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btMudarCartela.setBackground(new java.awt.Color(255, 255, 204));
+        btMudarCartela.setText("Trocar Cartela");
+        btMudarCartela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btMudarCartelaActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
+        jPanel2.add(btMudarCartela);
+
+        btVoltar.setBackground(new java.awt.Color(255, 0, 0));
+        btVoltar.setText("Voltar");
+        btVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btVoltar);
 
         add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
@@ -139,17 +151,25 @@ public class PanelGUICartela extends javax.swing.JPanel {
         add(jpNumeros, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btMudarCartelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMudarCartelaActionPerformed
         // TODO add your handling code here:
-        cartela.gerarCartela();
-        setNumsInterface(cartela, jogador);
+        
+        cartela.gerarCartela();//regerando cartela
+        
+        setNumsInterface(cartela, jogador); //atualizar label com a cartela atualizada
         
         //lbNumeros[0][0].setText("kk");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btMudarCartelaActionPerformed
+
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
+        // TODO add your handling code here:
+        tela.irDetalheCompra(jogador);
+    }//GEN-LAST:event_btVoltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btMudarCartela;
+    private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

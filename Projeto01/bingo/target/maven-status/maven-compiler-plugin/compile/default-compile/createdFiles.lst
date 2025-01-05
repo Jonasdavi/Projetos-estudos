@@ -6,9 +6,11 @@ tela\PanelCompraCartela.class
 LogicaBingo\test01.class
 tela\PanelSorteio.class
 LogicaBingo\Main.class
+tela\PanelDetalheCompra$1.class
 tela\PanelGUICartela.class
 tela\Tela.class
 LogicaBingo\Bingo.class
+tela\PanelGUICartela$2.class
 tela\PanelCompraCartela$1.class
 LogicaBingo\Cartela.class
 LogicaBingo\Jogador.class

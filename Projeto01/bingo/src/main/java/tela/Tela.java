@@ -23,13 +23,13 @@ public class Tela extends javax.swing.JFrame {
     private PanelInicial pInicial= new PanelInicial(this);
     public final String PINICIAL= "2";
     
-    private PanelGUICartela pGuiCartela= new PanelGUICartela(this, new Cartela(bingo), new Jogador("jonas", 3,bingo));
+    private PanelGUICartela pGuiCartela;
     public final String PGUICARTELA= "3";
     
     private PanelCompraCartela pCompraCartela= new PanelCompraCartela(this);
     public final String PCOMPRACARTELA= "4";
     
-    private PanelDetalheCompra pDetalheCompra= new PanelDetalheCompra(this, 4);
+    private PanelDetalheCompra pDetalheCompra;
     public final String PDETALHECOMPRA= "5";
 
     /**
@@ -39,7 +39,7 @@ public class Tela extends javax.swing.JFrame {
         initComponents();
         card.add(pSorteio, PSORTEIO);
         card.add(pInicial, PINICIAL);
-        card.add(pGuiCartela, PGUICARTELA);
+        //card.add(pGuiCartela, PGUICARTELA);
         card.add(pCompraCartela, PCOMPRACARTELA);
         //card.add(pDetalheCompra, PDETALHECOMPRA);
         
@@ -49,9 +49,17 @@ public class Tela extends javax.swing.JFrame {
     }
     
     public void irDetalheCompra(Jogador jogador){
-        pDetalheCompra= new PanelDetalheCompra(this, 8);
+        pDetalheCompra= new PanelDetalheCompra(this, jogador);
         card.add(pDetalheCompra, PDETALHECOMPRA);
+        
         ((CardLayout) (card.getLayout())).show(card, PDETALHECOMPRA);
+    }
+    
+    public void irCartela(Cartela c, Jogador j){
+        pGuiCartela= new PanelGUICartela(this, c, j);
+        card.add(pGuiCartela, PGUICARTELA);
+        
+        ((CardLayout) (card.getLayout())).show(card, PGUICARTELA);
     }
     
     public Bingo getBingo(){
