@@ -12,17 +12,18 @@ public class Jogador{
     private Bingo bingo;
 
 
-    public Jogador(String nome, Bingo b){
+    public Jogador(String nome, int qtCartelas, Bingo b){
         this.nome=nome;
         qtCartelas=0;
         ganhou= false;
         
         bingo=b;
+        
+        this.qtCartelas= qtCartelas;
+        comprarCartelas(qtCartelas);
     }
 
-    public void comprarCartelas(int qtCartelas){
-        this.qtCartelas+=qtCartelas;
-        
+    private void comprarCartelas(int qtCartelas){
         for(int i=0; i<qtCartelas; i++){
             bingo.venderCartela(this);
         }
@@ -74,5 +75,9 @@ public class Jogador{
 
     public String getNome(){
         return nome;
+    }
+    
+    public int getQtCartelas(){
+        return qtCartelas;
     }
 }

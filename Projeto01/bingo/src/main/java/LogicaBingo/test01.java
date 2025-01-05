@@ -6,8 +6,8 @@ public class test01 {
         Jogador j[]= new Jogador[10];
 
         for(int i=0; i<j.length; i++){
-            j[i]= new Jogador("jogador "+ (i+1), bingo);
-            j[i].comprarCartelas(1);
+            j[i]= new Jogador("jogador "+ (i+1), 3, bingo);
+            //j[i].comprarCartelas(1);
         }
 
         do {
@@ -33,7 +33,6 @@ public class test01 {
             System.out.println(ganhador.getNome());
             ganhador.exibirCartelasPremiadas();
         }
-        System.out.println("testando:");
-        bingo.modificaTeste();
+        
     }
 }

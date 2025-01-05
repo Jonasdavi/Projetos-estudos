@@ -35,9 +35,9 @@ public class Bingo{
         jogadores.add(comprador);
     }
     
-    public boolean contains(Cartela c){ //verifica se os numeros da cartela sao iguais as que ja tem
+    public boolean containsCartela(Cartela c){ //verifica se os numeros da cartela sao iguais as que ja tem
         for (Cartela cartela : cartelasVendidas) {
-            if(c.equals(cartela)){
+            if(c.equals(cartela) && c!=cartela){ //se tiver alguma cartela com o mesmo numero e a referencia for diferente
                 return true;
             }
         }
@@ -108,9 +108,5 @@ public class Bingo{
         return qtNumsSorteados;
     }
     
-    public void modificaTeste(){
-        jogadores.get(0).exibirCartelas();
-        cartelasVendidas.get(0).gerarCartela();
-        jogadores.get(0).exibirCartelas();
-    }
+   
 }

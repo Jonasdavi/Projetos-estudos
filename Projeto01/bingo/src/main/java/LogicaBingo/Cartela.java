@@ -37,6 +37,7 @@ public class Cartela{
 
 
     public void gerarCartela(){
+        
         do{
             //zerar numeros anteriores das colunas (para nao quebrar a verificaçao dos numeros repetidos)
             for(int c=0; c<TAMANHOLC; c++){
@@ -73,12 +74,13 @@ public class Cartela{
             cartelaMarcada[2][2]= LUGARFREE;
             colunas[2][2]= LUGARFREE;
             
-        }while(bingo.contains(this));//gere numeros diferentes enquanto os numeros gerados for igual aos numeros de alguma cartela que já tem no bingo
+        }while(bingo.containsCartela(this));//gere numeros diferentes enquanto os numeros gerados for igual aos numeros de alguma cartela que já tem no bingo
     }
+    
 
-    @Override
-    public boolean equals(Object o){
-        Integer[][] colunas= ((Cartela) o).getColunas();
+    
+    public boolean equals(Cartela o){
+        Integer[][] colunas= o.getColunas();
 
         for(int col=0; col<TAMANHOLC; col++){
             for(int n=0; n<TAMANHOLC; n++){
@@ -94,6 +96,22 @@ public class Cartela{
         return true;
     }
 
+    private boolean equals(Integer[][] colunasAtualizadas){
+
+        for(int col=0; col<TAMANHOLC; col++){
+            for(int n=0; n<TAMANHOLC; n++){
+                if(Arrays.asList(colunas[col]).contains(this.colunas[col][n])){
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    
     protected void inserirNumSorteado(int numSorteado){
         int colunaSorteada= numSorteado%15==0? numSorteado/15-1 : numSorteado/15; //encontrando o a coluna em função do numero sorteado
 

@@ -23,11 +23,14 @@ public class Tela extends javax.swing.JFrame {
     private PanelInicial pInicial= new PanelInicial(this);
     public final String PINICIAL= "2";
     
-    private PanelGUICartela pGuiCartela= new PanelGUICartela(this, new Cartela(bingo), new Jogador("jonas", bingo));
+    private PanelGUICartela pGuiCartela= new PanelGUICartela(this, new Cartela(bingo), new Jogador("jonas", 3,bingo));
     public final String PGUICARTELA= "3";
     
-    private PanelDetalheCompra pDetalheCompra= new PanelDetalheCompra(this, 2);
-    public final String PDETALHECOMPRA= "4";
+    private PanelCompraCartela pCompraCartela= new PanelCompraCartela(this);
+    public final String PCOMPRACARTELA= "4";
+    
+    private PanelDetalheCompra pDetalheCompra= new PanelDetalheCompra(this, 4);
+    public final String PDETALHECOMPRA= "5";
 
     /**
      * Creates new form Tela
@@ -37,11 +40,24 @@ public class Tela extends javax.swing.JFrame {
         card.add(pSorteio, PSORTEIO);
         card.add(pInicial, PINICIAL);
         card.add(pGuiCartela, PGUICARTELA);
-        card.add(pDetalheCompra, PDETALHECOMPRA);
-        ((CardLayout) (card.getLayout())).show(card, PGUICARTELA);
+        card.add(pCompraCartela, PCOMPRACARTELA);
+        //card.add(pDetalheCompra, PDETALHECOMPRA);
+        
+        ((CardLayout) (card.getLayout())).show(card, PCOMPRACARTELA);
         
         setSize(350, 450);
     }
+    
+    public void irDetalheCompra(Jogador jogador){
+        pDetalheCompra= new PanelDetalheCompra(this, 8);
+        card.add(pDetalheCompra, PDETALHECOMPRA);
+        ((CardLayout) (card.getLayout())).show(card, PDETALHECOMPRA);
+    }
+    
+    public Bingo getBingo(){
+        return bingo;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -4,6 +4,8 @@
  */
 package tela;
 
+import LogicaBingo.Jogador;
+
 /**
  *
  * @author Jonas
@@ -33,8 +35,8 @@ public class PanelCompraCartela extends javax.swing.JPanel {
         jtNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         qtCartelasComprar = new javax.swing.JSpinner();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
+        btConfirmar = new javax.swing.JButton();
 
         setLayout(new java.awt.GridLayout(3, 2));
 
@@ -48,28 +50,33 @@ public class PanelCompraCartela extends javax.swing.JPanel {
         qtCartelasComprar.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         add(qtCartelasComprar);
 
-        jButton1.setText("Cancelar");
-        add(jButton1);
+        btCancelar.setText("Cancelar");
+        add(btCancelar);
 
-        jButton2.setText("Confirmar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btConfirmar.setText("Confirmar");
+        btConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btConfirmarActionPerformed(evt);
             }
         });
-        add(jButton2);
+        add(btConfirmar);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
         // TODO add your handling code here:
         Integer qtCartelas= (Integer)(qtCartelasComprar.getValue());
         String nome = jtNome.getText()==null? "" : jtNome.getText();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        //criando jogador
+        Jogador jogador= new Jogador(nome, 2, tela.getBingo());
+        
+        tela.irDetalheCompra(jogador);
+    }//GEN-LAST:event_btConfirmarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btConfirmar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jtNome;

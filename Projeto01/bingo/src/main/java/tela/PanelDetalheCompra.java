@@ -4,6 +4,7 @@
  */
 package tela;
 
+import LogicaBingo.Jogador;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.JLabel;
 public class PanelDetalheCompra extends javax.swing.JPanel {
     
     private Tela tela;
+    private JButton btCartelas[];
 
     /**
      * Creates new form PanelDetalheCompra
@@ -24,19 +26,29 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
         
         tela= t;
         
+        
         //mudando o panel dos dados para gridLayout com a quantidade de linhas de acordo com a quantidade de cartelas + a linha dos botoes de como salvar cartela e duas colunas 
         panelDados.setLayout(new GridLayout(qtCartelas+1, 2));
+        
+        //um botao para cada cartela:
+        btCartelas= new JButton[qtCartelas];
         
         for(int i=1; i<=qtCartelas; i++){
             String cartelaNum= "Cartela " + String.valueOf(i);
             
             JLabel jlb= new JLabel(cartelaNum);
-            JButton jbt= new JButton("Visualizar cartela");
+            btCartelas[i-1]= new JButton("Visualizar cartela");
             
             jlb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             
+//            btCartelas[i].addActionListener(new java.awt.event.ActionListener() {
+//                public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                    //codigo caso um dos botoes da cartela seja apertado:
+//                }
+//            });
+            
             panelDados.add(jlb);
-            panelDados.add(jbt);
+            panelDados.add(btCartelas[i-1]);
         }
         
         //adicionando os botoes de como salvar cartela
