@@ -32,6 +32,7 @@ public class test01 {
         for(Jogador ganhador : bingo.getGanhadores()){
             System.out.println(ganhador.getNome());
             ganhador.exibirCartelasPremiadas();
+            //System.out.println(ganhador.getCartelas().get(2).getId());
         }
         
     }

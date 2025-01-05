@@ -48,21 +48,19 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
             
             btCartelas[i].addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    //codigo caso um dos botoes da cartela seja apertado:
                     
-                    //pegando a referencia do botao clicado:
-                    JButton btClicado= (JButton) (evt.getSource());
                     Cartela cartelaExibir;
                     
                     //verificando qual botao foi apertado e mostrando a cartela de acordo 
                     for(int i=0; i<btCartelas.length; i++){
-                        if(btClicado == btCartelas[i]){
+                        if(evt.getSource() == btCartelas[i]){
                             cartelaExibir= jogador.getCartelas().get(i);
+                            System.out.println("i");
                             tela.irCartela(cartelaExibir, jogador);
+                            break;
                         }
                     }
                     
-                    tela.irCartela(jogador.getCartelas().get(0), jogador);
                 }
             });
             
