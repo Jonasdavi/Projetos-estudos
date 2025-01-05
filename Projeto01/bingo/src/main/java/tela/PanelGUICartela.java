@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.example;
+package tela;
 
 import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
@@ -13,29 +13,40 @@ import javax.swing.JLabel;
  * @author Jonas
  */
 public class PanelGUICartela extends javax.swing.JPanel {
-    JLabel lbNumeros[][]= new JLabel[5][5];
+    private Tela tela;
+    private Cartela cartela;
+    private Jogador jogador;
+    
+    private JLabel lbNumeros[][]= new JLabel[5][5];
     
     /**
      * Creates new form PanelGUICartela
      */
-    public PanelGUICartela(Cartela c, Jogador dono) {
+    public PanelGUICartela(Tela t, Cartela c, Jogador dono) {
         initComponents();
+        tela=t;
+        cartela=c;
+        jogador=dono;
         
+        //iniciando labels:
+        for(int i=0; i<lbNumeros.length; i++){
+            for(int j=0; j<lbNumeros[0].length; j++){
+                lbNumeros[i][j]= new JLabel();
+            }
+        }
         
-        addNumsInterface(c, dono);
+        setNumsInterface(c, dono);
         setLbId(c.getId());
         setLbJogador(dono.getNome());
     }
     
-    public void addNumsInterface(Cartela cart, Jogador dono){
+    public void setNumsInterface(Cartela cart, Jogador dono){
         int[][] cartela= cart.getCartela();
         String nome= dono.getNome();
         
-        //iniciando labels com seus valores de acordo com a cartela
+        //labels com seus valores de acordo com a cartela
         for(int l=0; l<cartela.length; l++){
             for(int c=0; c<cartela[0].length; c++){
-                lbNumeros[l][c]= new JLabel();
-                
                 String num;
                 if(cartela[l][c]==0){
                     num= "--";
@@ -84,6 +95,7 @@ public class PanelGUICartela extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         txtId = new javax.swing.JLabel();
         txtNomeJogador = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jpNumeros = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
@@ -101,7 +113,7 @@ public class PanelGUICartela extends javax.swing.JPanel {
 
         jPanel2.setBackground(java.awt.Color.gray);
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(new java.awt.GridLayout(2, 1));
+        jPanel2.setLayout(new java.awt.GridLayout(3, 1));
 
         txtId.setFont(new java.awt.Font("Sitka Display", 0, 18)); // NOI18N
         txtId.setText("ID: ");
@@ -111,6 +123,15 @@ public class PanelGUICartela extends javax.swing.JPanel {
         txtNomeJogador.setText("Jogador: ");
         jPanel2.add(txtNomeJogador);
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 204));
+        jButton1.setText("Trocar Cartela");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1);
+
         add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
         jpNumeros.setBackground(java.awt.Color.gray);
@@ -118,8 +139,17 @@ public class PanelGUICartela extends javax.swing.JPanel {
         add(jpNumeros, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        cartela.gerarCartela();
+        setNumsInterface(cartela, jogador);
+        
+        //lbNumeros[0][0].setText("kk");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -17,10 +17,14 @@ public class Cartela{
     private final int ID;
 
     private Random rand= new Random();
+    
+    private Bingo bingo;
 
-    public Cartela(){
+    public Cartela(Bingo b){
         //iniciando id:
         ID= idIncrement++;
+        
+        bingo=b;
         
         //inicializando variaveis:
         cartela= new int[TAMANHOLC][TAMANHOLC];
@@ -33,40 +37,43 @@ public class Cartela{
 
 
     public void gerarCartela(){
-        //zerar numeros anteriores das colunas (para nao quebrar a verificaçao dos numeros repetidos)
-        for(int c=0; c<TAMANHOLC; c++){
-            for(int n=0; n<TAMANHOLC; n++){
-                colunas[c][n]=0;
-            }
-        }
-
-        //percorrendo o laço de forma que as arrays da matrizes sejam as colunas
-        for(int l=0; l<TAMANHOLC; l++){
+        do{
+            //zerar numeros anteriores das colunas (para nao quebrar a verificaçao dos numeros repetidos)
             for(int c=0; c<TAMANHOLC; c++){
-                //para cada coluna, há um intervale de numero diferente
-
-                //coluna 0 (numeros possiveis: 1-15)
-                //coluna 1 (numeros possiveis: 16-30)
-                //coluna 2 (numeros possiveis: 31-45)
-                //coluna 3 (numeros possiveis: 46-60)
-                //coluna 4 (numeros possiveis: 61-75)
-
-                int numSorteado;
-                do{
-                    numSorteado=(rand.nextInt(15)+1) + 15*c; //ajusta o intervalo de numeros possiveis de ser sorteado de acordo com a coluna
-                }while(Arrays.asList(colunas[c]).contains(numSorteado)); //verifica se a coluna ja tem o numero sorteado:
-
-                colunas[c][l]=numSorteado; //adicionando o numero sorteado a sua respectiva coluna
-
-                cartela[l][c]=  numSorteado; //adicionando numero a cartela
-
-                cartelaMarcada[l][c]=  numSorteado;
+               for(int n=0; n<TAMANHOLC; n++){
+                   colunas[c][n]=0;
+               }
             }
-        }
-        //retirando o numero do meio da cartela por ele ser "free"
-        cartela[2][2]= LUGARFREE;
-        cartelaMarcada[2][2]= LUGARFREE;
-        colunas[2][2]= LUGARFREE;
+
+            //percorrendo o laço de forma que as arrays da matrizes sejam as colunas
+            for(int l=0; l<TAMANHOLC; l++){
+                for(int c=0; c<TAMANHOLC; c++){
+                    //para cada coluna, há um intervale de numero diferente
+                
+                    //coluna 0 (numeros possiveis: 1-15)
+                    //coluna 1 (numeros possiveis: 16-30)
+                    //coluna 2 (numeros possiveis: 31-45)
+                    //coluna 3 (numeros possiveis: 46-60)
+                    //coluna 4 (numeros possiveis: 61-75)
+
+                    int numSorteado;
+                    do{ 
+                        numSorteado=(rand.nextInt(15)+1) + 15*c; //ajusta o intervalo de numeros possiveis de ser sorteado de acordo com a coluna
+                    }while(Arrays.asList(colunas[c]).contains(numSorteado)); //verifica se a coluna ja tem o numero sorteado:
+
+                    colunas[c][l]=numSorteado; //adicionando o numero sorteado a sua respectiva coluna
+
+                    cartela[l][c]=  numSorteado; //adicionando numero a cartela
+
+                    cartelaMarcada[l][c]=  numSorteado;
+                }
+            }
+            //retirando o numero do meio da cartela por ele ser "free"
+            cartela[2][2]= LUGARFREE;
+            cartelaMarcada[2][2]= LUGARFREE;
+            colunas[2][2]= LUGARFREE;
+            
+        }while(bingo.contains(this));//gere numeros diferentes enquanto os numeros gerados for igual aos numeros de alguma cartela que já tem no bingo
     }
 
     @Override
@@ -87,7 +94,7 @@ public class Cartela{
         return true;
     }
 
-    public void inserirNumSorteado(int numSorteado){
+    protected void inserirNumSorteado(int numSorteado){
         int colunaSorteada= numSorteado%15==0? numSorteado/15-1 : numSorteado/15; //encontrando o a coluna em função do numero sorteado
 
         for(int i=0; i<TAMANHOLC; i++){
@@ -98,7 +105,7 @@ public class Cartela{
         }
     }
 
-    public void exibirCartela(){
+    protected void exibirCartela(){
         for(int l=0; l<TAMANHOLC; l++){
             for(int c=0; c<TAMANHOLC; c++){
                 System.out.print(cartela[l][c]+ (cartela[l][c]<=9?"   ":"  "));
@@ -117,7 +124,7 @@ public class Cartela{
         System.out.println();
     }
 
-    public boolean ganhou(){
+    protected boolean ganhou(){
         return qtNumsMarcados==QTNUMS;
     }
 
@@ -127,7 +134,7 @@ public class Cartela{
     public int[][] getCartelaMarcada(){
         return cartelaMarcada;
     }
-    public Integer[][] getColunas(){
+    private Integer[][] getColunas(){
         return colunas;
     }
 

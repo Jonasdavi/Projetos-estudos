@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.example;
+package tela;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -13,12 +13,16 @@ import javax.swing.JLabel;
  * @author Jonas
  */
 public class PanelDetalheCompra extends javax.swing.JPanel {
+    
+    private Tela tela;
 
     /**
      * Creates new form PanelDetalheCompra
      */
-    public PanelDetalheCompra(int qtCartelas) {
+    public PanelDetalheCompra(Tela t, int qtCartelas) {
         initComponents();
+        
+        tela= t;
         
         //mudando o panel dos dados para gridLayout com a quantidade de linhas de acordo com a quantidade de cartelas + a linha dos botoes de como salvar cartela e duas colunas 
         panelDados.setLayout(new GridLayout(qtCartelas+1, 2));
@@ -29,12 +33,14 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
             JLabel jlb= new JLabel(cartelaNum);
             JButton jbt= new JButton("Visualizar cartela");
             
+            jlb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            
             panelDados.add(jlb);
             panelDados.add(jbt);
         }
         
         //adicionando os botoes de como salvar cartela
-        JButton btImprimir= new JButton("Imprimir Cartela");
+        JButton btImprimir= new JButton("Imprimir Cartelas");
         JButton btVisualizarNoCll= new JButton("Marcar Pelo Celular");
         
         panelDados.add(btImprimir);

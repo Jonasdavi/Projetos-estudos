@@ -27,25 +27,21 @@ public class Bingo{
         jogadores.add(j);
     }
 
-    public Cartela venderCartela(){
-        Cartela c= new Cartela();
-        boolean cartelaRepetida= false;
-
+    public void venderCartela(Jogador comprador){
+        Cartela c= new Cartela(this);
         
-        do{ //faça isso enquanto a cartela for repetida
-            //c.gerarCartela();
-            for (Cartela cartelas : cartelasVendidas) {
-                if(c.equals(cartelas)){
-                    cartelaRepetida=true;
-                    c.gerarCartela();
-                    break;
-                }
-            }
-            cartelaRepetida=false;
-        }while(cartelaRepetida); //laço para rodar enquanto a cartela criada for repetida as quais já foram vendidas
-        
+        comprador.addCartela(c);
         cartelasVendidas.add(c);
-        return c;
+        jogadores.add(comprador);
+    }
+    
+    public boolean contains(Cartela c){ //verifica se os numeros da cartela sao iguais as que ja tem
+        for (Cartela cartela : cartelasVendidas) {
+            if(c.equals(cartela)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public int sortearNum(){
@@ -57,14 +53,47 @@ public class Bingo{
         numsRestantes.remove(indiceSorteado); //remove o numero do indice sorteado
 
         qtNumsSorteados++;
+        
         System.out.println("sorteado: " + numSorteado);
+        
+        //após sortear o num, atualizar as cartelas e verificar vitoria 
+        this.atualizarCartelas(numSorteado);
+        this.verificarVitoria();
+        
         return numSorteado;
         
+        
+    }
+    
+    private void verificarVitoria(){
+        if(qtNumsSorteados>24){
+            for(int i=0; i<jogadores.size(); i++){
+                if(jogadores.get(i).ganhou()){
+                    if(ganhadores.isEmpty()){ //se nao tiver nada na lista de ganhadores
+                        ganhadores.add(jogadores.get(i));
+                    }
+                    else{ //se ja tiver ganhadores
+                        if(!ganhadores.contains(jogadores.get(i))){ //verifica se a lista de ganhadores já tem esse jogador para nao duplicalo
+                            ganhadores.add(jogadores.get(i));
+                        }
+                    }
+                    
+                }
+            }
+        }
     }
 
-    public void atualizarCartelas(int numSorteado){
+    private void atualizarCartelas(int numSorteado){
         for(Cartela cartela : cartelasVendidas){
             cartela.inserirNumSorteado(numSorteado);
+        }
+    }
+    
+    public void exibirCartelasPremiadas(){
+        if(!ganhadores.isEmpty()){
+            for(int i=0; i<ganhadores.size(); i++){
+                ganhadores.get(i).exibirCartelasPremiadas();
+            }
         }
     }
 
@@ -77,5 +106,11 @@ public class Bingo{
     }
     public int getQtNumsSorteados(){
         return qtNumsSorteados;
+    }
+    
+    public void modificaTeste(){
+        jogadores.get(0).exibirCartelas();
+        cartelasVendidas.get(0).gerarCartela();
+        jogadores.get(0).exibirCartelas();
     }
 }

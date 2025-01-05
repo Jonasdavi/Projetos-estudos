@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.example;
+package tela;
 
 import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
+import LogicaBingo.Bingo;
 
 import java.awt.CardLayout;
 
@@ -14,17 +15,18 @@ import java.awt.CardLayout;
  * @author Jonas
  */
 public class Tela extends javax.swing.JFrame {
+    private Bingo bingo= new Bingo();
     
-    private PanelSorteio pSorteio= new PanelSorteio();
+    private PanelSorteio pSorteio= new PanelSorteio(this);
     public final String PSORTEIO= "1";
     
-    private PanelInicial pInicial= new PanelInicial();
+    private PanelInicial pInicial= new PanelInicial(this);
     public final String PINICIAL= "2";
     
-    private PanelGUICartela pGuiCartela= new PanelGUICartela(new Cartela(), new Jogador("jonas"));
+    private PanelGUICartela pGuiCartela= new PanelGUICartela(this, new Cartela(bingo), new Jogador("jonas", bingo));
     public final String PGUICARTELA= "3";
     
-    private PanelDetalheCompra pDetalheCompra= new PanelDetalheCompra(2);
+    private PanelDetalheCompra pDetalheCompra= new PanelDetalheCompra(this, 2);
     public final String PDETALHECOMPRA= "4";
 
     /**
@@ -36,7 +38,7 @@ public class Tela extends javax.swing.JFrame {
         card.add(pInicial, PINICIAL);
         card.add(pGuiCartela, PGUICARTELA);
         card.add(pDetalheCompra, PDETALHECOMPRA);
-        ((CardLayout) (card.getLayout())).show(card, PDETALHECOMPRA);
+        ((CardLayout) (card.getLayout())).show(card, PGUICARTELA);
         
         setSize(350, 450);
     }

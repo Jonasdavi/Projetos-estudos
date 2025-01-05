@@ -8,40 +8,52 @@ public class Jogador{
     private int qtCartelas;
     private boolean ganhou;
     private ArrayList<Cartela> cartelasPremiadas= new ArrayList<Cartela>();
+    
+    private Bingo bingo;
 
 
-    public Jogador(String nome){
+    public Jogador(String nome, Bingo b){
         this.nome=nome;
         qtCartelas=0;
         ganhou= false;
+        
+        bingo=b;
     }
 
-    public void comprarCartelas(int qtCartelas, Bingo bingo){
+    public void comprarCartelas(int qtCartelas){
         this.qtCartelas+=qtCartelas;
+        
         for(int i=0; i<qtCartelas; i++){
-            cartelas.add(bingo.venderCartela());
+            bingo.venderCartela(this);
         }
     }
+    
+    protected void addCartela(Cartela c){
+        cartelas.add(c);
+    }
+    
 
 
-    public boolean ganhou(){
+    protected boolean ganhou(){
         boolean ganhou=false;
         for(Cartela cartela : cartelas){
             if(cartela.ganhou()){
-                cartelasPremiadas.add(cartela);
+                if(cartelasPremiadas.isEmpty()){ //se a lista de cartelas premiadas tiver vazia
+                    cartelasPremiadas.add(cartela);
+                }
+                else{ //se a lista de cartelas premiadas nao estiver vazia
+                    if(!cartelasPremiadas.contains(cartela)){ //verificar se na lista de cartelas premiadas nao tem essa cartela ainda
+                        cartelasPremiadas.add(cartela);
+                    }
+                }
+                
                 ganhou= true;
             }
         }
         return ganhou;
     }
 
-    public void atualizarCartelas(int numSorteado){
-        for(Cartela cartela : cartelas){
-            cartela.inserirNumSorteado(numSorteado);
-        }
-    }
-
-    public void exibirCartelasPremiadas(){
+    protected void exibirCartelasPremiadas(){
         for(Cartela cartela : cartelasPremiadas){
             cartela.exibirCartela();
         }

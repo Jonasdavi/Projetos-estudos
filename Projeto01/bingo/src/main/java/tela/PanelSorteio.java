@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.example;
+package tela;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -14,14 +14,18 @@ import javax.swing.border.Border;
  * @author Jonas
  */
 public class PanelSorteio extends javax.swing.JPanel {
+    private Tela tela;
+    
     private final int QTNUMSSORTEIO= 75;
     JLabel numerosSorteio[];
 
     /**
      * Creates new form PanelCompraCartela
      */
-    public PanelSorteio() {
+    public PanelSorteio(Tela t) {
         initComponents();
+        
+        tela=t;
         
         //iniciar todos os numeros onde mostrarar os numeros sorteados e nao sorteados
         numerosSorteio= new JLabel[QTNUMSSORTEIO];

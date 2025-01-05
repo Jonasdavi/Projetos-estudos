@@ -2,19 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.example;
+package tela;
 
 /**
  *
  * @author Jonas
  */
 public class PanelInicial extends javax.swing.JPanel {
+    
+    private Tela tela;
 
     /**
      * Creates new form InicialPanel
      */
-    public PanelInicial() {
+    public PanelInicial(Tela t) {
         initComponents();
+        tela=t;
     }
 
     /**
