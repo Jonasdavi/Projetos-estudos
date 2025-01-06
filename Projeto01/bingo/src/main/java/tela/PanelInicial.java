@@ -42,7 +42,7 @@ public class PanelInicial extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        btCompraCartela.setText("Adicionar Cartela");
+        btCompraCartela.setText("Adicionar Novo Jogador");
         btCompraCartela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCompraCartelaActionPerformed(evt);
@@ -50,6 +50,11 @@ public class PanelInicial extends javax.swing.JPanel {
         });
 
         btSortear.setText("Iniciar Sorteio");
+        btSortear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSortearActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Quantidade de Jogadores: ");
 
@@ -103,6 +108,11 @@ public class PanelInicial extends javax.swing.JPanel {
         // TODO add your handling code here:
         tela.irCompraCartela();
     }//GEN-LAST:event_btCompraCartelaActionPerformed
+
+    private void btSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSortearActionPerformed
+        // TODO add your handling code here:
+        tela.irSorteio();
+    }//GEN-LAST:event_btSortearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -72,7 +72,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btCompraCartela">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Adicionar Cartela"/>
+            <Property name="text" type="java.lang.String" value="Adicionar Novo Jogador"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCompraCartelaActionPerformed"/>
@@ -82,6 +82,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Iniciar Sorteio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSortearActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>

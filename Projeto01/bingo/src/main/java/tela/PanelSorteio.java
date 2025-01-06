@@ -70,6 +70,9 @@ public class PanelSorteio extends javax.swing.JPanel {
         historico1 = new javax.swing.JLabel();
         historico2 = new javax.swing.JLabel();
         historico3 = new javax.swing.JLabel();
+        btFinalizarSorteio = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         panelNums = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
@@ -103,6 +106,22 @@ public class PanelSorteio extends javax.swing.JPanel {
         historico3.setToolTipText("");
         jPanel1.add(historico3);
 
+        btFinalizarSorteio.setText("Finalizar Sorteio");
+        btFinalizarSorteio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFinalizarSorteioActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Verificar Vitoria");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Pausar Sorteio");
+
         javax.swing.GroupLayout panelSorteacaoLayout = new javax.swing.GroupLayout(panelSorteacao);
         panelSorteacao.setLayout(panelSorteacaoLayout);
         panelSorteacaoLayout.setHorizontalGroup(
@@ -110,10 +129,15 @@ public class PanelSorteio extends javax.swing.JPanel {
             .addGroup(panelSorteacaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSorteacaoLayout.createSequentialGroup()
+                    .addComponent(numSorteado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createSequentialGroup()
                         .addGap(0, 152, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(numSorteado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btFinalizarSorteio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         panelSorteacaoLayout.setVerticalGroup(
             panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +145,12 @@ public class PanelSorteio extends javax.swing.JPanel {
                 .addComponent(numSorteado, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btFinalizarSorteio))
         );
 
         add(panelSorteacao, java.awt.BorderLayout.LINE_END);
@@ -131,11 +160,23 @@ public class PanelSorteio extends javax.swing.JPanel {
         add(panelNums, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btFinalizarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarSorteioActionPerformed
+        // TODO add your handling code here:
+        tela.finalizarSorteio();
+    }//GEN-LAST:event_btFinalizarSorteioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btFinalizarSorteio;
     private javax.swing.JLabel historico1;
     private javax.swing.JLabel historico2;
     private javax.swing.JLabel historico3;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel numSorteado;
     private javax.swing.JPanel panelNums;

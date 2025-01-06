@@ -17,7 +17,7 @@ import java.awt.CardLayout;
 public class Tela extends javax.swing.JFrame {
     private Bingo bingo= new Bingo();
     
-    private PanelSorteio pSorteio= new PanelSorteio(this);
+    private PanelSorteio pSorteio;
     public final String PSORTEIO= "1";
     
     private PanelInicial pInicial;
@@ -82,11 +82,18 @@ public class Tela extends javax.swing.JFrame {
     }
     
     public void irSorteio(){
-        
+        pSorteio= new PanelSorteio(this);
+        card.add(pSorteio, PSORTEIO);
+        ((CardLayout) (card.getLayout())).show(card, PSORTEIO);
     }
     
     public Bingo getBingo(){
         return bingo;
+    }
+    
+    public void finalizarSorteio(){
+        bingo= new Bingo();
+        irTelaInicial();
     }
     
 
