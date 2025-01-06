@@ -32,7 +32,10 @@ public class Bingo{
         
         comprador.addCartela(c);
         cartelasVendidas.add(c);
-        jogadores.add(comprador);
+        
+        if(!jogadores.contains(comprador)){
+            jogadores.add(comprador);
+        }
     }
     
     public boolean containsCartela(Cartela c){ //verifica se os numeros da cartela sao iguais as que ja tem
@@ -108,5 +111,11 @@ public class Bingo{
         return qtNumsSorteados;
     }
     
-   
+    public int getQtJogadores(){
+        return jogadores.size();
+    }
+    
+   public int getQtCartelas(){
+       return cartelasVendidas.size();
+   }
 }

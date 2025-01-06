@@ -20,13 +20,13 @@ public class Tela extends javax.swing.JFrame {
     private PanelSorteio pSorteio= new PanelSorteio(this);
     public final String PSORTEIO= "1";
     
-    private PanelInicial pInicial= new PanelInicial(this);
+    private PanelInicial pInicial;
     public final String PINICIAL= "2";
     
     private PanelGUICartela pGuiCartela;
     public final String PGUICARTELA= "3";
     
-    private PanelCompraCartela pCompraCartela= new PanelCompraCartela(this);
+    private PanelCompraCartela pCompraCartela;
     public final String PCOMPRACARTELA= "4";
     
     private PanelDetalheCompra pDetalheCompra;
@@ -37,13 +37,15 @@ public class Tela extends javax.swing.JFrame {
      */
     public Tela() {
         initComponents();
-        card.add(pSorteio, PSORTEIO);
-        card.add(pInicial, PINICIAL);
+        
+        irTelaInicial();
+        
+        
         //card.add(pGuiCartela, PGUICARTELA);
-        card.add(pCompraCartela, PCOMPRACARTELA);
+        //card.add(pCompraCartela, PCOMPRACARTELA);
         //card.add(pDetalheCompra, PDETALHECOMPRA);
         
-        ((CardLayout) (card.getLayout())).show(card, PCOMPRACARTELA);
+        ((CardLayout) (card.getLayout())).show(card, PINICIAL);
         
         setSize(350, 450);
     }
@@ -60,6 +62,27 @@ public class Tela extends javax.swing.JFrame {
         card.add(pGuiCartela, PGUICARTELA);
         
         ((CardLayout) (card.getLayout())).show(card, PGUICARTELA);
+    }
+    
+    public void irTelaInicial(){
+        int qtCartelas= bingo.getQtCartelas();
+        int qtJogadores= bingo.getQtJogadores();
+        
+        
+        pInicial= new PanelInicial(this, qtCartelas, qtJogadores);
+        card.add(pInicial, PINICIAL);
+        ((CardLayout) (card.getLayout())).show(card, PINICIAL);
+        
+    }
+    
+    public void irCompraCartela(){
+        pCompraCartela= new PanelCompraCartela(this);
+        card.add(pCompraCartela, PCOMPRACARTELA);
+        ((CardLayout) (card.getLayout())).show(card, PCOMPRACARTELA);
+    }
+    
+    public void irSorteio(){
+        
     }
     
     public Bingo getBingo(){

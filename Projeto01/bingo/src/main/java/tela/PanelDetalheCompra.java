@@ -72,6 +72,14 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
         JButton btImprimir= new JButton("Imprimir Cartelas");
         JButton btVisualizarNoCll= new JButton("Marcar Pelo Celular");
         
+        btVisualizarNoCll.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    tela.irTelaInicial();
+                }
+            });
+        
+        
+        
         panelDados.add(btImprimir);
         panelDados.add(btVisualizarNoCll);
     }
