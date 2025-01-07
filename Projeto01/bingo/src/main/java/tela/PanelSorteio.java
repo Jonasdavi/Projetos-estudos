@@ -131,6 +131,7 @@ public class PanelSorteio extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dialogVerificarVitoria = new javax.swing.JDialog();
         panelSorteacao = new javax.swing.JPanel();
         lbNumSorteado = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -138,9 +139,11 @@ public class PanelSorteio extends javax.swing.JPanel {
         lbHistorico2 = new javax.swing.JLabel();
         lbHistorico3 = new javax.swing.JLabel();
         btFinalizarSorteio = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btVerificarVitoria = new javax.swing.JButton();
         btPausarContinuar = new javax.swing.JButton();
         panelNums = new javax.swing.JPanel();
+
+        dialogVerificarVitoria.setModal(true);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -180,10 +183,10 @@ public class PanelSorteio extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Verificar Vitoria");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btVerificarVitoria.setText("Verificar Vitoria");
+        btVerificarVitoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btVerificarVitoriaActionPerformed(evt);
             }
         });
 
@@ -206,7 +209,7 @@ public class PanelSorteio extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btVerificarVitoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btFinalizarSorteio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btPausarContinuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
@@ -216,10 +219,10 @@ public class PanelSorteio extends javax.swing.JPanel {
                 .addComponent(lbNumSorteado, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btPausarContinuar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btVerificarVitoria)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btFinalizarSorteio))
         );
@@ -232,10 +235,12 @@ public class PanelSorteio extends javax.swing.JPanel {
         add(panelNums, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btVerificarVitoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerificarVitoriaActionPerformed
         // TODO add your handling code here:
-        sortearNum();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        dialogVerificarVitoria.setSize(200, 150);
+        dialogVerificarVitoria.add(new VerificarVitoria());
+        dialogVerificarVitoria.setVisible(true);
+    }//GEN-LAST:event_btVerificarVitoriaActionPerformed
 
     private void btFinalizarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarSorteioActionPerformed
         // TODO add your handling code here:
@@ -266,7 +271,8 @@ public class PanelSorteio extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btFinalizarSorteio;
     private javax.swing.JButton btPausarContinuar;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btVerificarVitoria;
+    private javax.swing.JDialog dialogVerificarVitoria;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbHistorico1;
     private javax.swing.JLabel lbHistorico2;

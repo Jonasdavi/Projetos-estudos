@@ -23,7 +23,8 @@ public class Main {
 //        jd.setSize(300, 300);
 //        jd.setVisible(true);
         
-        tela.irSorteio();
+
+        tela.irTelaInicial();
 
         //painel com o cardLayout da tela:
         JPanel card= tela.getCard();
@@ -34,7 +35,7 @@ public class Main {
         
         tela.setVisible(true);
         while(true){
-            pSorteio= tela.getPanelSorteio();
+            pSorteio= tela.getPanelSorteio(); //atualizar referencia do painel de sorteio
             for(Component componente : card.getComponents()){ //pega todos os paineis do card
                 if(componente.isVisible() && componente==pSorteio){ //pega o panel de sorteio quando estiver visivel
                     
