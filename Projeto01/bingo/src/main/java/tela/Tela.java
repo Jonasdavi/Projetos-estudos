@@ -36,6 +36,8 @@ public class Tela extends javax.swing.JFrame {
     private PanelDetalheCompra pDetalheCompra;
     public final String PDETALHECOMPRA= "5";
     
+    private PanelVerificarVitoria pVerificVitoria;
+    
     
     
 
@@ -60,9 +62,24 @@ public class Tela extends javax.swing.JFrame {
             }
         });
         
+        pVerificVitoria= new PanelVerificarVitoria(bingo);
+        jdVerificarId.add(pVerificVitoria);
+        
+        jdVerificarId.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+                pVerificVitoria.sairDialog();
+                jdVerificarId.dispose();
+            }
+        });
+        
+        //deixando todos os JDialogs no centro da tela:
+        jdCompra.setLocationRelativeTo(null);
+        jdCartela.setLocationRelativeTo(null);
+        jdVerificarId.setLocationRelativeTo(null);
         
         
-        setSize(350, 450);
+        setExtendedState(MAXIMIZED_BOTH);
     }
     
     
@@ -78,6 +95,7 @@ public class Tela extends javax.swing.JFrame {
     public PanelCompraCartela getPCompraCartela(){
         return pCompraCartela;
     }
+    
     public void irDetalheCompra(Jogador jogador){
         pDetalheCompra= new PanelDetalheCompra(this, jogador);
         card.add(pDetalheCompra, PDETALHECOMPRA);
@@ -88,10 +106,12 @@ public class Tela extends javax.swing.JFrame {
     }
     
     public void irCartela(Cartela c, Jogador j){
-        pGuiCartela= new PanelGUICartela(this, c, j);
-        card.add(pGuiCartela, PGUICARTELA);
+        pGuiCartela= new PanelGUICartela(jdCartela, c, j);
+        //card.add(pGuiCartela, PGUICARTELA);
+        jdCartela.getContentPane().add(pGuiCartela, PGUICARTELA);
         
-        ((CardLayout) (card.getLayout())).show(card, PGUICARTELA);
+        ((CardLayout) (jdCartela.getContentPane().getLayout())).show(jdCartela.getContentPane(), PGUICARTELA);
+        jdCartela.setVisible(true);
     }
     
     public void irTelaInicial(){
@@ -136,6 +156,10 @@ public class Tela extends javax.swing.JFrame {
         irTelaInicial();
     }
     
+    public void exibirDialogVerificarId(){
+        jdVerificarId.setVisible(true);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,14 +175,20 @@ public class Tela extends javax.swing.JFrame {
         jdCartela = new javax.swing.JDialog();
         card = new javax.swing.JPanel();
 
-        jdCompra.setMaximumSize(new java.awt.Dimension(300, 100));
-        jdCompra.setMinimumSize(new java.awt.Dimension(200, 80));
+        jdCompra.setMaximumSize(new java.awt.Dimension(500, 300));
+        jdCompra.setMinimumSize(new java.awt.Dimension(200, 100));
         jdCompra.setModal(true);
-        jdCompra.setSize(new java.awt.Dimension(300, 100));
+        jdCompra.setSize(new java.awt.Dimension(350, 150));
 
-        jdVerificarId.setMaximumSize(new java.awt.Dimension(300, 100));
-        jdVerificarId.setMinimumSize(new java.awt.Dimension(200, 80));
-        jdVerificarId.setSize(new java.awt.Dimension(200, 100));
+        jdVerificarId.setMaximumSize(new java.awt.Dimension(500, 300));
+        jdVerificarId.setMinimumSize(new java.awt.Dimension(200, 100));
+        jdVerificarId.setModal(true);
+        jdVerificarId.setSize(new java.awt.Dimension(300, 150));
+
+        jdCartela.setMinimumSize(new java.awt.Dimension(200, 300));
+        jdCartela.setModal(true);
+        jdCartela.setSize(new java.awt.Dimension(300, 400));
+        jdCartela.getContentPane().setLayout(new java.awt.CardLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
