@@ -4,7 +4,11 @@
  */
 package tela;
 
+import LogicaBingo.Bingo;
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -15,6 +19,11 @@ import javax.swing.border.Border;
  */
 public class PanelSorteio extends javax.swing.JPanel {
     private Tela tela;
+    private Bingo bingo;
+    
+    public boolean jogoPausado;
+    public boolean jogoAcabado=false;
+    public int tempoSortear;
     
     private final int QTNUMSSORTEIO= 75;
     JLabel numerosSorteio[];
@@ -22,12 +31,22 @@ public class PanelSorteio extends javax.swing.JPanel {
     /**
      * Creates new form PanelCompraCartela
      */
-    public PanelSorteio(Tela t) {
+    public PanelSorteio(Tela t, Bingo b) {
         initComponents();
         
-        tela=t;
+        tempoSortear= 1;
+        jogoPausado= true;
         
-        //iniciar todos os numeros onde mostrarar os numeros sorteados e nao sorteados
+        tela=t;
+        bingo= b;
+        
+        iniciarLabelsSorteio();
+        
+        
+    }
+    
+    private void iniciarLabelsSorteio(){
+        //iniciar todos os numeros onde mostrarár os numeros sorteados e nao sorteados
         numerosSorteio= new JLabel[QTNUMSSORTEIO];
         for(int i=0; i<QTNUMSSORTEIO; i++){
             if(i<9){ //numeros de 1 a 9 sao exibidos com o 0 à esquerda
@@ -37,23 +56,58 @@ public class PanelSorteio extends javax.swing.JPanel {
                 numerosSorteio[i]= new JLabel(String.valueOf((i+1)));
             }
             
+            //alinhar no centro
             numerosSorteio[i].setHorizontalAlignment(SwingConstants.CENTER);
             
             //permitir cor de fundo:
             numerosSorteio[i].setOpaque(true);
             
-            //iniciar cor de fundo como branco
+            //iniciar cor de fundo como cinza
             numerosSorteio[i].setBackground(Color.GRAY);
             
             //adicionar borda
-            //numerosSorteio[i].setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.white, new java.awt.Color(0, 0, 0), null));
+            numerosSorteio[i].setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+            
+            //mudar tamanho e fonte:
+            numerosSorteio[i].setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+           
             panelNums.add(numerosSorteio[i]);
+            
+            
         }
     }
     
-    private void reiniciarNumerosSorteio(){
+    public void sortearNum(){
+        if(bingo.getQtNumsSorteados()==75){
+            jogoAcabado= true;
+            return;
+        }
         
+        int numSorteado= bingo.sortearNum();
+        
+        lbHistorico3.setText(lbHistorico2.getText());
+        lbHistorico2.setText(lbHistorico1.getText());
+        lbHistorico1.setText(lbNumSorteado.getText());
+        lbNumSorteado.setText(String.valueOf(numSorteado));
+        
+        //deixar label do numero sorteado amarelo
+        numerosSorteio[numSorteado-1].setBackground(Color.YELLOW);
     }
+    
+    
+    public void pausarSorteio(){
+        jogoPausado=true;
+    }
+    
+    public void tirarPausa(){
+        jogoPausado=false;
+    }
+    
+    public void setTempoSortearNum(int segundos){
+        tempoSortear= segundos;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,46 +119,46 @@ public class PanelSorteio extends javax.swing.JPanel {
     private void initComponents() {
 
         panelSorteacao = new javax.swing.JPanel();
-        numSorteado = new javax.swing.JLabel();
+        lbNumSorteado = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        historico1 = new javax.swing.JLabel();
-        historico2 = new javax.swing.JLabel();
-        historico3 = new javax.swing.JLabel();
+        lbHistorico1 = new javax.swing.JLabel();
+        lbHistorico2 = new javax.swing.JLabel();
+        lbHistorico3 = new javax.swing.JLabel();
         btFinalizarSorteio = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btPausarContinuar = new javax.swing.JButton();
         panelNums = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
-        panelSorteacao.setBackground(new java.awt.Color(204, 204, 204));
+        panelSorteacao.setBackground(new java.awt.Color(153, 153, 153));
 
-        numSorteado.setBackground(new java.awt.Color(255, 255, 204));
-        numSorteado.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
-        numSorteado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        numSorteado.setText("00");
-        numSorteado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        numSorteado.setOpaque(true);
+        lbNumSorteado.setBackground(new java.awt.Color(255, 255, 204));
+        lbNumSorteado.setFont(new java.awt.Font("Segoe UI Black", 1, 90)); // NOI18N
+        lbNumSorteado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbNumSorteado.setText("00");
+        lbNumSorteado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        lbNumSorteado.setOpaque(true);
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 1));
 
-        historico1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        historico1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        historico1.setText("00");
-        historico1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(historico1);
+        lbHistorico1.setFont(new java.awt.Font("Segoe UI Black", 1, 28)); // NOI18N
+        lbHistorico1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbHistorico1.setText("00");
+        lbHistorico1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(lbHistorico1);
 
-        historico2.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        historico2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        historico2.setText("00");
-        historico2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(historico2);
+        lbHistorico2.setFont(new java.awt.Font("Segoe UI Black", 0, 22)); // NOI18N
+        lbHistorico2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbHistorico2.setText("00");
+        lbHistorico2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(lbHistorico2);
 
-        historico3.setFont(new java.awt.Font("Segoe UI Black", 0, 16)); // NOI18N
-        historico3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        historico3.setText("00");
-        historico3.setToolTipText("");
-        jPanel1.add(historico3);
+        lbHistorico3.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lbHistorico3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbHistorico3.setText("00");
+        lbHistorico3.setToolTipText("");
+        jPanel1.add(lbHistorico3);
 
         btFinalizarSorteio.setText("Finalizar Sorteio");
         btFinalizarSorteio.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +174,12 @@ public class PanelSorteio extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Pausar Sorteio");
+        btPausarContinuar.setText("Pausar Sorteio");
+        btPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPausarContinuarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSorteacaoLayout = new javax.swing.GroupLayout(panelSorteacao);
         panelSorteacao.setLayout(panelSorteacaoLayout);
@@ -129,24 +188,24 @@ public class PanelSorteio extends javax.swing.JPanel {
             .addGroup(panelSorteacaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(numSorteado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbNumSorteado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createSequentialGroup()
                         .addGap(0, 152, Short.MAX_VALUE)
                         .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btPausarContinuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btFinalizarSorteio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         panelSorteacaoLayout.setVerticalGroup(
             panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSorteacaoLayout.createSequentialGroup()
-                .addComponent(numSorteado, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbNumSorteado, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(btPausarContinuar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -155,13 +214,15 @@ public class PanelSorteio extends javax.swing.JPanel {
 
         add(panelSorteacao, java.awt.BorderLayout.LINE_END);
 
-        panelNums.setBackground(new java.awt.Color(153, 153, 153));
+        panelNums.setBackground(new java.awt.Color(51, 0, 51));
+        panelNums.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelNums.setLayout(new java.awt.GridLayout(8, 10, 4, 4));
         add(panelNums, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        sortearNum();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btFinalizarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarSorteioActionPerformed
@@ -169,16 +230,35 @@ public class PanelSorteio extends javax.swing.JPanel {
         tela.finalizarSorteio();
     }//GEN-LAST:event_btFinalizarSorteioActionPerformed
 
+    private void btPausarContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPausarContinuarActionPerformed
+        // TODO add your handling code here:
+        JButton botaoClicado= (JButton) (evt.getSource());
+        
+        String textoPausar= "Pausar Sorteio";
+        String textoContinuar= "Continuar Sorteio";
+        
+        if(jogoPausado){ //se quando o botao foi apertado o jogo estiver pausado, entao despausar
+            jogoPausado= false; //jogo sorteando
+            botaoClicado.setText(textoPausar); //jogo sorteando e o botao perguntando se quer pausar
+            
+            //iniciarSorteio();
+        }
+        else{ //se quando o botao foi apertado o jogo estiver rodando, entao pausar
+            jogoPausado= true;
+            botaoClicado.setText(textoContinuar); //jogoo pausado e botao perguntando se quer continuar
+        }
+    }//GEN-LAST:event_btPausarContinuarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btFinalizarSorteio;
-    private javax.swing.JLabel historico1;
-    private javax.swing.JLabel historico2;
-    private javax.swing.JLabel historico3;
+    private javax.swing.JButton btPausarContinuar;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel numSorteado;
+    private javax.swing.JLabel lbHistorico1;
+    private javax.swing.JLabel lbHistorico2;
+    private javax.swing.JLabel lbHistorico3;
+    private javax.swing.JLabel lbNumSorteado;
     private javax.swing.JPanel panelNums;
     private javax.swing.JPanel panelSorteacao;
     // End of variables declaration//GEN-END:variables

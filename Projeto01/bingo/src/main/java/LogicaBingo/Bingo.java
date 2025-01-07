@@ -48,6 +48,7 @@ public class Bingo{
     }
 
     public int sortearNum(){
+        
         int indiceSorteado;
         Integer numSorteado;
 

@@ -9,6 +9,7 @@ import LogicaBingo.Jogador;
 import LogicaBingo.Bingo;
 
 import java.awt.CardLayout;
+import javax.swing.JDialog;
 
 /**
  *
@@ -31,6 +32,12 @@ public class Tela extends javax.swing.JFrame {
     
     private PanelDetalheCompra pDetalheCompra;
     public final String PDETALHECOMPRA= "5";
+    
+    
+    
+    public PanelSorteio getSorteio(){
+        return pSorteio;
+    }
 
     /**
      * Creates new form Tela
@@ -38,14 +45,17 @@ public class Tela extends javax.swing.JFrame {
     public Tela() {
         initComponents();
         
+        
+        
         irTelaInicial();
         
         
-        //card.add(pGuiCartela, PGUICARTELA);
+        //card.add(pInicial, PINICIAL);
+        
         //card.add(pCompraCartela, PCOMPRACARTELA);
         //card.add(pDetalheCompra, PDETALHECOMPRA);
         
-        ((CardLayout) (card.getLayout())).show(card, PINICIAL);
+        //((CardLayout) (card.getLayout())).show(card, PINICIAL);
         
         setSize(350, 450);
     }
@@ -54,7 +64,9 @@ public class Tela extends javax.swing.JFrame {
         pDetalheCompra= new PanelDetalheCompra(this, jogador);
         card.add(pDetalheCompra, PDETALHECOMPRA);
         
+        
         ((CardLayout) (card.getLayout())).show(card, PDETALHECOMPRA);
+        
     }
     
     public void irCartela(Cartela c, Jogador j){
@@ -82,7 +94,7 @@ public class Tela extends javax.swing.JFrame {
     }
     
     public void irSorteio(){
-        pSorteio= new PanelSorteio(this);
+        pSorteio= new PanelSorteio(this, bingo);
         card.add(pSorteio, PSORTEIO);
         ((CardLayout) (card.getLayout())).show(card, PSORTEIO);
     }
