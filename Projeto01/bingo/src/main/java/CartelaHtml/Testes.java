@@ -7,6 +7,7 @@ package CartelaHtml;
 import LogicaBingo.Bingo;
 import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
+import manipularCart;
 
 /**
  *
@@ -19,5 +20,9 @@ public class Testes {
 
         //sua cartelas para testes:
         int[][] matrizCartela= bingo.pegarCartelaPeloId(1).getCartela();
+
+        // Instancia e chama o método geraCartela
+        ManipularCart manipularCart = new ManipularCart();
+        manipularCart.geraCartela(matrizCartela);
     }
 }
