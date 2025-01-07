@@ -7,7 +7,7 @@ package CartelaHtml;
 import LogicaBingo.Bingo;
 import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
-import manipularCart;
+import CartelaHtml.ManipularCart;
 
 /**
  *
