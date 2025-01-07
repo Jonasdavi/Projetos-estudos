@@ -38,17 +38,6 @@ public class Tela extends javax.swing.JFrame {
     
     
     
-    public PanelSorteio getPanelSorteio(){
-        return pSorteio;
-    }
-    
-    public JPanel getCard(){
-        return card;
-    }
-    
-    public PanelCompraCartela getPCompraCartela(){
-        return pCompraCartela;
-    }
 
     /**
      * Creates new form Tela
@@ -71,16 +60,24 @@ public class Tela extends javax.swing.JFrame {
             }
         });
         
-        //card.add(pInicial, PINICIAL);
         
-        //card.add(pCompraCartela, PCOMPRACARTELA);
-        //card.add(pDetalheCompra, PDETALHECOMPRA);
-        
-        //((CardLayout) (card.getLayout())).show(card, PINICIAL);
         
         setSize(350, 450);
     }
     
+    
+    
+    public PanelSorteio getPanelSorteio(){
+        return pSorteio;
+    }
+    
+    public JPanel getCard(){
+        return card;
+    }
+    
+    public PanelCompraCartela getPCompraCartela(){
+        return pCompraCartela;
+    }
     public void irDetalheCompra(Jogador jogador){
         pDetalheCompra= new PanelDetalheCompra(this, jogador);
         card.add(pDetalheCompra, PDETALHECOMPRA);
