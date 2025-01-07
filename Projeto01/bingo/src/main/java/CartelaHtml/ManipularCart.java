@@ -11,6 +11,8 @@ public class ManipularCart.java{
             Document doc = Jsoup.parse(new File("index.html"), "UTF-8");
             Elements elementosNumeros = doc.select("button");
 
+            //doc.getElement
+
             int indice = 0;
             for (int i = 0; i < matrizCartela.length; i++) {
                 for (int j = 0; j < matrizCartela[i].length; j++) {
