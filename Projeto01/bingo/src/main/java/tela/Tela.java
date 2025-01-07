@@ -10,6 +10,7 @@ import LogicaBingo.Bingo;
 
 import java.awt.CardLayout;
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 /**
  *
@@ -35,8 +36,12 @@ public class Tela extends javax.swing.JFrame {
     
     
     
-    public PanelSorteio getSorteio(){
+    public PanelSorteio getPanelSorteio(){
         return pSorteio;
+    }
+    
+    public JPanel getCard(){
+        return card;
     }
 
     /**

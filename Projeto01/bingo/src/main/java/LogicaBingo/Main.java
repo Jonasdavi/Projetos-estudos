@@ -1,8 +1,11 @@
 package LogicaBingo;
 
+import java.awt.CardLayout;
+import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 import tela.PanelCompraCartela;
 import tela.PanelSorteio;
 import tela.Tela;
@@ -20,40 +23,52 @@ public class Main {
 //        jd.setSize(300, 300);
 //        jd.setVisible(true);
         
-        tela.setVisible(true);
         tela.irSorteio();
+
+        //painel com o cardLayout da tela:
+        JPanel card= tela.getCard();
         
+        //painel de sorteio da tela:
+        PanelSorteio pSorteio;
+        
+        
+        tela.setVisible(true);
         while(true){
-            //while(true){
-            if(tela.getSorteio().jogoPausado){
-                //System.out.println("jogoPausado");
-                try {//pausar fala pela quantidade de tempo desejada
-                    Thread.sleep(100);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PanelSorteio.class.getName()).log(Level.SEVERE, null, ex);
+            pSorteio= tela.getPanelSorteio();
+            for(Component componente : card.getComponents()){ //pega todos os paineis do card
+                if(componente.isVisible() && componente==pSorteio){ //pega o panel de sorteio quando estiver visivel
+                    
+                    //quando estiver na tela de sorteio:
+                    while(!pSorteio.isSorteioAcabado()){ //faça isso enquanto o sorteio nao tiver acabado
+                        
+                        if(pSorteio.isSorteioPausado()){ //se o sorteio estiver pausado
+                            
+                            //dar uma pequena pausa pra nao bugar o programa
+                            try {//pausar fala pela quantidade de tempo desejada
+                                Thread.sleep(100);
+                            } 
+                            catch (InterruptedException ex) {
+                                Logger.getLogger(PanelSorteio.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                            //e nao faça o sorteio do numero
+                            continue;
+                        }
+                        else{ //se o sorteio estiver rolando
+                            
+                            //sortear:
+                            pSorteio.sortearNum();
+
+                            //pausar sorteio pra dar tempo marcarem as cartelas (pela quantidade de segundos desejada por quem ta sorteando)
+                            try {//pausar fala pela quantidade de tempo desejada
+                                Thread.sleep(pSorteio.getTempoSortear()*1000); //*1000 pra deixar o tempo em segundos
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(PanelSorteio.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
                 }
-                continue;
-                
             }
-            else if(tela.getSorteio().jogoAcabado){
-                break;
-            }
-            else{ 
-                //sortear:
-                tela.getSorteio().sortearNum();
-                
-                //se o jogo nao estiver acabado ou pausado, continue o sorteio
-                //System.out.println("jogorodando");
-                try {//pausar fala pela quantidade de tempo desejada
-                    Thread.sleep(tela.getSorteio().tempoSortear*1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PanelSorteio.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-           // }
         }
-        }
-        System.out.println("fim Sorteio");
-        
     }
 }

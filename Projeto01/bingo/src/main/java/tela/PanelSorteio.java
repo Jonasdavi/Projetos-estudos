@@ -21,9 +21,9 @@ public class PanelSorteio extends javax.swing.JPanel {
     private Tela tela;
     private Bingo bingo;
     
-    public boolean jogoPausado;
-    public boolean jogoAcabado=false;
-    public int tempoSortear;
+    private boolean sorteioPausado;
+    private boolean sorteioAcabado;
+    private int tempoSortear;
     
     private final int QTNUMSSORTEIO= 75;
     JLabel numerosSorteio[];
@@ -35,7 +35,8 @@ public class PanelSorteio extends javax.swing.JPanel {
         initComponents();
         
         tempoSortear= 1;
-        jogoPausado= true;
+        sorteioPausado= true;
+        sorteioAcabado=false;
         
         tela=t;
         bingo= b;
@@ -80,7 +81,7 @@ public class PanelSorteio extends javax.swing.JPanel {
     
     public void sortearNum(){
         if(bingo.getQtNumsSorteados()==75){
-            jogoAcabado= true;
+            sorteioAcabado= true;
             return;
         }
         
@@ -97,15 +98,27 @@ public class PanelSorteio extends javax.swing.JPanel {
     
     
     public void pausarSorteio(){
-        jogoPausado=true;
+        sorteioPausado=true;
     }
     
     public void tirarPausa(){
-        jogoPausado=false;
+        sorteioPausado=false;
     }
     
     public void setTempoSortearNum(int segundos){
         tempoSortear= segundos;
+    }
+    
+    public boolean isSorteioPausado(){
+        return sorteioPausado;
+    }
+    
+    public boolean isSorteioAcabado(){
+        return sorteioAcabado;
+    }
+    
+    public int getTempoSortear(){
+        return tempoSortear;
     }
     
 
@@ -174,7 +187,7 @@ public class PanelSorteio extends javax.swing.JPanel {
             }
         });
 
-        btPausarContinuar.setText("Pausar Sorteio");
+        btPausarContinuar.setText("Iniciar Sorteio");
         btPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPausarContinuarActionPerformed(evt);
@@ -188,15 +201,14 @@ public class PanelSorteio extends javax.swing.JPanel {
             .addGroup(panelSorteacaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbNumSorteado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbNumSorteado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createSequentialGroup()
-                        .addGap(0, 152, Short.MAX_VALUE)
-                        .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btPausarContinuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btFinalizarSorteio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btFinalizarSorteio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btPausarContinuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         panelSorteacaoLayout.setVerticalGroup(
             panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,6 +239,7 @@ public class PanelSorteio extends javax.swing.JPanel {
 
     private void btFinalizarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarSorteioActionPerformed
         // TODO add your handling code here:
+        sorteioAcabado=true;
         tela.finalizarSorteio();
     }//GEN-LAST:event_btFinalizarSorteioActionPerformed
 
@@ -237,14 +250,14 @@ public class PanelSorteio extends javax.swing.JPanel {
         String textoPausar= "Pausar Sorteio";
         String textoContinuar= "Continuar Sorteio";
         
-        if(jogoPausado){ //se quando o botao foi apertado o jogo estiver pausado, entao despausar
-            jogoPausado= false; //jogo sorteando
+        if(sorteioPausado){ //se quando o botao foi apertado o jogo estiver pausado, entao despausar
+            sorteioPausado= false; //jogo sorteando
             botaoClicado.setText(textoPausar); //jogo sorteando e o botao perguntando se quer pausar
             
             //iniciarSorteio();
         }
         else{ //se quando o botao foi apertado o jogo estiver rodando, entao pausar
-            jogoPausado= true;
+            sorteioPausado= true;
             botaoClicado.setText(textoContinuar); //jogoo pausado e botao perguntando se quer continuar
         }
     }//GEN-LAST:event_btPausarContinuarActionPerformed
