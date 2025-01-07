@@ -9,5 +9,7 @@ package CartelaHtml;
  * @author Jonas
  */
 public class Testes {
-    
+    public static void main(String[] args) {
+        
+    }
 }
