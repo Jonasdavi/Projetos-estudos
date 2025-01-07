@@ -108,6 +108,14 @@ public class Bingo{
     public ArrayList<Jogador> getGanhadores(){
         return ganhadores;
     }
+    
+    public Cartela pegarCartelaPeloId(int id){
+        if(id>cartelasVendidas.size() || id<1){
+            return null;
+        }
+        return cartelasVendidas.get(id-1);
+    }
+    
     public int getQtNumsSorteados(){
         return qtNumsSorteados;
     }

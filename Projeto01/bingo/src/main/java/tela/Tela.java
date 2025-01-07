@@ -9,6 +9,8 @@ import LogicaBingo.Jogador;
 import LogicaBingo.Bingo;
 
 import java.awt.CardLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
@@ -43,6 +45,10 @@ public class Tela extends javax.swing.JFrame {
     public JPanel getCard(){
         return card;
     }
+    
+    public PanelCompraCartela getPCompraCartela(){
+        return pCompraCartela;
+    }
 
     /**
      * Creates new form Tela
@@ -50,10 +56,20 @@ public class Tela extends javax.swing.JFrame {
     public Tela() {
         initComponents();
         
-        
-        
         irTelaInicial();
         
+        //configurando dialog de compra de cartela:
+        pCompraCartela=new PanelCompraCartela(this);
+        jdCompra.add(pCompraCartela);
+        
+        //quando o X de sair for clicado, antes de sair reiniciar informacoes do painel de compra:
+        jdCompra.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+                pCompraCartela.reiniciarInfor();
+                jdCompra.dispose();
+            }
+        });
         
         //card.add(pInicial, PINICIAL);
         
@@ -90,12 +106,22 @@ public class Tela extends javax.swing.JFrame {
         card.add(pInicial, PINICIAL);
         ((CardLayout) (card.getLayout())).show(card, PINICIAL);
         
+        
+        
     }
     
     public void irCompraCartela(){
-        pCompraCartela= new PanelCompraCartela(this);
-        card.add(pCompraCartela, PCOMPRACARTELA);
-        ((CardLayout) (card.getLayout())).show(card, PCOMPRACARTELA);
+        //pCompraCartela= new PanelCompraCartela(this);
+        //card.add(pCompraCartela, PCOMPRACARTELA);
+        //((CardLayout) (card.getLayout())).show(card, PCOMPRACARTELA);
+        
+        //jdCompra.add(pCompraCartela);
+        
+        jdCompra.setVisible(true);
+    }
+    
+    public void fecharJdCompra(){
+        jdCompra.setVisible(false);
     }
     
     public void irSorteio(){
@@ -123,7 +149,19 @@ public class Tela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jdCompra = new javax.swing.JDialog();
+        jdVerificarId = new javax.swing.JDialog();
+        jdCartela = new javax.swing.JDialog();
         card = new javax.swing.JPanel();
+
+        jdCompra.setMaximumSize(new java.awt.Dimension(300, 100));
+        jdCompra.setMinimumSize(new java.awt.Dimension(200, 80));
+        jdCompra.setModal(true);
+        jdCompra.setSize(new java.awt.Dimension(300, 100));
+
+        jdVerificarId.setMaximumSize(new java.awt.Dimension(300, 100));
+        jdVerificarId.setMinimumSize(new java.awt.Dimension(200, 80));
+        jdVerificarId.setSize(new java.awt.Dimension(200, 100));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,5 +208,8 @@ public class Tela extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel card;
+    private javax.swing.JDialog jdCartela;
+    private javax.swing.JDialog jdCompra;
+    private javax.swing.JDialog jdVerificarId;
     // End of variables declaration//GEN-END:variables
 }

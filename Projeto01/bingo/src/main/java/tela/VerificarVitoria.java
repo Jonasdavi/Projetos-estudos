@@ -4,17 +4,27 @@
  */
 package tela;
 
+import LogicaBingo.Bingo;
+import LogicaBingo.Cartela;
+import LogicaBingo.Jogador;
+import java.awt.Color;
+import java.util.ArrayList;
+
 /**
  *
  * @author Jonas
  */
 public class VerificarVitoria extends javax.swing.JPanel {
+    
+    Bingo bingo;
 
     /**
      * Creates new form VerificarVitoria
      */
-    public VerificarVitoria() {
+    public VerificarVitoria(Bingo b) {
         initComponents();
+        
+        bingo=b;
     }
 
     /**
@@ -28,25 +38,31 @@ public class VerificarVitoria extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        tfId = new javax.swing.JTextField();
+        btVerificar = new javax.swing.JButton();
+        mensagemValidacao = new javax.swing.JLabel();
+        btVisualizarCartela = new javax.swing.JButton();
 
         setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("ID:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tfId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tfIdActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Verificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btVerificar.setText("Verificar");
+        btVerificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btVerificarActionPerformed(evt);
             }
         });
+
+        mensagemValidacao.setText("jLabel2");
+
+        btVisualizarCartela.setText("Visualizar Cartela");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -55,13 +71,18 @@ public class VerificarVitoria extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btVerificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btVisualizarCartela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(mensagemValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -69,29 +90,78 @@ public class VerificarVitoria extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mensagemValidacao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btVerificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btVisualizarCartela))
         );
+
+        mensagemValidacao.setVisible(false);
+        btVisualizarCartela.setVisible(false);
 
         add(jPanel1, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tfIdActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerificarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String idRecebido= tfId.getText();
+        int numId;
+        
+        try{
+            numId= Integer.parseInt(idRecebido);
+        }
+        catch(Exception e){
+            mensagemValidacao.setText("Digite um ID valido!");
+            mensagemValidacao.setForeground(Color.red);
+            mensagemValidacao.setVisible(true);
+            return;
+        }
+        
+        Cartela cartelaId=bingo.pegarCartelaPeloId(numId);
+        
+        if(cartelaId==null){
+            mensagemValidacao.setText("Id nao encontrado.");
+            mensagemValidacao.setForeground(Color.red);
+            mensagemValidacao.setVisible(true);
+            return;
+        }
+        else{
+            //se a lista de ganhadores tiver algum jogador:
+            if(!bingo.getGanhadores().isEmpty()){
+                for(Jogador ganhador : bingo.getGanhadores()){
+                    if(ganhador.containsThisCartelaPremiada(cartelaId)){
+                        mensagemValidacao.setText("Vitoria Valida!");
+                        mensagemValidacao.setForeground(Color.green);
+                        mensagemValidacao.setVisible(true);
+                        return;
+                    }
+                }
+            }
+            mensagemValidacao.setText("Vitoria Invalida!");
+            mensagemValidacao.setForeground(Color.red);
+            mensagemValidacao.setVisible(true);
+            return;
+            
+        }
+        
+        
+    }//GEN-LAST:event_btVerificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btVerificar;
+    private javax.swing.JButton btVisualizarCartela;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel mensagemValidacao;
+    private javax.swing.JTextField tfId;
     // End of variables declaration//GEN-END:variables
 }

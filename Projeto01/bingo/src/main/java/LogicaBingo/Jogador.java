@@ -52,6 +52,10 @@ public class Jogador{
         }
         return ganhou;
     }
+    
+    public boolean containsThisCartelaPremiada(Cartela c){
+        return cartelasPremiadas.contains(c);
+    }
 
     protected void exibirCartelasPremiadas(){
         for(Cartela cartela : cartelasPremiadas){

@@ -24,7 +24,7 @@ public class Main {
 //        jd.setVisible(true);
         
 
-        tela.irTelaInicial();
+        //tela.irTelaInicial();
 
         //painel com o cardLayout da tela:
         JPanel card= tela.getCard();

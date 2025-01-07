@@ -21,6 +21,11 @@ public class PanelCompraCartela extends javax.swing.JPanel {
         initComponents();
         tela=t;
     }
+    
+    public void reiniciarInfor(){
+        qtCartelasComprar.setValue(1);
+        jtNome.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,6 +56,11 @@ public class PanelCompraCartela extends javax.swing.JPanel {
         add(qtCartelasComprar);
 
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
         add(btCancelar);
 
         btConfirmar.setText("Confirmar");
@@ -66,12 +76,23 @@ public class PanelCompraCartela extends javax.swing.JPanel {
         // TODO add your handling code here:
         int qtCartelas= (int)(qtCartelasComprar.getValue());
         String nome = jtNome.getText()==null? "" : jtNome.getText();
+        qtCartelasComprar.setValue(1);
+        jtNome.setText("");
         
         //criando jogador
         Jogador jogador= new Jogador(nome, qtCartelas, tela.getBingo());
         
+        tela.fecharJdCompra();
+        
         tela.irDetalheCompra(jogador);
     }//GEN-LAST:event_btConfirmarActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        // TODO add your handling code here:
+        qtCartelasComprar.setValue(1);
+        jtNome.setText("");
+        tela.fecharJdCompra();
+    }//GEN-LAST:event_btCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

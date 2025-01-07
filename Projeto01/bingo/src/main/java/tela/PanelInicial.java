@@ -21,6 +21,8 @@ public class PanelInicial extends javax.swing.JPanel {
         
         lbQtCartelas.setText(String.valueOf(qtNumCartela));
         lbQtJogadores.setText(String.valueOf(qtNumJogadores));
+        
+        jdCompra.add(new PanelCompraCartela(tela));
     }
 
     /**
@@ -32,6 +34,7 @@ public class PanelInicial extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jdCompra = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         btCompraCartela = new javax.swing.JButton();
         btSortear = new javax.swing.JButton();
@@ -39,6 +42,10 @@ public class PanelInicial extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         lbQtJogadores = new javax.swing.JLabel();
         lbQtCartelas = new javax.swing.JLabel();
+
+        jdCompra.setMinimumSize(new java.awt.Dimension(200, 100));
+        jdCompra.setModal(true);
+        jdCompra.setSize(new java.awt.Dimension(300, 200));
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -107,6 +114,7 @@ public class PanelInicial extends javax.swing.JPanel {
     private void btCompraCartelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCompraCartelaActionPerformed
         // TODO add your handling code here:
         tela.irCompraCartela();
+        //jdCompra.setVisible(true);
     }//GEN-LAST:event_btCompraCartelaActionPerformed
 
     private void btSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSortearActionPerformed
@@ -121,6 +129,7 @@ public class PanelInicial extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JDialog jdCompra;
     private javax.swing.JLabel lbQtCartelas;
     private javax.swing.JLabel lbQtJogadores;
     // End of variables declaration//GEN-END:variables

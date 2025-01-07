@@ -238,7 +238,7 @@ public class PanelSorteio extends javax.swing.JPanel {
     private void btVerificarVitoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerificarVitoriaActionPerformed
         // TODO add your handling code here:
         dialogVerificarVitoria.setSize(200, 150);
-        dialogVerificarVitoria.add(new VerificarVitoria());
+        dialogVerificarVitoria.add(new VerificarVitoria(tela.getBingo()));
         dialogVerificarVitoria.setVisible(true);
     }//GEN-LAST:event_btVerificarVitoriaActionPerformed
 
