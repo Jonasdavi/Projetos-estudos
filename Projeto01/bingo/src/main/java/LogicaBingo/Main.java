@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         
         Tela tela= new Tela();
-        tela.setSize(600, 400);
+        //tela.setSize(600, 400);
 //        JDialog jd= new JDialog(tela, "teste", true);
 //        //jd.setModal(true);
 //        jd.getContentPane().add(new PanelCompraCartela(tela));

@@ -6,6 +6,7 @@ package tela;
 
 import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 
 /**
@@ -13,7 +14,7 @@ import javax.swing.JLabel;
  * @author Jonas
  */
 public class PanelGUICartela extends javax.swing.JPanel {
-    private Tela tela;
+    private JDialog jdCartela;
     private Cartela cartela;
     private Jogador jogador;
     
@@ -22,9 +23,9 @@ public class PanelGUICartela extends javax.swing.JPanel {
     /**
      * Creates new form PanelGUICartela
      */
-    public PanelGUICartela(Tela t, Cartela c, Jogador dono) {
+    public PanelGUICartela(JDialog jd, Cartela c, Jogador dono) {
         initComponents();
-        tela=t;
+        jdCartela= jd;
         cartela=c;
         jogador=dono;
         
@@ -163,7 +164,8 @@ public class PanelGUICartela extends javax.swing.JPanel {
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         // TODO add your handling code here:
-        tela.irDetalheCompra(jogador);
+        //tela.irDetalheCompra(jogador);
+        jdCartela.setVisible(false);
     }//GEN-LAST:event_btVoltarActionPerformed
 
 

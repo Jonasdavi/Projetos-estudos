@@ -14,17 +14,24 @@ import java.util.ArrayList;
  *
  * @author Jonas
  */
-public class VerificarVitoria extends javax.swing.JPanel {
+public class PanelVerificarVitoria extends javax.swing.JPanel {
     
     Bingo bingo;
 
     /**
      * Creates new form VerificarVitoria
      */
-    public VerificarVitoria(Bingo b) {
+    public PanelVerificarVitoria(Bingo b) {
         initComponents();
         
         bingo=b;
+    }
+    
+    public void sairDialog(){
+        mensagemValidacao.setVisible(false);
+        tfId.setText("");
+        btVisualizarCartela.setVisible(false);
+        //btVisualizarCartela.setVisible(false);
     }
 
     /**
@@ -50,6 +57,11 @@ public class VerificarVitoria extends javax.swing.JPanel {
         tfId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfIdActionPerformed(evt);
+            }
+        });
+        tfId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfIdKeyReleased(evt);
             }
         });
 
@@ -108,10 +120,17 @@ public class VerificarVitoria extends javax.swing.JPanel {
 
     private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
         // TODO add your handling code here:
+        mensagemValidacao.setVisible(false);
+        //tfId.setText("");
+        btVisualizarCartela.setVisible(false);
     }//GEN-LAST:event_tfIdActionPerformed
 
     private void btVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerificarActionPerformed
         // TODO add your handling code here:
+        mensagemValidacao.setVisible(false);
+        btVisualizarCartela.setVisible(false);
+        
+        
         String idRecebido= tfId.getText();
         int numId;
         
@@ -154,6 +173,13 @@ public class VerificarVitoria extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_btVerificarActionPerformed
+
+    private void tfIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIdKeyReleased
+        // TODO add your handling code here:
+        mensagemValidacao.setVisible(false);
+        //tfId.setText("");
+        btVisualizarCartela.setVisible(false);
+    }//GEN-LAST:event_tfIdKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
