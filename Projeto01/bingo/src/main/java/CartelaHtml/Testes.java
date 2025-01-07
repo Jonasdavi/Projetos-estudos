@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package CartelaHtml;
+package cartelahtml;
 
 import LogicaBingo.Bingo;
 import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
-import CartelaHtml.ManipularCart;
+import cartelahtml.ManipularCart;
 
 /**
  *
@@ -23,6 +23,6 @@ public class Testes {
 
         // Instancia e chama o método geraCartela
         ManipularCart manipularCart = new ManipularCart();
-        manipularCart.geraCartela(matrizCartela);
+        manipularCart.geraCartela(bingo.pegarCartelaPeloId(1));
     }
 }
