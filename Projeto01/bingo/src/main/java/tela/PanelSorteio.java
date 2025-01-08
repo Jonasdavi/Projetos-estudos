@@ -131,7 +131,6 @@ public class PanelSorteio extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dialogVerificarVitoria = new javax.swing.JDialog();
         panelSorteacao = new javax.swing.JPanel();
         lbNumSorteado = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -142,8 +141,6 @@ public class PanelSorteio extends javax.swing.JPanel {
         btVerificarVitoria = new javax.swing.JButton();
         btPausarContinuar = new javax.swing.JButton();
         panelNums = new javax.swing.JPanel();
-
-        dialogVerificarVitoria.setModal(true);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -237,9 +234,7 @@ public class PanelSorteio extends javax.swing.JPanel {
 
     private void btVerificarVitoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerificarVitoriaActionPerformed
         // TODO add your handling code here:
-        dialogVerificarVitoria.setSize(200, 150);
-        dialogVerificarVitoria.add(new VerificarVitoria(tela.getBingo()));
-        dialogVerificarVitoria.setVisible(true);
+        tela.exibirDialogVerificarId();
     }//GEN-LAST:event_btVerificarVitoriaActionPerformed
 
     private void btFinalizarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarSorteioActionPerformed
@@ -272,7 +267,6 @@ public class PanelSorteio extends javax.swing.JPanel {
     private javax.swing.JButton btFinalizarSorteio;
     private javax.swing.JButton btPausarContinuar;
     private javax.swing.JButton btVerificarVitoria;
-    private javax.swing.JDialog dialogVerificarVitoria;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbHistorico1;
     private javax.swing.JLabel lbHistorico2;

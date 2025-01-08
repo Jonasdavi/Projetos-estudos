@@ -55,7 +55,7 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
                     for(int i=0; i<btCartelas.length; i++){
                         if(evt.getSource() == btCartelas[i]){
                             cartelaExibir= jogador.getCartelas().get(i);
-                            System.out.println("i");
+                            //System.out.println("i");
                             tela.irCartela(cartelaExibir, jogador);
                             break;
                         }
