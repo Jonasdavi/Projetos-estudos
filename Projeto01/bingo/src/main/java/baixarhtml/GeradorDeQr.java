@@ -22,9 +22,13 @@ import com.google.zxing.qrcode.QRCodeWriter; // Interface usada para o mapa de c
 
 public class GeradorDeQr {
 
-    //private BufferedImage qrImage;
+    private BufferedImage qrImage;
+    
 
-    public void QRCodeGenerator (){
+    public GeradorDeQr() {
+    }
+
+    public void QRCodeGenerator () throws WriterException{
         // O conteúdo do QR Code. Pode ser um link, texto ou qualquer dado que você deseje codificar.
         String data = "https://google.com"; 
 
@@ -38,7 +42,7 @@ public class GeradorDeQr {
         // Formato da imagem do QR Code (PNG neste caso).
         String fileFormat = "png"; 
 
-        try {
+      
             // Configurações para o QR Code.
             Map<EncodeHintType, Object> hints = new HashMap<>();
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8"); // Define o charset para suportar caracteres especiais.
@@ -50,19 +54,16 @@ public class GeradorDeQr {
             BitMatrix bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, width, height, hints);
 
             // Define o caminho do arquivo onde o QR Code será salvo.
-            Path path = new File(filePath).toPath();
+            //Path path = new File(filePath).toPath();
 
             // Converte a matriz do QR Code em uma imagem e a salva no caminho especificado.
-            MatrixToImageWriter.writeToPath(bitMatrix, fileFormat, path);
+            //MatrixToImageWriter.writeToPath(bitMatrix, fileFormat, path);
             BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
             TelaQrCode(qrImage);
 
             // Exibe uma mensagem de sucesso ao gerar o QR Code.
             System.out.println("QR Code gerado com sucesso em: " + filePath);
-        } catch (WriterException | IOException e) {
-            // Caso ocorra algum erro durante o processo, exibe a mensagem de erro.
-            System.err.println("Erro ao gerar o QR Code: " + e.getMessage());
-        }
+     
 
     }
 
@@ -79,6 +80,7 @@ public class GeradorDeQr {
         janela.setLocationRelativeTo(null);
         janela.setResizable(false);
         janela.add(p, BorderLayout.CENTER);
+        janela.setVisible(true);
     }
     
 }

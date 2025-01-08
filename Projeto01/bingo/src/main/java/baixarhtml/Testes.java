@@ -4,12 +4,17 @@
  */
 package baixarhtml;
 
+import com.google.zxing.WriterException;
+
 /**
  *
  * @author Jonas
  */
 public class Testes {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws WriterException {
+        GeradorDeQr qr = new GeradorDeQr();
+        qr.QRCodeGenerator();
+        
         
     }
 }
