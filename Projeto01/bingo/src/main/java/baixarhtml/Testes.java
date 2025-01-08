@@ -11,5 +11,6 @@ package baixarhtml;
 public class Testes {
     public static void main(String[] args) {
         
+        GeradorDeQr teste= new GeradorDeQr(FileUploader.getLinkDownload());
     }
 }

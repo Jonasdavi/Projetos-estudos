@@ -24,9 +24,9 @@ public class GeradorDeQr {
 
     //private BufferedImage qrImage;
 
-    public void QRCodeGenerator (){
+    public GeradorDeQr (String link){
         // O conteúdo do QR Code. Pode ser um link, texto ou qualquer dado que você deseje codificar.
-        String data = "https://google.com"; 
+        String data = link; 
 
         // Caminho do arquivo onde o QR Code será salvo.
         String filePath = "qrcode.png"; 
@@ -78,7 +78,8 @@ public class GeradorDeQr {
         janela.setLayout(new BorderLayout());
         janela.setLocationRelativeTo(null);
         janela.setResizable(false);
-        janela.add(p, BorderLayout.CENTER);
+        janela.getContentPane().add(p);
+        janela.setVisible(true);
     }
     
 }
