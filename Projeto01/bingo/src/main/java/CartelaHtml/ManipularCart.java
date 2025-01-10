@@ -83,6 +83,7 @@ public class ManipularCart {
         }
     }
 
+    
     @SuppressWarnings("ConvertToTryWithResources")
     public void apagarCartelas() {
         try {
