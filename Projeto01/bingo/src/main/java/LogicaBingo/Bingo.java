@@ -3,6 +3,8 @@ package LogicaBingo;
 import java.util.ArrayList;
 import java.util.Random;
 
+import sql.CartelaDAO;
+
 public class Bingo{
     private ArrayList<Cartela> cartelasVendidas= new ArrayList<Cartela>();
     private ArrayList<Integer> numsRestantes= new ArrayList<Integer>(); //para verificar numeros repetidos
@@ -36,6 +38,9 @@ public class Bingo{
         if(!jogadores.contains(comprador)){
             jogadores.add(comprador);
         }
+
+        CartelaDAO.salvarNoBanco(c, comprador);
+        
     }
     
     public boolean containsCartela(Cartela c){ //verifica se os numeros da cartela sao iguais as que ja tem

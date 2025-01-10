@@ -11,14 +11,9 @@ import LogicaBingo.Bingo;
 
 public class CartelaDAO
 {
-    private Bingo bingo;
+    
 
-    public CartelaDAO(Bingo b){
-        bingo= b;
-    }
-
-
-    public void salvarNoBanco(Cartela c, Jogador j)
+    public static void salvarNoBanco(Cartela c, Jogador j)
     {
         String cartelaString = "";
         String sql = "insert into cartelas (numeros, marcados, jogador_nome) values (?, ?, ?)";
@@ -41,7 +36,7 @@ public class CartelaDAO
         }
     }
 
-    public Cartela buscarPorId(int id)
+    public static Cartela buscarPorId(int id, Bingo bingo)
     {
         String sql = "select * from cartelas where id = ?";
         Cartela cartela = null;
@@ -114,7 +109,7 @@ public class CartelaDAO
     }
 
     //Métodos auxiliares
-    private String matrizParaString(int[][] matriz)
+    private static String matrizParaString(int[][] matriz)
     {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < matriz.length; i++)
@@ -132,7 +127,7 @@ public class CartelaDAO
         return sb.toString();
     }
 
-    private int[][] stringParaMatriz(String data, int linhas, int colunas)
+    private static  int[][] stringParaMatriz(String data, int linhas, int colunas)
     {
         int[][] matriz = new int[linhas][colunas];
         String[] valores = data.split(",");

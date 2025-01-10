@@ -2,6 +2,8 @@ package LogicaBingo;
 
 import java.util.ArrayList;
 
+import sql.CartelaDAO;
+
 public class Jogador{
     private String nome;
     private ArrayList<Cartela> cartelas= new ArrayList<Cartela>();
@@ -25,6 +27,7 @@ public class Jogador{
     private void comprarCartelas(){
         for(int i=0; i<qtCartelas; i++){
             bingo.venderCartela(this);
+
         }
     }
     
