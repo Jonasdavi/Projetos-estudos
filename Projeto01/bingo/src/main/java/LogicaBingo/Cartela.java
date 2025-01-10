@@ -146,6 +146,14 @@ public class Cartela{
         return qtNumsMarcados==QTNUMS;
     }
 
+    void setNumsCart(int[][] nums) {
+        this.cartela = nums;
+    }
+    
+    void setMarcCart(int[][] marc) {
+        this.cartelaMarcada = marc;
+    }
+
     public int[][] getCartela(){
         return cartela;
     }
