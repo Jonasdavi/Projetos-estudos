@@ -5,24 +5,26 @@
 package cartelahtml;
 
 import LogicaBingo.Bingo;
-import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
-import cartelahtml.ManipularCart;
+
 
 /**
- *
+ * 
  * @author Jonas
  */
 public class Testes {
     public static void main(String[] args) {
-        Bingo bingo= new Bingo();
-        bingo.venderCartela(new Jogador("", 1, bingo));
+        Bingo bingo = new Bingo();
+        bingo.venderCartela(new Jogador("Jogador1", 1, bingo)); // Supondo que isso crie a cartela para o jogador1
 
-        //sua cartelas para testes:
-        int[][] matrizCartela= bingo.pegarCartelaPeloId(1).getCartela();
-
-        // Instancia e chama o método geraCartela
         ManipularCart manipularCart = new ManipularCart();
-        manipularCart.geraCartela(bingo.pegarCartelaPeloId(1));
+        manipularCart.adicionarCartela(bingo.pegarCartelaPeloId(1));
+
+        // Se quiser adicionar mais cartelas, continue o processo
+        bingo.venderCartela(new Jogador("Jogador2", 2, bingo));
+        manipularCart.adicionarCartela(bingo.pegarCartelaPeloId(2));
+
+        // Apagar cartelas
+        manipularCart.apagarCartelas();
     }
 }
