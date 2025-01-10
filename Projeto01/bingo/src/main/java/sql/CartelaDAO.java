@@ -101,8 +101,8 @@ public class CartelaDAO
             }
         } catch (SQLException e)
         {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao buscar o último ID no banco de dados");
+            //e.printStackTrace();
+            //throw new RuntimeException("Erro ao buscar o último ID no banco de dados");
         }
         return ultimoId;
 

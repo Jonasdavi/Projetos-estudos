@@ -132,4 +132,11 @@ public class Bingo{
    public int getQtCartelas(){
        return cartelasVendidas.size();
    }
+
+
+   public void exibirCartelas(){
+        for (Cartela cartela : cartelasVendidas) {
+            cartela.exibirCartela();
+        }
+   }
 }

@@ -137,6 +137,8 @@ public class Cartela{
     }
 
     protected void exibirCartela(){
+        System.out.println("ID: " + this.ID);
+        
         for(int l=0; l<TAMANHOLC; l++){
             for(int c=0; c<TAMANHOLC; c++){
                 System.out.print(cartela[l][c]+ (cartela[l][c]<=9?"   ":"  "));
