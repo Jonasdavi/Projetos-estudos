@@ -1,13 +1,24 @@
-package LogicaBingo;
+package sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import LogicaBingo.Jogador;
+import LogicaBingo.Cartela;
+import LogicaBingo.Bingo;
+
 public class CartelaDAO
 {
-    public void salvarNoBanco(int cartela[][], int cartelaMarcada[][], Jogador j)
+    private Bingo bingo;
+
+    public CartelaDAO(Bingo b){
+        bingo= b;
+    }
+
+
+    public void salvarNoBanco(Cartela c, Jogador j)
     {
         String cartelaString = "";
         String sql = "insert into cartelas (numeros, marcados, jogador_nome) values (?, ?, ?)";
@@ -16,8 +27,8 @@ public class CartelaDAO
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             //Converter os números da cartela para strings separadas por vírgulas
-            cartelaString = matrizParaString(cartela);
-            String cartelaMarcString = matrizParaString(cartelaMarcada);
+            cartelaString = matrizParaString(c.getCartela());
+            String cartelaMarcString = matrizParaString(c.getCartelaMarcada());
 
             stmt.setString(1, cartelaString);
             stmt.setString(2, cartelaMarcString);
@@ -57,11 +68,12 @@ public class CartelaDAO
                     int[][] numerosMatriz = stringParaMatriz(numerosString, 5, 5);
                     int[][] marcadosMatriz = stringParaMatriz(marcadosString, 5, 5);
 
-                    Bingo bingo = new Bingo();
-                    cartela = new Cartela(bingo);
+                    //Bingo bingo= new Bingo();
+                    cartela = new Cartela(bingo, numerosMatriz, marcadosMatriz, id);
 
-                    cartela.setNumsCart(numerosMatriz);
-                    cartela.setMarcCart(marcadosMatriz);
+                    
+                    //cartela.setNumsCart(numerosMatriz);
+                    //cartela.setMarcCart(marcadosMatriz);
                 }
                 else
                 {
@@ -73,10 +85,11 @@ public class CartelaDAO
             e.printStackTrace();
             throw new RuntimeException("Erro ao buscar a cartela no banco de dados");
         }
+
         return cartela;
     }
 
-    public int getUltimoId()
+    public static int getUltimoId()
     {
         String sql = "select max(id) as ultimo_id from cartelas";
         int ultimoId = -1;

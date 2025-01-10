@@ -3,6 +3,8 @@ package LogicaBingo;
 import java.util.Arrays;
 import java.util.Random;
 
+import sql.CartelaDAO;
+
 public class Cartela{
     private int cartela[][];
     private int cartelaMarcada[][]; //cartela retira os numeros já sorteados na mesma posição deixa -1
@@ -13,7 +15,7 @@ public class Cartela{
     private final int TAMANHOLC=5; //tamanho da quantidade de linhas e colunas da cartela
     private final int LUGARFREE=0;
     
-    private static int idIncrement=1;
+    //private static int idIncrement=1;
     private final int ID;
 
     private Random rand= new Random();
@@ -22,7 +24,10 @@ public class Cartela{
 
     public Cartela(Bingo b){
         //iniciando id:
-        ID= idIncrement++;
+        //ID= idIncrement++;
+
+        //como o id é depois do ultimo criado ate entao, o id desse é igual o ultimo mais 1
+        ID= CartelaDAO.getUltimoId() + 1;
         
         bingo=b;
         
@@ -33,6 +38,14 @@ public class Cartela{
         qtNumsMarcados=0;
 
         gerarCartela();
+    }
+
+    public Cartela(Bingo b, int[][] cartela, int[][] cartelaMarcada, int id){
+        bingo= b;
+        this.ID= id;
+
+        this.cartelaMarcada= cartelaMarcada;
+        this.cartela= cartela;
     }
 
 
@@ -146,11 +159,11 @@ public class Cartela{
         return qtNumsMarcados==QTNUMS;
     }
 
-    void setNumsCart(int[][] nums) {
+    public void setNumsCart(int[][] nums) {
         this.cartela = nums;
     }
     
-    void setMarcCart(int[][] marc) {
+    public void setMarcCart(int[][] marc) {
         this.cartelaMarcada = marc;
     }
 
