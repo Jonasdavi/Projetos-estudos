@@ -4,6 +4,13 @@
  */
 package cartelahtml;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import LogicaBingo.Bingo;
 import LogicaBingo.Jogador;
 
@@ -13,10 +20,12 @@ import LogicaBingo.Jogador;
  * @author Jonas
  */
 public class Testes {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         Bingo bingo = new Bingo();
         bingo.venderCartela(new Jogador("Jogador1", 1, bingo)); // Supondo que isso crie a cartela para o jogador1
-
+        /*Document doc;
+        File file = new File("src/main/java/cartelahtml/index.html");
+        doc = Jsoup.parse(file, "UTF-8");*/
         ManipularCart manipularCart = new ManipularCart();
         manipularCart.adicionarCartela(bingo.pegarCartelaPeloId(1));
 
