@@ -29,7 +29,7 @@ public class GeradorDeQr {
         String data = link; 
 
         // Caminho do arquivo onde o QR Code será salvo.
-        String filePath = "qrcode.png"; 
+        String filePath = "src/main/java/baixarhtml/qrcode.png"; 
         
         // Dimensões do QR Code.
         int width = 300; // Largura da imagem do QR Code.
