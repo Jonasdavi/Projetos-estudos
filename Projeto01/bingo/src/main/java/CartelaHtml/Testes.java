@@ -5,24 +5,95 @@
 package cartelahtml;
 
 import LogicaBingo.Bingo;
-import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
-import cartelahtml.ManipularCart;
+
 
 /**
- *
+ * 
  * @author Jonas
  */
 public class Testes {
     public static void main(String[] args) {
-        Bingo bingo= new Bingo();
-        bingo.venderCartela(new Jogador("", 1, bingo));
+        Bingo bingo = new Bingo();
+        bingo.venderCartela(new Jogador("Jogador1", 1, bingo)); // Supondo que isso crie a cartela para o jogador1
 
-        //sua cartelas para testes:
-        int[][] matrizCartela= bingo.pegarCartelaPeloId(1).getCartela();
-
-        // Instancia e chama o método geraCartela
         ManipularCart manipularCart = new ManipularCart();
-        manipularCart.geraCartela(bingo.pegarCartelaPeloId(1));
+        manipularCart.adicionarCartela(bingo.pegarCartelaPeloId(1));
+
+        // Se quiser adicionar mais cartelas, continue o processo
+        bingo.venderCartela(new Jogador("Jogador2", 2, bingo));
+        manipularCart.adicionarCartela(bingo.pegarCartelaPeloId(2));
+
+        // Apagar cartelas
+        manipularCart.apagarCartelas();
     }
 }
+
+
+/*Por quê vivo a sofrer
+Pois eu nada fiz
+Para merecer
+Te dei carinho amor
+Em troca ganhei ingratidão
+Não sei porquê, mas acho
+Que é falta de compreensão
+Você me tem como réu
+O culpado e o ladrão
+Por tentar ganhar seu coração
+Te dei carinho amor
+Em troca ganhei ingratidão
+Não sei porquê, mas acho
+Que é falta de compreensão
+Você me tem como réu
+O culpado e o ladrão
+Por tentar ganhar seu coração
+Todo mundo erra
+Todo mundo erra sempre
+Todo mundo vai errar
+Não sei porquê meu Deus
+Sozinho eu vivo a penar
+Não tenho nada a pedir
+Também não tenho nada a dar
+Por isso é que eu vou me mandar
+Vou me embora agora
+Vou me embora agora
+Vou embora prá outro planeta
+Na velocidade da luz
+Ou quem sabe de um cometa
+Eu vou solitário e frio
+Onde a morte me aqueça
+Talvez assim de uma vez
+Para sempre eu lhe esqueça
+Te dei carinho amor
+Em troca ganhei ingratidão
+Não sei porquê, mas acho
+Que é falta de compreensão
+Você me tem como réu
+O culpado e o ladrão
+Por tentar ganhar seu coração
+Todo mundo erra
+Todo mundo erra sempre
+Todo mundo vai errar
+Não sei porquê meu Deus
+Sozinho eu vivo a penar
+Não tenho nada a pedir
+Também não tenho nada a dar
+Por isso é que eu vou me mandar
+Vou me embora agora
+Vou me embora agora
+Vou embora prá outro planeta
+Na velocidade da luz
+Ou quem sabe de um cometa
+Eu vou solitário e frio
+Onde a morte me aqueça
+Talvez assim de uma vez
+Todo mundo erra
+Todo mundo erra sempre
+Todo mundo vai errar
+Não sei porquê meu Deus
+Sozinho eu vivo a penar
+Não tenho nada a pedir
+Também não tenho nada a dar
+Por isso é que eu vou me mandar
+Por isso é que eu vou me mandar
+Por isso é que eu vou me mandar*/

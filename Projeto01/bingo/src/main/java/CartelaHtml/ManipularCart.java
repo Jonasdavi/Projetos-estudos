@@ -7,79 +7,102 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+<<<<<<< HEAD
 
 import LogicaBingo.Cartela;
 
 public class ManipularCart{
+=======
+>>>>>>> 50354eaf81ceb4255a37c7c3d43ce474bc7360d6
 
-    private String numerosCartelaHtml[]= new String[25];
+import LogicaBingo.Cartela;
 
-    public ManipularCart(){
-        
+public class ManipularCart {
+
+    private Document doc;
+    private String[] numerosCartelaHtml = new String[25];
+
+    public ManipularCart() {
+        try {
+            // Carregar o arquivo HTML existente (index.html)
+            doc = Jsoup.parse(new File("src/main/java/cartelahtml/index.html"), "UTF-8");
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar arquivo: " + e.getMessage());
+        }
     }
-    
-    public void geraCartela(Cartela cartela){
-        int[][] matrizCartela= cartela.getCartela();
 
-        int qtColunas= matrizCartela[0].length;
+    public void adicionarCartela(Cartela cartela) {
+        int[][] matrizCartela = cartela.getCartela();
+        int qtColunas = matrizCartela[0].length;
 
-        //tranformar a matriz em array de String:
-        for(int l=0; l<matrizCartela.length; l++){
-            for(int c=0; c<matrizCartela[0].length; c++){
-
-                String zeroEsquerda= matrizCartela[l][c]<10? "0" : "";
-
-                int indiceArray= l*qtColunas + c; //indice do array em relacao a matriz
-
-                numerosCartelaHtml[indiceArray]= zeroEsquerda + String.valueOf(matrizCartela[l][c]);
+        // Preencher os números da cartela
+        for (int l = 0; l < matrizCartela.length; l++) {
+            for (int c = 0; c < matrizCartela[0].length; c++) {
+                String zeroEsquerda = matrizCartela[l][c] < 10 ? "0" : "";
+                int indiceArray = l * qtColunas + c;
+                numerosCartelaHtml[indiceArray] = zeroEsquerda + String.valueOf(matrizCartela[l][c]);
             }
         }
 
-        for(int l=0; l<numerosCartelaHtml.length; l++){
+        // Encontrar a tabela existente no HTML
+        Element corpo = doc.body();
+        Element tabela = corpo.select("table").first();  // Seleciona a primeira tabela existente
 
-                System.out.println(numerosCartelaHtml[l]);
-            
+        // Se não encontrar a tabela, cria uma nova
+        if (tabela == null) {
+            tabela = corpo.appendElement("table");
+            tabela.attr("border", "1");
         }
 
+        // Criação de uma nova linha na tabela para a cartela
+        Element corpoTabela = tabela.select("tbody").first();
+        if (corpoTabela == null) {
+            corpoTabela = tabela.appendElement("tbody");
+        }
 
-
-        try{
-            Document doc = Jsoup.parse(new File("src/main/java/cartelahtml/index.html"), "UTF-8");
-
-            for(int i=0; i<numerosCartelaHtml.length; i++){
-
-                if(numerosCartelaHtml[i].equals("00")){
-                    continue;
+        // Preencher a tabela com os números da cartela
+        for (int i = 0; i < 5; i++) {
+            Element linha = corpoTabela.appendElement("tr");
+            for (int j = 0; j < 5; j++) {
+                int indice = i * 5 + j;
+                if (indice < 25) {
+                    Element botao = linha.appendElement("td").appendElement("button");
+                    botao.attr("id", String.valueOf(indice));
+                    botao.attr("onclick", "mudarCor()");
+                    botao.text(numerosCartelaHtml[indice]);
                 }
-
-                String id= String.valueOf(i);
-                Element botao= doc.getElementById(id);
-
-                botao.text(numerosCartelaHtml[i]);
             }
-            //Elements elementosNumeros = doc.select("button");
+        }
 
+        // Adicionar o rodapé da cartela
+        Element rodapeTabela = tabela.appendElement("tfoot");
+        Element linhaRodape = rodapeTabela.appendElement("tr");
+        linhaRodape.appendElement("td").attr("colspan", "5").attr("id", "idCartela").text("ID: " + cartela.getId());
+        linhaRodape = rodapeTabela.appendElement("tr");
+        linhaRodape.appendElement("td").attr("colspan", "5").attr("id", "nomeJogador").text("Jogador: ");
 
-            // int indice = 0;
-            // for (int i = 0; i < matrizCartela.length; i++) {
-            //     for (int j = 0; j < matrizCartela[i].length; j++) {
-            //         if (matrizCartela[i][j] != 0) {
-            //             //Element botao = botoes.get(indice++);
-            //             //botao.text(String.valueOf(matrizCartela[i][j]));
-            //         } else {
-            //             indice++; // Pula o elemento "Espaco Livre"
-            //         }
-            //     }
-            // }
+        // Salvar o arquivo HTML modificado
+        try (FileWriter writer = new FileWriter("src/main/java/cartelahtml/cartela_nova.html")) {
+            writer.write(doc.html());
+            System.out.println("Cartela adicionada com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar arquivo: " + e.getMessage());
+        }
+    }
 
+    
+    @SuppressWarnings("ConvertToTryWithResources")
+    public void apagarCartelas() {
+        try {
+            // Carregar novamente o arquivo index.html
+            doc = Jsoup.parse(new File("src/main/java/cartelahtml/index.html"), "UTF-8");
+            doc.body().empty();  // Apagar todo o conteúdo da página
             FileWriter writer = new FileWriter("src/main/java/cartelahtml/cartela_nova.html");
             writer.write(doc.html());
             writer.close();
-
-            System.out.println("Arquivo modificado salvo com sucesso!");
-        }
-        catch (IOException e) {
-            System.out.println("Erro ao manipular arquivo: " + e.getMessage());
+            System.out.println("Cartelas apagadas com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao apagar cartelas: " + e.getMessage());
         }
     }
 }
