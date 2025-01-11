@@ -109,7 +109,7 @@ public class ManipularCart {
     public void addCartelas(Jogador jogador) throws IOException{
         // Carregar o arquivo HTML existente (index.html) a partir de 'Projeto01/bingo/src/main/resources'
         File inputFile = new File("src/main/java/cartelahtml/index.html");
-        doc = Jsoup.parse(inputFile, "UTF-8");
+        Document doc = Jsoup.parse(inputFile, "UTF-8");
 
         ArrayList<Cartela> cartelas = jogador.getCartelas();
 

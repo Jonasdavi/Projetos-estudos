@@ -77,9 +77,13 @@ public class Tela extends javax.swing.JFrame {
         jdCompra.setLocationRelativeTo(null);
         jdCartela.setLocationRelativeTo(null);
         jdVerificarId.setLocationRelativeTo(null);
+        jdQrcode.setLocationRelativeTo(null);
+        
+        //exibirQrcode();
         
         
         setExtendedState(MAXIMIZED_BOTH);
+        
     }
     
     
@@ -160,6 +164,16 @@ public class Tela extends javax.swing.JFrame {
         jdVerificarId.setVisible(true);
     }
     
+    
+    public void exibirQrcode(){
+        PanelQrCode pQr= new PanelQrCode();
+        String indiceQr= "qr";
+        
+        jdQrcode.getContentPane().add(pQr, indiceQr);
+        ((CardLayout) (jdQrcode.getContentPane().getLayout())).show(jdQrcode.getContentPane(), indiceQr);
+        
+        jdQrcode.setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,14 +187,13 @@ public class Tela extends javax.swing.JFrame {
         jdCompra = new javax.swing.JDialog();
         jdVerificarId = new javax.swing.JDialog();
         jdCartela = new javax.swing.JDialog();
+        jdQrcode = new javax.swing.JDialog();
         card = new javax.swing.JPanel();
 
-        jdCompra.setMaximumSize(new java.awt.Dimension(500, 300));
         jdCompra.setMinimumSize(new java.awt.Dimension(200, 100));
         jdCompra.setModal(true);
         jdCompra.setSize(new java.awt.Dimension(350, 150));
 
-        jdVerificarId.setMaximumSize(new java.awt.Dimension(500, 300));
         jdVerificarId.setMinimumSize(new java.awt.Dimension(200, 100));
         jdVerificarId.setModal(true);
         jdVerificarId.setSize(new java.awt.Dimension(300, 150));
@@ -189,6 +202,10 @@ public class Tela extends javax.swing.JFrame {
         jdCartela.setModal(true);
         jdCartela.setSize(new java.awt.Dimension(300, 400));
         jdCartela.getContentPane().setLayout(new java.awt.CardLayout());
+
+        jdQrcode.setModal(true);
+        jdQrcode.setSize(new java.awt.Dimension(320, 350));
+        jdQrcode.getContentPane().setLayout(new java.awt.CardLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -237,6 +254,7 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JPanel card;
     private javax.swing.JDialog jdCartela;
     private javax.swing.JDialog jdCompra;
+    private javax.swing.JDialog jdQrcode;
     private javax.swing.JDialog jdVerificarId;
     // End of variables declaration//GEN-END:variables
 }

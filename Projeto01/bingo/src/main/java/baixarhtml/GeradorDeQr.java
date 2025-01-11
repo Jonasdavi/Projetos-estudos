@@ -55,7 +55,7 @@ public class GeradorDeQr {
             // Converte a matriz do QR Code em uma imagem e a salva no caminho especificado.
             MatrixToImageWriter.writeToPath(bitMatrix, fileFormat, path);
             BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-            TelaQrCode(qrImage);
+            //TelaQrCode(qrImage);
 
             // Exibe uma mensagem de sucesso ao gerar o QR Code.
             System.out.println("QR Code gerado com sucesso em: " + filePath);

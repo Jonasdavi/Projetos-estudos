@@ -6,7 +6,14 @@ package tela;
 
 import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
+import baixarhtml.FileUploader;
+import baixarhtml.GeradorDeQr;
+import cartelahtml.ManipularCart;
 import java.awt.GridLayout;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -74,6 +81,21 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
         
         btVisualizarNoCll.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    
+                    try {
+                        ManipularCart mc= new ManipularCart();
+                        mc.addCartelas(jogador);
+                        
+                        GeradorDeQr gerarQr= new GeradorDeQr(FileUploader.getLinkDownload());
+                        
+                        tela.exibirQrcode();
+                    } catch (IOException ex) {
+                        Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (URISyntaxException ex) {
+                        Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    
                     tela.irTelaInicial();
                 }
             });
