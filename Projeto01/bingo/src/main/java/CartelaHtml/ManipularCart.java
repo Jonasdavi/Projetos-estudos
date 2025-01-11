@@ -7,13 +7,6 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-<<<<<<< HEAD
-
-import LogicaBingo.Cartela;
-
-public class ManipularCart{
-=======
->>>>>>> 50354eaf81ceb4255a37c7c3d43ce474bc7360d6
 
 import LogicaBingo.Cartela;
 
