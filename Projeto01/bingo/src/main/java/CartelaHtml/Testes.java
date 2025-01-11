@@ -24,9 +24,14 @@ public class Testes {
         Bingo bingo = new Bingo();
 
         Jogador jogador= new Jogador("jonas", 3, bingo);
+        Jogador jogador2= new Jogador("darlan", 2, bingo);
+
         ManipularCart mc= new ManipularCart();
 
         mc.addCartelas(jogador);
+
+        mc.addCartelas(jogador2);
+
 
 
 
