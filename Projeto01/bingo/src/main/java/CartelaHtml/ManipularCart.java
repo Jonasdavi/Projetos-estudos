@@ -3,6 +3,7 @@ package cartelahtml;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,10 +16,11 @@ public class ManipularCart {
     private Document doc;
     private String[] numerosCartelaHtml = new String[25];
 
-    public ManipularCart() {
+    public ManipularCart() throws URISyntaxException {
         try {
-            // Carregar o arquivo HTML existente (index.html)
-            doc = Jsoup.parse(new File("src/main/java/cartelahtml/index.html"), "UTF-8");
+            // Carregar o arquivo HTML existente (index.html) a partir de 'Projeto01/bingo/src/main/resources'
+            File inputFile = new File(getClass().getClassLoader().getResource("cartelahtml/index.html").toURI());
+            doc = Jsoup.parse(inputFile, "UTF-8");
         } catch (IOException e) {
             System.out.println("Erro ao carregar arquivo: " + e.getMessage());
         }
@@ -75,7 +77,7 @@ public class ManipularCart {
         linhaRodape.appendElement("td").attr("colspan", "5").attr("id", "nomeJogador").text("Jogador: ");
 
         // Salvar o arquivo HTML modificado
-        try (FileWriter writer = new FileWriter("src/main/java/cartelahtml/cartela_nova.html")) {
+        try (FileWriter writer = new FileWriter("cartela_nova.html")) {
             writer.write(doc.html());
             System.out.println("Cartela adicionada com sucesso!");
         } catch (IOException e) {
@@ -83,14 +85,16 @@ public class ManipularCart {
         }
     }
 
-    
     @SuppressWarnings("ConvertToTryWithResources")
-    public void apagarCartelas() {
+    public void apagarCartelas() throws URISyntaxException {
         try {
-            // Carregar novamente o arquivo index.html
-            doc = Jsoup.parse(new File("src/main/java/cartelahtml/index.html"), "UTF-8");
+            // Carregar novamente o arquivo index.html da pasta resources
+            File inputFile = new File(getClass().getClassLoader().getResource("cartelahtml/index.html").toURI());
+            doc = Jsoup.parse(inputFile, "UTF-8");
             doc.body().empty();  // Apagar todo o conteúdo da página
-            FileWriter writer = new FileWriter("src/main/java/cartelahtml/cartela_nova.html");
+
+            // Salvar o arquivo HTML vazio
+            FileWriter writer = new FileWriter("cartela_nova.html");
             writer.write(doc.html());
             writer.close();
             System.out.println("Cartelas apagadas com sucesso!");
