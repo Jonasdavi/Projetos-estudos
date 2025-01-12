@@ -5,7 +5,11 @@
 package tela;
 
 import LogicaBingo.Bingo;
+import LogicaBingo.Cartela;
+import LogicaBingo.Jogador;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -34,16 +38,29 @@ public class PanelSorteio extends javax.swing.JPanel {
     public PanelSorteio(Tela t, Bingo b) {
         initComponents();
         
-        tempoSortear= 1;
+        tempoSortear= 5;
         sorteioPausado= true;
         sorteioAcabado=false;
         
         tela=t;
         bingo= b;
         
+        //quando o X da janela for clicado:
+        jdVerificarId.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+                //resetar informacoes de lá
+                mensagemValidacao.setVisible(false);
+                tfId.setText("");
+                btVisualizarCartela.setVisible(false);
+            }
+        });
+        
+        //deixar os jdialogs no centro da tela:
+        jdAjustarTempo.setLocationRelativeTo(null);
+        jdVerificarId.setLocationRelativeTo(null);
+        
         iniciarLabelsSorteio();
-        
-        
     }
     
     private void iniciarLabelsSorteio(){
@@ -131,6 +148,22 @@ public class PanelSorteio extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jdAjustarTempo = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jsSegundos = new javax.swing.JSpinner();
+        jLabel1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jdVerificarId = new javax.swing.JDialog();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        tfId = new javax.swing.JTextField();
+        btVerificar = new javax.swing.JButton();
+        mensagemValidacao = new javax.swing.JLabel();
+        btVisualizarCartela = new javax.swing.JButton();
+        jdVisualizarGanhadores = new javax.swing.JDialog();
         panelSorteacao = new javax.swing.JPanel();
         lbNumSorteado = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -140,7 +173,176 @@ public class PanelSorteio extends javax.swing.JPanel {
         btFinalizarSorteio = new javax.swing.JButton();
         btVerificarVitoria = new javax.swing.JButton();
         btPausarContinuar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         panelNums = new javax.swing.JPanel();
+
+        jdAjustarTempo.setBackground(new java.awt.Color(204, 255, 204));
+        jdAjustarTempo.setModal(true);
+        jdAjustarTempo.setSize(new java.awt.Dimension(330, 190));
+
+        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
+
+        jsSegundos.setModel(new javax.swing.SpinnerNumberModel(5, 5, 40, 1));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        jLabel1.setText("Tempo em segundos para sortear um número:");
+
+        jButton3.setBackground(new java.awt.Color(51, 255, 51));
+        jButton3.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
+        jButton3.setText("Confirmar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setBackground(new java.awt.Color(255, 0, 0));
+        jButton4.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
+        jButton4.setText("Cancelar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jsSegundos))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jsSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(jPanel2, new java.awt.GridBagConstraints());
+
+        jdAjustarTempo.getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
+
+        jdVerificarId.setModal(true);
+        jdVerificarId.setSize(new java.awt.Dimension(225, 170));
+
+        jPanel4.setLayout(new java.awt.GridBagLayout());
+
+        jLabel2.setText("ID:");
+
+        tfId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfIdActionPerformed(evt);
+            }
+        });
+        tfId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfIdKeyReleased(evt);
+            }
+        });
+
+        btVerificar.setText("Verificar");
+        btVerificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVerificarActionPerformed(evt);
+            }
+        });
+
+        mensagemValidacao.setText("jLabel2");
+
+        btVisualizarCartela.setText("Visualizar Cartela");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btVerificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btVisualizarCartela, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(mensagemValidacao, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mensagemValidacao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btVerificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btVisualizarCartela)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        mensagemValidacao.setVisible(false);
+        btVisualizarCartela.setVisible(false);
+
+        jPanel4.add(jPanel5, new java.awt.GridBagConstraints());
+
+        javax.swing.GroupLayout jdVerificarIdLayout = new javax.swing.GroupLayout(jdVerificarId.getContentPane());
+        jdVerificarId.getContentPane().setLayout(jdVerificarIdLayout);
+        jdVerificarIdLayout.setHorizontalGroup(
+            jdVerificarIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 225, Short.MAX_VALUE)
+            .addGroup(jdVerificarIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdVerificarIdLayout.createSequentialGroup()
+                    .addContainerGap(23, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(23, Short.MAX_VALUE)))
+        );
+        jdVerificarIdLayout.setVerticalGroup(
+            jdVerificarIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+            .addGroup(jdVerificarIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdVerificarIdLayout.createSequentialGroup()
+                    .addContainerGap(21, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(21, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout jdVisualizarGanhadoresLayout = new javax.swing.GroupLayout(jdVisualizarGanhadores.getContentPane());
+        jdVisualizarGanhadores.getContentPane().setLayout(jdVisualizarGanhadoresLayout);
+        jdVisualizarGanhadoresLayout.setHorizontalGroup(
+            jdVisualizarGanhadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jdVisualizarGanhadoresLayout.setVerticalGroup(
+            jdVisualizarGanhadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setLayout(new java.awt.BorderLayout());
 
@@ -173,7 +375,10 @@ public class PanelSorteio extends javax.swing.JPanel {
         lbHistorico3.setToolTipText("");
         jPanel1.add(lbHistorico3);
 
+        btFinalizarSorteio.setBackground(new java.awt.Color(255, 0, 0));
+        btFinalizarSorteio.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btFinalizarSorteio.setText("Finalizar Sorteio");
+        btFinalizarSorteio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btFinalizarSorteio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btFinalizarSorteioActionPerformed(evt);
@@ -187,12 +392,24 @@ public class PanelSorteio extends javax.swing.JPanel {
             }
         });
 
+        btPausarContinuar.setBackground(new java.awt.Color(51, 255, 51));
+        btPausarContinuar.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btPausarContinuar.setText("Iniciar Sorteio");
+        btPausarContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPausarContinuarActionPerformed(evt);
             }
         });
+
+        jButton1.setText("Ajustar Tempo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Visu. Ganhadores");
 
         javax.swing.GroupLayout panelSorteacaoLayout = new javax.swing.GroupLayout(panelSorteacao);
         panelSorteacao.setLayout(panelSorteacaoLayout);
@@ -201,14 +418,24 @@ public class PanelSorteio extends javax.swing.JPanel {
             .addGroup(panelSorteacaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbNumSorteado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                    .addComponent(lbNumSorteado, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(btVerificarVitoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btFinalizarSorteio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btPausarContinuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btFinalizarSorteio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btPausarContinuar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSorteacaoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btVerificarVitoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         panelSorteacaoLayout.setVerticalGroup(
             panelSorteacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,12 +443,16 @@ public class PanelSorteio extends javax.swing.JPanel {
                 .addComponent(lbNumSorteado, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btPausarContinuar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btVerificarVitoria)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btFinalizarSorteio))
+                .addComponent(jButton2)
+                .addGap(35, 35, 35)
+                .addComponent(btPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btFinalizarSorteio, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         add(panelSorteacao, java.awt.BorderLayout.LINE_END);
@@ -234,7 +465,8 @@ public class PanelSorteio extends javax.swing.JPanel {
 
     private void btVerificarVitoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerificarVitoriaActionPerformed
         // TODO add your handling code here:
-        tela.exibirDialogVerificarId();
+        //tela.exibirDialogVerificarId();
+        jdVerificarId.setVisible(true);
     }//GEN-LAST:event_btVerificarVitoriaActionPerformed
 
     private void btFinalizarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarSorteioActionPerformed
@@ -262,17 +494,112 @@ public class PanelSorteio extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btPausarContinuarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        jdAjustarTempo.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        jdAjustarTempo.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        setTempoSortearNum((int) jsSegundos.getValue());
+        jdAjustarTempo.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
+        // TODO add your handling code here:
+        mensagemValidacao.setVisible(false);
+        //tfId.setText("");
+        btVisualizarCartela.setVisible(false);
+    }//GEN-LAST:event_tfIdActionPerformed
+
+    private void tfIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIdKeyReleased
+        // TODO add your handling code here:
+        mensagemValidacao.setVisible(false);
+        //tfId.setText("");
+        btVisualizarCartela.setVisible(false);
+    }//GEN-LAST:event_tfIdKeyReleased
+
+    private void btVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerificarActionPerformed
+        // TODO add your handling code here:
+        mensagemValidacao.setVisible(false);
+        btVisualizarCartela.setVisible(false);
+
+        String idRecebido= tfId.getText();
+        int numId;
+
+        try{
+            numId= Integer.parseInt(idRecebido);
+        }
+        catch(Exception e){
+            mensagemValidacao.setText("Digite um ID valido!");
+            mensagemValidacao.setForeground(Color.red);
+            mensagemValidacao.setVisible(true);
+            return;
+        }
+
+        Cartela cartelaId=bingo.pegarCartelaPeloId(numId);
+
+        if(cartelaId==null){
+            mensagemValidacao.setText("Id nao encontrado.");
+            mensagemValidacao.setForeground(Color.red);
+            mensagemValidacao.setVisible(true);
+            return;
+        }
+        else{
+            //se a lista de ganhadores tiver algum jogador:
+            if(!bingo.getGanhadores().isEmpty()){
+                for(Jogador ganhador : bingo.getGanhadores()){
+                    if(ganhador.containsThisCartelaPremiada(cartelaId)){
+                        mensagemValidacao.setText("Vitoria Valida!");
+                        mensagemValidacao.setForeground(Color.green);
+                        mensagemValidacao.setVisible(true);
+                        return;
+                    }
+                }
+            }
+            mensagemValidacao.setText("Vitoria Invalida!");
+            mensagemValidacao.setForeground(Color.red);
+            mensagemValidacao.setVisible(true);
+            return;
+
+        }
+
+    }//GEN-LAST:event_btVerificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btFinalizarSorteio;
     private javax.swing.JButton btPausarContinuar;
+    private javax.swing.JButton btVerificar;
     private javax.swing.JButton btVerificarVitoria;
+    private javax.swing.JButton btVisualizarCartela;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JDialog jdAjustarTempo;
+    private javax.swing.JDialog jdVerificarId;
+    private javax.swing.JDialog jdVisualizarGanhadores;
+    private javax.swing.JSpinner jsSegundos;
     private javax.swing.JLabel lbHistorico1;
     private javax.swing.JLabel lbHistorico2;
     private javax.swing.JLabel lbHistorico3;
     private javax.swing.JLabel lbNumSorteado;
+    private javax.swing.JLabel mensagemValidacao;
     private javax.swing.JPanel panelNums;
     private javax.swing.JPanel panelSorteacao;
+    private javax.swing.JTextField tfId;
     // End of variables declaration//GEN-END:variables
 }

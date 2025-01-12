@@ -13,5 +13,6 @@ import com.google.zxing.WriterException;
 public class Testes {
     public static void main(String[] args) throws WriterException {
         GeradorDeQr teste= new GeradorDeQr(FileUploader.getLinkDownload());
+        
     }
 }

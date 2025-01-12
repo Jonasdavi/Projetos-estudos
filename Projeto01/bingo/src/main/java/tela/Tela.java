@@ -30,13 +30,12 @@ public class Tela extends javax.swing.JFrame {
     private PanelGUICartela pGuiCartela;
     public final String PGUICARTELA= "3";
     
-    private PanelCompraCartela pCompraCartela;
-    public final String PCOMPRACARTELA= "4";
+    //private PanelCompraCartela pCompraCartela;
+    //public final String PCOMPRACARTELA= "4";
     
     private PanelDetalheCompra pDetalheCompra;
     public final String PDETALHECOMPRA= "5";
     
-    private PanelVerificarVitoria pVerificVitoria;
     
     
     
@@ -50,38 +49,28 @@ public class Tela extends javax.swing.JFrame {
         irTelaInicial();
         
         //configurando dialog de compra de cartela:
-        pCompraCartela=new PanelCompraCartela(this);
-        jdCompra.add(pCompraCartela);
+        //pCompraCartela=new PanelCompraCartela(this);
+        //jdCompra.add(pCompraCartela);
         
         //quando o X de sair for clicado, antes de sair reiniciar informacoes do painel de compra:
-        jdCompra.addWindowListener(new WindowAdapter(){
-            @Override
-            public void windowClosing(WindowEvent e){
-                pCompraCartela.reiniciarInfor();
-                jdCompra.dispose();
-            }
-        });
+//        jdCompra.addWindowListener(new WindowAdapter(){
+//            @Override
+//            public void windowClosing(WindowEvent e){
+//                pCompraCartela.reiniciarInfor();
+//                jdCompra.dispose();
+//            }
+//        });
         
-        pVerificVitoria= new PanelVerificarVitoria(bingo);
-        jdVerificarId.add(pVerificVitoria);
         
-        jdVerificarId.addWindowListener(new WindowAdapter(){
-            @Override
-            public void windowClosing(WindowEvent e){
-                pVerificVitoria.sairDialog();
-                jdVerificarId.dispose();
-            }
-        });
         
         //deixando todos os JDialogs no centro da tela:
-        jdCompra.setLocationRelativeTo(null);
+        //jdCompra.setLocationRelativeTo(null);
         jdCartela.setLocationRelativeTo(null);
-        jdVerificarId.setLocationRelativeTo(null);
         jdQrcode.setLocationRelativeTo(null);
         
         //exibirQrcode();
         
-        
+        //maximizando tela:
         setExtendedState(MAXIMIZED_BOTH);
         
     }
@@ -96,9 +85,9 @@ public class Tela extends javax.swing.JFrame {
         return card;
     }
     
-    public PanelCompraCartela getPCompraCartela(){
-        return pCompraCartela;
-    }
+//    public PanelCompraCartela getPCompraCartela(){
+//        return pCompraCartela;
+//    }
     
     public void irDetalheCompra(Jogador jogador){
         pDetalheCompra= new PanelDetalheCompra(this, jogador);
@@ -131,19 +120,19 @@ public class Tela extends javax.swing.JFrame {
         
     }
     
-    public void irCompraCartela(){
-        //pCompraCartela= new PanelCompraCartela(this);
-        //card.add(pCompraCartela, PCOMPRACARTELA);
-        //((CardLayout) (card.getLayout())).show(card, PCOMPRACARTELA);
-        
-        //jdCompra.add(pCompraCartela);
-        
-        jdCompra.setVisible(true);
-    }
+//    public void irCompraCartela(){
+//        //pCompraCartela= new PanelCompraCartela(this);
+//        //card.add(pCompraCartela, PCOMPRACARTELA);
+//        //((CardLayout) (card.getLayout())).show(card, PCOMPRACARTELA);
+//        
+//        //jdCompra.add(pCompraCartela);
+//        
+//        jdCompra.setVisible(true);
+//    }
     
-    public void fecharJdCompra(){
-        jdCompra.setVisible(false);
-    }
+//    public void fecharJdCompra(){
+//        jdCompra.setVisible(false);
+//    }
     
     public void irSorteio(){
         pSorteio= new PanelSorteio(this, bingo);
@@ -158,10 +147,6 @@ public class Tela extends javax.swing.JFrame {
     public void finalizarSorteio(){
         bingo= new Bingo();
         irTelaInicial();
-    }
-    
-    public void exibirDialogVerificarId(){
-        jdVerificarId.setVisible(true);
     }
     
     
@@ -184,19 +169,9 @@ public class Tela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jdCompra = new javax.swing.JDialog();
-        jdVerificarId = new javax.swing.JDialog();
         jdCartela = new javax.swing.JDialog();
         jdQrcode = new javax.swing.JDialog();
         card = new javax.swing.JPanel();
-
-        jdCompra.setMinimumSize(new java.awt.Dimension(200, 100));
-        jdCompra.setModal(true);
-        jdCompra.setSize(new java.awt.Dimension(350, 150));
-
-        jdVerificarId.setMinimumSize(new java.awt.Dimension(200, 100));
-        jdVerificarId.setModal(true);
-        jdVerificarId.setSize(new java.awt.Dimension(300, 150));
 
         jdCartela.setMinimumSize(new java.awt.Dimension(200, 300));
         jdCartela.setModal(true);
@@ -253,8 +228,6 @@ public class Tela extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel card;
     private javax.swing.JDialog jdCartela;
-    private javax.swing.JDialog jdCompra;
     private javax.swing.JDialog jdQrcode;
-    private javax.swing.JDialog jdVerificarId;
     // End of variables declaration//GEN-END:variables
 }

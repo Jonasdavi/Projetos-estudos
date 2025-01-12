@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import tela.PanelCompraCartela;
+//import tela.PanelCompraCartela;
 import tela.PanelSorteio;
 import tela.Tela;
 
@@ -57,15 +57,16 @@ public class Main {
                         }
                         else{ //se o sorteio estiver rolando
                             
-                            //sortear:
-                            pSorteio.sortearNum();
-
                             //pausar sorteio pra dar tempo marcarem as cartelas (pela quantidade de segundos desejada por quem ta sorteando)
                             try {//pausar fala pela quantidade de tempo desejada
                                 Thread.sleep(pSorteio.getTempoSortear()*1000); //*1000 pra deixar o tempo em segundos
                             } catch (InterruptedException ex) {
                                 Logger.getLogger(PanelSorteio.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            
+                            //sortear:
+                            pSorteio.sortearNum();
+
                         }
                     }
                 }

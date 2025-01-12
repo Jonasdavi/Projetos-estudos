@@ -4,6 +4,11 @@
  */
 package tela;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Jonas
@@ -15,8 +20,23 @@ public class PanelQrCode extends javax.swing.JPanel {
      */
     public PanelQrCode() {
         initComponents();
+        String caminhoImg= "src/main/java/baixarhtml/qrcode.png";
+        try {
+            // Carrega a nova imagem do mesmo caminho usando ImageIO
+            BufferedImage imagemBuffered = ImageIO.read(new File(caminhoImg));
+            ImageIcon imagemIcon = new ImageIcon(imagemBuffered);
+            
+            // Atualiza o JLabel com a nova imagem
+            lbImagem.setIcon(imagemIcon);
+            
+            // Repaint não é necessário aqui, pois o setIcon já faz isso.
+        } catch (Exception e) {
+            e.printStackTrace(); // Para depuração, caso ocorra um erro ao carregar a imagem
+        }
         
-        lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baixarhtml/qrcode.png"))); // NOI18N
+        //ImageIcon icon= new ImageIcon();
+        
+        //lbImagem.setIcon(icon); // NOI18N
     }
 
     /**
@@ -33,8 +53,6 @@ public class PanelQrCode extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
-
-        lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/baixarhtml/qrcode.png"))); // NOI18N
         add(lbImagem, java.awt.BorderLayout.CENTER);
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));

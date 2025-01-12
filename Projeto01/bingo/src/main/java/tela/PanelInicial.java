@@ -4,6 +4,8 @@
  */
 package tela;
 
+import LogicaBingo.Jogador;
+
 /**
  *
  * @author Jonas
@@ -22,7 +24,8 @@ public class PanelInicial extends javax.swing.JPanel {
         lbQtCartelas.setText(String.valueOf(qtNumCartela));
         lbQtJogadores.setText(String.valueOf(qtNumJogadores));
         
-        jdCompra.add(new PanelCompraCartela(tela));
+        //deixando o jdialog no centro:
+        jdCompra.setLocationRelativeTo(null);
     }
 
     /**
@@ -35,6 +38,13 @@ public class PanelInicial extends javax.swing.JPanel {
     private void initComponents() {
 
         jdCompra = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jtNome = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        qtCartelasComprar = new javax.swing.JSpinner();
+        btCancelar = new javax.swing.JButton();
+        btConfirmar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btCompraCartela = new javax.swing.JButton();
         btSortear = new javax.swing.JButton();
@@ -47,8 +57,43 @@ public class PanelInicial extends javax.swing.JPanel {
         jdCompra.setModal(true);
         jdCompra.setSize(new java.awt.Dimension(300, 200));
 
+        jPanel1.setLayout(new java.awt.GridLayout(3, 2));
+
+        jLabel3.setText("nome (opicional):");
+        jPanel1.add(jLabel3);
+        jPanel1.add(jtNome);
+
+        jLabel4.setText("Quantidade de Cartelas");
+        jPanel1.add(jLabel4);
+
+        qtCartelasComprar.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel1.add(qtCartelasComprar);
+
+        btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btCancelar);
+
+        btConfirmar.setText("Confirmar");
+        btConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConfirmarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btConfirmar);
+
+        jdCompra.getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        setBackground(new java.awt.Color(204, 255, 204));
         setLayout(new java.awt.GridBagLayout());
 
+        jPanel2.setOpaque(false);
+
+        btCompraCartela.setBackground(new java.awt.Color(255, 255, 51));
+        btCompraCartela.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btCompraCartela.setText("Adicionar Novo Jogador");
         btCompraCartela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,6 +101,8 @@ public class PanelInicial extends javax.swing.JPanel {
             }
         });
 
+        btSortear.setBackground(new java.awt.Color(0, 204, 0));
+        btSortear.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btSortear.setText("Iniciar Sorteio");
         btSortear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,31 +110,36 @@ public class PanelInicial extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel1.setText("Quantidade de Jogadores: ");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel2.setText("Quantidade de Cartelas:");
 
+        lbQtJogadores.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         lbQtJogadores.setText("0");
 
+        lbQtCartelas.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         lbQtCartelas.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btSortear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btCompraCartela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbQtCartelas, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                            .addComponent(lbQtJogadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(lbQtJogadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -102,10 +154,10 @@ public class PanelInicial extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbQtCartelas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btCompraCartela, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btCompraCartela, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btSortear, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addComponent(btSortear, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel2, new java.awt.GridBagConstraints());
@@ -113,8 +165,9 @@ public class PanelInicial extends javax.swing.JPanel {
 
     private void btCompraCartelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCompraCartelaActionPerformed
         // TODO add your handling code here:
-        tela.irCompraCartela();
-        //jdCompra.setVisible(true);
+        //tela.irCompraCartela();
+        
+        jdCompra.setVisible(true);
     }//GEN-LAST:event_btCompraCartelaActionPerformed
 
     private void btSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSortearActionPerformed
@@ -122,15 +175,46 @@ public class PanelInicial extends javax.swing.JPanel {
         tela.irSorteio();
     }//GEN-LAST:event_btSortearActionPerformed
 
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        // TODO add your handling code here:
+        qtCartelasComprar.setValue(1);
+        jtNome.setText("");
+        //tela.fecharJdCompra();
+        jdCompra.setVisible(false);
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
+        // TODO add your handling code here:
+        int qtCartelas= (int)(qtCartelasComprar.getValue());
+        String nome = jtNome.getText()==null? "" : jtNome.getText();
+        qtCartelasComprar.setValue(1);
+        jtNome.setText("");
+
+        //criando jogador
+        Jogador jogador= new Jogador(nome, qtCartelas, tela.getBingo());
+
+        //tela.fecharJdCompra();
+        jdCompra.setVisible(false);
+
+        tela.irDetalheCompra(jogador);
+    }//GEN-LAST:event_btConfirmarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCancelar;
     private javax.swing.JButton btCompraCartela;
+    private javax.swing.JButton btConfirmar;
     private javax.swing.JButton btSortear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JDialog jdCompra;
+    private javax.swing.JTextField jtNome;
     private javax.swing.JLabel lbQtCartelas;
     private javax.swing.JLabel lbQtJogadores;
+    private javax.swing.JSpinner qtCartelasComprar;
     // End of variables declaration//GEN-END:variables
 }
