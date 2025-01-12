@@ -27,8 +27,8 @@ public class Tela extends javax.swing.JFrame {
     private PanelInicial pInicial;
     public final String PINICIAL= "2";
     
-    private PanelGUICartela pGuiCartela;
-    public final String PGUICARTELA= "3";
+    //private PanelGUICartela pGuiCartela;
+    //public final String PGUICARTELA= "3";
     
     //private PanelCompraCartela pCompraCartela;
     //public final String PCOMPRACARTELA= "4";
@@ -65,8 +65,8 @@ public class Tela extends javax.swing.JFrame {
         
         //deixando todos os JDialogs no centro da tela:
         //jdCompra.setLocationRelativeTo(null);
-        jdCartela.setLocationRelativeTo(null);
-        jdQrcode.setLocationRelativeTo(null);
+        //jdCartela.setLocationRelativeTo(null);
+        //jdQrcode.setLocationRelativeTo(null);
         
         //exibirQrcode();
         
@@ -98,14 +98,14 @@ public class Tela extends javax.swing.JFrame {
         
     }
     
-    public void irCartela(Cartela c, Jogador j){
-        pGuiCartela= new PanelGUICartela(jdCartela, c, j);
-        //card.add(pGuiCartela, PGUICARTELA);
-        jdCartela.getContentPane().add(pGuiCartela, PGUICARTELA);
-        
-        ((CardLayout) (jdCartela.getContentPane().getLayout())).show(jdCartela.getContentPane(), PGUICARTELA);
-        jdCartela.setVisible(true);
-    }
+    //public void irCartela(Cartela c, Jogador j){
+        //pGuiCartela= new PanelGUICartela(jdCartela, c, j);
+//        //card.add(pGuiCartela, PGUICARTELA);
+//        jdCartela.getContentPane().add(pGuiCartela, PGUICARTELA);
+//        
+//        ((CardLayout) (jdCartela.getContentPane().getLayout())).show(jdCartela.getContentPane(), PGUICARTELA);
+//        jdCartela.setVisible(true);
+    //}
     
     public void irTelaInicial(){
         int qtCartelas= bingo.getQtCartelas();
@@ -150,15 +150,15 @@ public class Tela extends javax.swing.JFrame {
     }
     
     
-    public void exibirQrcode(){
-        PanelQrCode pQr= new PanelQrCode();
-        String indiceQr= "qr";
-        
-        jdQrcode.getContentPane().add(pQr, indiceQr);
-        ((CardLayout) (jdQrcode.getContentPane().getLayout())).show(jdQrcode.getContentPane(), indiceQr);
-        
-        jdQrcode.setVisible(true);
-    }
+//    public void exibirQrcode(){
+//        PanelQrCode pQr= new PanelQrCode();
+//        String indiceQr= "qr";
+//        
+//        jdQrcode.getContentPane().add(pQr, indiceQr);
+//        ((CardLayout) (jdQrcode.getContentPane().getLayout())).show(jdQrcode.getContentPane(), indiceQr);
+//        
+//        jdQrcode.setVisible(true);
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -169,18 +169,7 @@ public class Tela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jdCartela = new javax.swing.JDialog();
-        jdQrcode = new javax.swing.JDialog();
         card = new javax.swing.JPanel();
-
-        jdCartela.setMinimumSize(new java.awt.Dimension(200, 300));
-        jdCartela.setModal(true);
-        jdCartela.setSize(new java.awt.Dimension(300, 400));
-        jdCartela.getContentPane().setLayout(new java.awt.CardLayout());
-
-        jdQrcode.setModal(true);
-        jdQrcode.setSize(new java.awt.Dimension(320, 350));
-        jdQrcode.getContentPane().setLayout(new java.awt.CardLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -227,7 +216,5 @@ public class Tela extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel card;
-    private javax.swing.JDialog jdCartela;
-    private javax.swing.JDialog jdQrcode;
     // End of variables declaration//GEN-END:variables
 }

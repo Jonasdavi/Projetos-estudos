@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -27,24 +28,48 @@ import javax.swing.JLabel;
  */
 public class PanelDetalheCompra extends javax.swing.JPanel {
     
+    //atributos para o o panel de detalhe compra:
     private Tela tela;
     private JButton btCartelas[];
     
+    //atributo que serve tanto para o Panel de detalhe compra como a cartela
     private Jogador jogador;
+    
+    //variaveis para o JDialog da cartela:
+    private Cartela cartelaExibir;
+    private JLabel lbNumeros[][]= new JLabel[5][5];
 
+    
+    
+    
     /**
      * Creates new form PanelDetalheCompra
      */
     public PanelDetalheCompra(Tela t, Jogador jogador) {
         initComponents();
         
-        //deixar os dialogs no centro da tela:
+        //deixando os dialogs no centro da tela:
         jdCartela.setLocationRelativeTo(null);
         jdQrcode.setLocationRelativeTo(null);
         
+        //iniciando variaveis para o JDialog da cartela:
         this.jogador= jogador;
+        //iniciando labels onde ficara os numeros da cartela:
+        for(int i=0; i<lbNumeros.length; i++){
+            for(int j=0; j<lbNumeros[0].length; j++){
+                lbNumeros[i][j]= new JLabel();
+                
+                jpNumeros.add(lbNumeros[i][j]); //adicionando a seu panel dos numeros
+            }
+        }
+        
+        
+        
+        //iniciando parte do Panel detalhe compra:
+        
         tela= t;
         
+        //quantidade de cartelas do jogador que acabou de comprar:
         int qtCartelas= jogador.getQtCartelas();
         
         
@@ -58,13 +83,14 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
             String cartelaNum= "Cartela " + String.valueOf(i+1);
             
             JLabel jlb= new JLabel(cartelaNum);
-            btCartelas[i]= new JButton("Visualizar cartela");
-           jlb.setFont(new java.awt.Font("Segoe UI Black", 0, 15)); // NOI18N
-           
-           jlb.setOpaque(true);
-           jlb.setBackground(new java.awt.Color(255, 255, 102));
-            
+            //ajustando propriedades visuais do label dos numeros
+            jlb.setFont(new java.awt.Font("Segoe UI Black", 0, 15)); // NOI18N
+            jlb.setOpaque(true);
+            jlb.setBackground(new java.awt.Color(255, 255, 102));
             jlb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            
+            //botao para visualizar cartela (adicionado ao lado do seu respectivo label)
+            btCartelas[i]= new JButton("Visualizar cartela");
             
             btCartelas[i].addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,8 +101,7 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
                     for(int i=0; i<btCartelas.length; i++){
                         if(evt.getSource() == btCartelas[i]){
                             cartelaExibir= jogador.getCartelas().get(i);
-                            //System.out.println("i");
-                            tela.irCartela(cartelaExibir, jogador);
+                            exibirCartela(cartelaExibir);
                             break;
                         }
                     }
@@ -84,40 +109,15 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
                 }
             });
             
+            //adicionando linha do gridLayout:
             panelDados.add(jlb);
             panelDados.add(btCartelas[i]);
         }
-        
-        //adicionando os botoes de como salvar cartela
-//        JButton btImprimir= new JButton("Imprimir Cartelas");
-//        JButton btVisualizarNoCll= new JButton("Marcar Pelo Celular");
-//        
-//        btVisualizarNoCll.addActionListener(new java.awt.event.ActionListener() {
-//                public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                    
-//                    try {
-//                        ManipularCart mc= new ManipularCart();
-//                        mc.addCartelas(jogador);
-//                        
-//                        GeradorDeQr gerarQr= new GeradorDeQr(FileUploader.getLinkDownload());
-//                        
-//                        tela.exibirQrcode();
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
-//                    } catch (URISyntaxException ex) {
-//                        Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    
-//                    
-//                    tela.irTelaInicial();
-//                }
-//            });
-//        
-//        
-//        
-//        panelDados.add(btImprimir);
-//        panelDados.add(btVisualizarNoCll);
     }
+    
+                                       
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,27 +129,77 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
     private void initComponents() {
 
         jdCartela = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        txtId = new javax.swing.JLabel();
+        txtNomeJogador = new javax.swing.JLabel();
+        btMudarCartela = new javax.swing.JButton();
+        btVoltarCompra = new javax.swing.JButton();
+        jpNumeros = new javax.swing.JPanel();
         jdQrcode = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         lbImagem = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         panelDados = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btMarcarNoCllr = new javax.swing.JButton();
+        btImprimir = new javax.swing.JButton();
 
         jdCartela.setModal(true);
+        jdCartela.setSize(new java.awt.Dimension(320, 410));
 
-        javax.swing.GroupLayout jdCartelaLayout = new javax.swing.GroupLayout(jdCartela.getContentPane());
-        jdCartela.getContentPane().setLayout(jdCartelaLayout);
-        jdCartelaLayout.setHorizontalGroup(
-            jdCartelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jdCartelaLayout.setVerticalGroup(
-            jdCartelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jPanel4.setBackground(new java.awt.Color(51, 0, 153));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+
+        jLabel1.setFont(new java.awt.Font("SimSun", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("CARTELA");
+        jPanel4.add(jLabel1);
+
+        jPanel3.add(jPanel4, java.awt.BorderLayout.PAGE_START);
+
+        jPanel5.setBackground(java.awt.Color.gray);
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel5.setLayout(new java.awt.GridLayout(4, 1));
+
+        txtId.setFont(new java.awt.Font("Sitka Display", 0, 18)); // NOI18N
+        txtId.setText("ID: ");
+        jPanel5.add(txtId);
+
+        txtNomeJogador.setFont(new java.awt.Font("Sitka Text", 0, 18)); // NOI18N
+        txtNomeJogador.setText("Jogador: ");
+        jPanel5.add(txtNomeJogador);
+
+        btMudarCartela.setBackground(new java.awt.Color(255, 255, 204));
+        btMudarCartela.setText("Trocar Cartela");
+        btMudarCartela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMudarCartelaActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btMudarCartela);
+
+        btVoltarCompra.setBackground(new java.awt.Color(255, 0, 0));
+        btVoltarCompra.setText("Voltar");
+        btVoltarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltarCompraActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btVoltarCompra);
+
+        jPanel3.add(jPanel5, java.awt.BorderLayout.PAGE_END);
+
+        jpNumeros.setBackground(java.awt.Color.gray);
+        jpNumeros.setLayout(new java.awt.GridLayout(5, 5));
+        jPanel3.add(jpNumeros, java.awt.BorderLayout.CENTER);
+
+        jdCartela.getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
         jdQrcode.setBackground(new java.awt.Color(255, 255, 255));
         jdQrcode.setModal(true);
@@ -188,19 +238,19 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
             .addGap(0, 136, Short.MAX_VALUE)
         );
 
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jButton2.setText("Marcar pelo Celular");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btMarcarNoCllr.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        btMarcarNoCllr.setText("Marcar pelo Celular");
+        btMarcarNoCllr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btMarcarNoCllrActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jButton1.setText("Imprimir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btImprimir.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        btImprimir.setText("Imprimir");
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btImprimirActionPerformed(evt);
             }
         });
 
@@ -211,8 +261,8 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btMarcarNoCllr, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                    .addComponent(btImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -222,39 +272,21 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btMarcarNoCllr, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         add(jPanel1, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btImprimirActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        try {
-            ManipularCart mc= new ManipularCart();
-            mc.addCartelas(jogador);
-
-            GeradorDeQr gerarQr= new GeradorDeQr(FileUploader.getLinkDownload());
-
-            //tela.exibirQrcode();
-            exibirQrcode();
-        } catch (IOException ex) {
-            Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-        tela.irTelaInicial();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    
+    //metodos para a parte do JDialog do Qrcode
     private void exibirQrcode(){
         String caminhoImg= "src/main/java/baixarhtml/qrcode.png";
         try {
@@ -272,16 +304,119 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
             e.printStackTrace(); // Para depuração, caso ocorra um erro ao carregar a imagem
         }
     }
+    private void btMarcarNoCllrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMarcarNoCllrActionPerformed
+        // TODO add your handling code here:
+        try {
+            ManipularCart mc= new ManipularCart();
+            mc.addCartelas(jogador);
 
+            GeradorDeQr gerarQr= new GeradorDeQr(FileUploader.getLinkDownload());
+
+            //tela.exibirQrcode();
+            exibirQrcode();
+        } catch (IOException ex) {
+            Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        tela.irTelaInicial();
+    }//GEN-LAST:event_btMarcarNoCllrActionPerformed
+
+    
+    
+    //metodos para o JDialog da cartela:
+    
+    private void exibirCartela(Cartela cartelaExibir){
+        this.cartelaExibir= cartelaExibir;
+        
+        setNumsInterface(cartelaExibir, jogador);
+        setLbId(cartelaExibir.getId());
+        setLbJogador(jogador.getNome());
+        jdCartela.setVisible(true);
+    }
+    
+    private void setNumsInterface(Cartela cart, Jogador dono){
+        int[][] cartela= cart.getCartela();
+        String nome= dono.getNome();
+        
+        //jpNumeros= new JPanel(new GridLayout(5,5));
+        
+        //labels com seus valores de acordo com a cartela
+        for(int l=0; l<cartela.length; l++){
+            for(int c=0; c<cartela[0].length; c++){
+                String num;
+                if(cartela[l][c]==0){
+                    num= "--";
+                }
+                else if(cartela[l][c]<=9){
+                    num= "0" + String.valueOf(cartela[l][c]);
+                }
+                else{
+                    num= String.valueOf(cartela[l][c]);
+                }
+                
+                lbNumeros[l][c].setText(num);
+                
+                //centralizando texto:
+                lbNumeros[l][c].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                
+                //adicionando borda
+                lbNumeros[l][c].setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 1));
+                
+                //almentando tamanho da fonte
+                lbNumeros[l][c].setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+                
+                //jpNumeros.add(lbNumeros[l][c]);
+            }
+        }
+    }
+    
+    
+    private void setLbId(int id){
+        txtId.setText(("ID: " + String.valueOf(id)));
+    }
+    private void setLbJogador(String nome){
+        txtNomeJogador.setText("Jogador: " + nome);
+    }                                            
+
+    
+    private void btMudarCartelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMudarCartelaActionPerformed
+        // TODO add your handling code here:
+
+        cartelaExibir.gerarCartela();//regerando cartela
+
+        setNumsInterface(cartelaExibir, jogador); //atualizar label com a cartela atualizada
+
+        //lbNumeros[0][0].setText("kk");
+    }//GEN-LAST:event_btMudarCartelaActionPerformed
+
+    private void btVoltarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarCompraActionPerformed
+        // TODO add your handling code here:
+        //tela.irDetalheCompra(jogador);
+        jdCartela.setVisible(false);
+    }//GEN-LAST:event_btVoltarCompraActionPerformed
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btImprimir;
+    private javax.swing.JButton btMarcarNoCllr;
+    private javax.swing.JButton btMudarCartela;
+    private javax.swing.JButton btVoltarCompra;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JDialog jdCartela;
     private javax.swing.JDialog jdQrcode;
+    private javax.swing.JPanel jpNumeros;
     private javax.swing.JLabel lbImagem;
     private javax.swing.JPanel panelDados;
+    private javax.swing.JLabel txtId;
+    private javax.swing.JLabel txtNomeJogador;
     // End of variables declaration//GEN-END:variables
 }
