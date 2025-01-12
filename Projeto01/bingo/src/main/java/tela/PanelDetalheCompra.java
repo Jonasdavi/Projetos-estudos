@@ -10,10 +10,14 @@ import baixarhtml.FileUploader;
 import baixarhtml.GeradorDeQr;
 import cartelahtml.ManipularCart;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -33,6 +37,11 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
      */
     public PanelDetalheCompra(Tela t, Jogador jogador) {
         initComponents();
+        
+        //deixar os dialogs no centro da tela:
+        jdCartela.setLocationRelativeTo(null);
+        jdQrcode.setLocationRelativeTo(null);
+        
         this.jogador= jogador;
         tela= t;
         
@@ -50,6 +59,10 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
             
             JLabel jlb= new JLabel(cartelaNum);
             btCartelas[i]= new JButton("Visualizar cartela");
+           jlb.setFont(new java.awt.Font("Segoe UI Black", 0, 15)); // NOI18N
+           
+           jlb.setOpaque(true);
+           jlb.setBackground(new java.awt.Color(255, 255, 102));
             
             jlb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             
@@ -115,16 +128,54 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jdCartela = new javax.swing.JDialog();
+        jdQrcode = new javax.swing.JDialog();
+        jPanel2 = new javax.swing.JPanel();
+        lbImagem = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         panelDados = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
+        jdCartela.setModal(true);
+
+        javax.swing.GroupLayout jdCartelaLayout = new javax.swing.GroupLayout(jdCartela.getContentPane());
+        jdCartela.getContentPane().setLayout(jdCartelaLayout);
+        jdCartelaLayout.setHorizontalGroup(
+            jdCartelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jdCartelaLayout.setVerticalGroup(
+            jdCartelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        jdQrcode.setBackground(new java.awt.Color(255, 255, 255));
+        jdQrcode.setModal(true);
+        jdQrcode.setSize(new java.awt.Dimension(310, 340));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(lbImagem, java.awt.BorderLayout.CENTER);
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI Emoji", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Baixe suas cartelas através deste qrcode:");
+        jLabel2.setOpaque(true);
+        jPanel2.add(jLabel2, java.awt.BorderLayout.PAGE_START);
+
+        jdQrcode.getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        setBackground(new java.awt.Color(204, 255, 204));
         setLayout(new java.awt.GridBagLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setOpaque(false);
 
-        panelDados.setBackground(new java.awt.Color(255, 0, 0));
+        panelDados.setBackground(new java.awt.Color(255, 255, 102));
+        panelDados.setOpaque(false);
 
         javax.swing.GroupLayout panelDadosLayout = new javax.swing.GroupLayout(panelDados);
         panelDados.setLayout(panelDadosLayout);
@@ -186,13 +237,51 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        try {
+            ManipularCart mc= new ManipularCart();
+            mc.addCartelas(jogador);
+
+            GeradorDeQr gerarQr= new GeradorDeQr(FileUploader.getLinkDownload());
+
+            //tela.exibirQrcode();
+            exibirQrcode();
+        } catch (IOException ex) {
+            Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(PanelDetalheCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        tela.irTelaInicial();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void exibirQrcode(){
+        String caminhoImg= "src/main/java/baixarhtml/qrcode.png";
+        try {
+            // Carrega a nova imagem do mesmo caminho usando ImageIO
+            BufferedImage imagemBuffered = ImageIO.read(new File(caminhoImg));
+            ImageIcon imagemIcon = new ImageIcon(imagemBuffered);
+            
+            // Atualiza o JLabel com a nova imagem
+            lbImagem.setIcon(imagemIcon);
+            
+            jdQrcode.setVisible(true);
+            
+            // Repaint não é necessário aqui, pois o setIcon já faz isso.
+        } catch (Exception e) {
+            e.printStackTrace(); // Para depuração, caso ocorra um erro ao carregar a imagem
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JDialog jdCartela;
+    private javax.swing.JDialog jdQrcode;
+    private javax.swing.JLabel lbImagem;
     private javax.swing.JPanel panelDados;
     // End of variables declaration//GEN-END:variables
 }
