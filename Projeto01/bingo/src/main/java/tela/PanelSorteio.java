@@ -88,7 +88,10 @@ public class PanelSorteio extends javax.swing.JPanel {
 
             
             //mudar tamanho e fonte:
-            numerosSorteio[i].setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+            numerosSorteio[i].setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+            
+            //mudar cor do texto:
+            numerosSorteio[i].setForeground(Color.BLACK);
            
             panelNums.add(numerosSorteio[i]);
             
@@ -103,14 +106,22 @@ public class PanelSorteio extends javax.swing.JPanel {
         }
         
         int numSorteado= bingo.sortearNum();
+        String strNumSorteado= numSorteado<=9? "0" + String.valueOf(numSorteado) : String.valueOf(numSorteado);
         
         lbHistorico3.setText(lbHistorico2.getText());
         lbHistorico2.setText(lbHistorico1.getText());
         lbHistorico1.setText(lbNumSorteado.getText());
-        lbNumSorteado.setText(String.valueOf(numSorteado));
+        lbNumSorteado.setText(strNumSorteado);
         
-        //deixar label do numero sorteado amarelo
-        numerosSorteio[numSorteado-1].setBackground(Color.YELLOW);
+        
+        //deixar label do numero sorteado verde
+        numerosSorteio[numSorteado-1].setBackground(Color.GREEN);
+        
+        //deixar o numero sorteado de uma rodada atras amarelo:
+        int indiceHistorico1= (Integer.parseInt(lbHistorico1.getText()))-1;
+        if(indiceHistorico1!=-1){
+            numerosSorteio[indiceHistorico1].setBackground(Color.YELLOW);
+        }
     }
     
     
@@ -348,7 +359,7 @@ public class PanelSorteio extends javax.swing.JPanel {
 
         panelSorteacao.setBackground(new java.awt.Color(153, 153, 153));
 
-        lbNumSorteado.setBackground(new java.awt.Color(255, 255, 204));
+        lbNumSorteado.setBackground(new java.awt.Color(102, 255, 102));
         lbNumSorteado.setFont(new java.awt.Font("Segoe UI Black", 1, 90)); // NOI18N
         lbNumSorteado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbNumSorteado.setText("00");

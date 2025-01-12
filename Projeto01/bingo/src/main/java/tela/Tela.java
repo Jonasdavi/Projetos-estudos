@@ -4,14 +4,10 @@
  */
 package tela;
 
-import LogicaBingo.Cartela;
 import LogicaBingo.Jogador;
 import LogicaBingo.Bingo;
 
 import java.awt.CardLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 /**
@@ -21,20 +17,15 @@ import javax.swing.JPanel;
 public class Tela extends javax.swing.JFrame {
     private Bingo bingo= new Bingo();
     
+    //panels da tela e seus idCards:
     private PanelSorteio pSorteio;
     public final String PSORTEIO= "1";
     
     private PanelInicial pInicial;
     public final String PINICIAL= "2";
     
-    //private PanelGUICartela pGuiCartela;
-    //public final String PGUICARTELA= "3";
-    
-    //private PanelCompraCartela pCompraCartela;
-    //public final String PCOMPRACARTELA= "4";
-    
     private PanelDetalheCompra pDetalheCompra;
-    public final String PDETALHECOMPRA= "5";
+    public final String PDETALHECOMPRA= "3";
     
     
     
@@ -46,29 +37,8 @@ public class Tela extends javax.swing.JFrame {
     public Tela() {
         initComponents();
         
+        //iniciar no panel da tela inicial:
         irTelaInicial();
-        
-        //configurando dialog de compra de cartela:
-        //pCompraCartela=new PanelCompraCartela(this);
-        //jdCompra.add(pCompraCartela);
-        
-        //quando o X de sair for clicado, antes de sair reiniciar informacoes do painel de compra:
-//        jdCompra.addWindowListener(new WindowAdapter(){
-//            @Override
-//            public void windowClosing(WindowEvent e){
-//                pCompraCartela.reiniciarInfor();
-//                jdCompra.dispose();
-//            }
-//        });
-        
-        
-        
-        //deixando todos os JDialogs no centro da tela:
-        //jdCompra.setLocationRelativeTo(null);
-        //jdCartela.setLocationRelativeTo(null);
-        //jdQrcode.setLocationRelativeTo(null);
-        
-        //exibirQrcode();
         
         //maximizando tela:
         setExtendedState(MAXIMIZED_BOTH);
@@ -76,7 +46,7 @@ public class Tela extends javax.swing.JFrame {
     }
     
     
-    
+    //metodos pra ajudar na classe principal;
     public PanelSorteio getPanelSorteio(){
         return pSorteio;
     }
@@ -85,10 +55,8 @@ public class Tela extends javax.swing.JFrame {
         return card;
     }
     
-//    public PanelCompraCartela getPCompraCartela(){
-//        return pCompraCartela;
-//    }
     
+    //metodos pra mudar de panel 
     public void irDetalheCompra(Jogador jogador){
         pDetalheCompra= new PanelDetalheCompra(this, jogador);
         card.add(pDetalheCompra, PDETALHECOMPRA);
@@ -97,15 +65,6 @@ public class Tela extends javax.swing.JFrame {
         ((CardLayout) (card.getLayout())).show(card, PDETALHECOMPRA);
         
     }
-    
-    //public void irCartela(Cartela c, Jogador j){
-        //pGuiCartela= new PanelGUICartela(jdCartela, c, j);
-//        //card.add(pGuiCartela, PGUICARTELA);
-//        jdCartela.getContentPane().add(pGuiCartela, PGUICARTELA);
-//        
-//        ((CardLayout) (jdCartela.getContentPane().getLayout())).show(jdCartela.getContentPane(), PGUICARTELA);
-//        jdCartela.setVisible(true);
-    //}
     
     public void irTelaInicial(){
         int qtCartelas= bingo.getQtCartelas();
@@ -120,29 +79,18 @@ public class Tela extends javax.swing.JFrame {
         
     }
     
-//    public void irCompraCartela(){
-//        //pCompraCartela= new PanelCompraCartela(this);
-//        //card.add(pCompraCartela, PCOMPRACARTELA);
-//        //((CardLayout) (card.getLayout())).show(card, PCOMPRACARTELA);
-//        
-//        //jdCompra.add(pCompraCartela);
-//        
-//        jdCompra.setVisible(true);
-//    }
-    
-//    public void fecharJdCompra(){
-//        jdCompra.setVisible(false);
-//    }
-    
     public void irSorteio(){
         pSorteio= new PanelSorteio(this, bingo);
         card.add(pSorteio, PSORTEIO);
         ((CardLayout) (card.getLayout())).show(card, PSORTEIO);
     }
     
+    
+    //metodos pra ajudar no sorteio:
     public Bingo getBingo(){
         return bingo;
     }
+    
     
     public void finalizarSorteio(){
         bingo= new Bingo();
@@ -150,15 +98,6 @@ public class Tela extends javax.swing.JFrame {
     }
     
     
-//    public void exibirQrcode(){
-//        PanelQrCode pQr= new PanelQrCode();
-//        String indiceQr= "qr";
-//        
-//        jdQrcode.getContentPane().add(pQr, indiceQr);
-//        ((CardLayout) (jdQrcode.getContentPane().getLayout())).show(jdQrcode.getContentPane(), indiceQr);
-//        
-//        jdQrcode.setVisible(true);
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.

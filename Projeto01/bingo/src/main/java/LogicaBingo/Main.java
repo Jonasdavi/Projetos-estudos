@@ -1,12 +1,9 @@
 package LogicaBingo;
 
-import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
-//import tela.PanelCompraCartela;
 import tela.PanelSorteio;
 import tela.Tela;
 
@@ -14,17 +11,6 @@ public class Main {
     public static void main(String[] args) {
         
         Tela tela= new Tela();
-        //tela.setSize(600, 400);
-//        JDialog jd= new JDialog(tela, "teste", true);
-//        //jd.setModal(true);
-//        jd.getContentPane().add(new PanelCompraCartela(tela));
-//        
-//        tela.setVisible(true);
-//        jd.setSize(300, 300);
-//        jd.setVisible(true);
-        
-
-        //tela.irTelaInicial();
 
         //painel com o cardLayout da tela:
         JPanel card= tela.getCard();
@@ -64,8 +50,11 @@ public class Main {
                                 Logger.getLogger(PanelSorteio.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             
-                            //sortear:
-                            pSorteio.sortearNum();
+                            //se depois da pausa dos segundos assima, o sorteio ainda estiver rolando:
+                            if(!pSorteio.isSorteioPausado()){
+                                //sortear:
+                                pSorteio.sortearNum();    
+                            }
 
                         }
                     }
