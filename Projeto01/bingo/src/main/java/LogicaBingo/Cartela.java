@@ -141,6 +141,17 @@ public class Cartela{
         }
         System.out.println();
     }
+    
+    
+    public void reiniciarCartela(){
+        qtNumsMarcados=0;
+        
+        for(int i=0; i<cartela.length; i++){
+            for(int j=0; j<cartela.length; j++){
+                cartelaMarcada[i][j]= cartela[i][j];
+            }
+        }
+    }
 
     protected boolean ganhou(){
         return qtNumsMarcados==QTNUMS;
@@ -159,4 +170,6 @@ public class Cartela{
     public int getId(){
         return ID;
     }
+    
+    
 }

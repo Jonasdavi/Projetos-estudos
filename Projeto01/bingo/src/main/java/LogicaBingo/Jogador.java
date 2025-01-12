@@ -68,6 +68,10 @@ public class Jogador{
             cartela.exibirCartela();
         }
     }
+    
+    public void reiniciarCartelasPremiadas(){
+        cartelasPremiadas= new ArrayList<Cartela>();
+    }
 
     public ArrayList<Cartela> getCartelas(){
         return cartelas;

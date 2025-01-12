@@ -59,6 +59,7 @@ public class PanelSorteio extends javax.swing.JPanel {
         //deixar os jdialogs no centro da tela:
         jdAjustarTempo.setLocationRelativeTo(null);
         jdVerificarId.setLocationRelativeTo(null);
+        jdFinalizarSorteio.setLocationRelativeTo(null);
         
         iniciarLabelsSorteio();
     }
@@ -102,6 +103,10 @@ public class PanelSorteio extends javax.swing.JPanel {
     public void sortearNum(){
         if(bingo.getQtNumsSorteados()==75){
             sorteioAcabado= true;
+            btPausarContinuar.doClick(); //pausar sorteio
+            
+            //desabilitar o botao continuar:
+            btPausarContinuar.setEnabled(false);
             return;
         }
         
@@ -175,6 +180,11 @@ public class PanelSorteio extends javax.swing.JPanel {
         mensagemValidacao = new javax.swing.JLabel();
         btVisualizarCartela = new javax.swing.JButton();
         jdVisualizarGanhadores = new javax.swing.JDialog();
+        jdFinalizarSorteio = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         panelSorteacao = new javax.swing.JPanel();
         lbNumSorteado = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -197,7 +207,7 @@ public class PanelSorteio extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
-        jsSegundos.setModel(new javax.swing.SpinnerNumberModel(5, 5, 40, 1));
+        jsSegundos.setModel(new javax.swing.SpinnerNumberModel(5, 1, null, 1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
         jLabel1.setText("Tempo em segundos para sortear um número:");
@@ -355,6 +365,60 @@ public class PanelSorteio extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        jdFinalizarSorteio.setModal(true);
+        jdFinalizarSorteio.setSize(new java.awt.Dimension(450, 225));
+        jdFinalizarSorteio.getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Deseja continuar com as cartelas?");
+
+        jButton5.setBackground(new java.awt.Color(255, 153, 153));
+        jButton5.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jButton5.setText("Não, Apagar Todas");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setBackground(new java.awt.Color(204, 255, 204));
+        jButton6.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jButton6.setText("Sim, Manter Cartelas");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(jButton6)))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jdFinalizarSorteio.getContentPane().add(jPanel6, new java.awt.GridBagConstraints());
+
         setLayout(new java.awt.BorderLayout());
 
         panelSorteacao.setBackground(new java.awt.Color(153, 153, 153));
@@ -421,6 +485,11 @@ public class PanelSorteio extends javax.swing.JPanel {
         });
 
         jButton2.setText("Visu. Ganhadores");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSorteacaoLayout = new javax.swing.GroupLayout(panelSorteacao);
         panelSorteacao.setLayout(panelSorteacaoLayout);
@@ -477,13 +546,22 @@ public class PanelSorteio extends javax.swing.JPanel {
     private void btVerificarVitoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerificarVitoriaActionPerformed
         // TODO add your handling code here:
         //tela.exibirDialogVerificarId();
+        
+        if(!isSorteioPausado()){//se o sorteio está rolando, entao pause
+            btPausarContinuar.doClick();
+        }
         jdVerificarId.setVisible(true);
     }//GEN-LAST:event_btVerificarVitoriaActionPerformed
 
     private void btFinalizarSorteioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarSorteioActionPerformed
         // TODO add your handling code here:
-        sorteioAcabado=true;
-        tela.finalizarSorteio();
+        //sorteioAcabado=true;
+        
+        if(!isSorteioPausado()){//se o sorteio está rolando, entao pause
+            btPausarContinuar.doClick();
+        }
+        
+        jdFinalizarSorteio.setVisible(true);
     }//GEN-LAST:event_btFinalizarSorteioActionPerformed
 
     private void btPausarContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPausarContinuarActionPerformed
@@ -507,6 +585,9 @@ public class PanelSorteio extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if(!isSorteioPausado()){//se o sorteio está rolando, entao pause
+            btPausarContinuar.doClick();
+        }
         jdAjustarTempo.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -582,6 +663,29 @@ public class PanelSorteio extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btVerificarActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        sorteioAcabado=true;
+        jdFinalizarSorteio.setVisible(false);
+        tela.finalizarSorteio();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        tela.getBingo().reiniciarCartelas(); //zerar numeros sorteados nas cartelas
+        
+        sorteioAcabado=true;
+        jdFinalizarSorteio.setVisible(false);
+        tela.irTelaInicial();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(!isSorteioPausado()){//se o sorteio está rolando, entao pause
+            btPausarContinuar.doClick();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btFinalizarSorteio;
@@ -593,14 +697,19 @@ public class PanelSorteio extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JDialog jdAjustarTempo;
+    private javax.swing.JDialog jdFinalizarSorteio;
     private javax.swing.JDialog jdVerificarId;
     private javax.swing.JDialog jdVisualizarGanhadores;
     private javax.swing.JSpinner jsSegundos;

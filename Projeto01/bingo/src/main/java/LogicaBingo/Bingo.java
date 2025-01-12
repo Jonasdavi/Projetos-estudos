@@ -116,6 +116,25 @@ public class Bingo{
         return cartelasVendidas.get(id-1);
     }
     
+    public void reiniciarCartelas(){
+        this.qtNumsSorteados=0;
+        
+        for(Cartela cartela : this.cartelasVendidas){
+            cartela.reiniciarCartela();
+        }
+        
+        for(Jogador ganhador : this.ganhadores){
+            ganhador.reiniciarCartelasPremiadas();
+        }
+        
+        this.ganhadores= new ArrayList<Jogador>();
+        
+        this.numsRestantes= new ArrayList<Integer>();
+        for(Integer i=1 ; i<=75 ; i++){
+            this.numsRestantes.add(i);
+        }
+    }
+    
     public int getQtNumsSorteados(){
         return qtNumsSorteados;
     }
