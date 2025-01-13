@@ -45,6 +45,13 @@ public class PanelInicial extends javax.swing.JPanel {
         qtCartelasComprar = new javax.swing.JSpinner();
         btCancelar = new javax.swing.JButton();
         btConfirmar = new javax.swing.JButton();
+        jdRemoverCart = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jsId = new javax.swing.JSpinner();
+        jButton1 = new javax.swing.JButton();
+        lbInfo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btCompraCartela = new javax.swing.JButton();
         btSortear = new javax.swing.JButton();
@@ -52,6 +59,7 @@ public class PanelInicial extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         lbQtJogadores = new javax.swing.JLabel();
         lbQtCartelas = new javax.swing.JLabel();
+        btRemoverCartela = new javax.swing.JButton();
 
         jdCompra.setMinimumSize(new java.awt.Dimension(200, 100));
         jdCompra.setModal(true);
@@ -86,6 +94,57 @@ public class PanelInicial extends javax.swing.JPanel {
         jPanel1.add(btConfirmar);
 
         jdCompra.getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jdRemoverCart.setModal(true);
+        jdRemoverCart.setSize(new java.awt.Dimension(400, 300));
+
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        jLabel5.setText("Id:");
+
+        jsId.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        jButton1.setText("Remover");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        lbInfo.setText(" ");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jsId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbInfo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jsId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+
+        jPanel3.add(jPanel4, new java.awt.GridBagConstraints());
+
+        jdRemoverCart.getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
         setBackground(new java.awt.Color(204, 255, 204));
         setLayout(new java.awt.GridBagLayout());
@@ -122,6 +181,15 @@ public class PanelInicial extends javax.swing.JPanel {
         lbQtCartelas.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         lbQtCartelas.setText("0");
 
+        btRemoverCartela.setBackground(new java.awt.Color(255, 102, 102));
+        btRemoverCartela.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        btRemoverCartela.setText("Remover Cartela");
+        btRemoverCartela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoverCartelaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -139,7 +207,8 @@ public class PanelInicial extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbQtCartelas, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                             .addComponent(lbQtJogadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btRemoverCartela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -156,8 +225,10 @@ public class PanelInicial extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btCompraCartela, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btRemoverCartela, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(btSortear, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         add(jPanel2, new java.awt.GridBagConstraints());
@@ -199,20 +270,47 @@ public class PanelInicial extends javax.swing.JPanel {
         tela.irDetalheCompra(jogador);
     }//GEN-LAST:event_btConfirmarActionPerformed
 
+    private void btRemoverCartelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverCartelaActionPerformed
+        // TODO add your handling code here:
+        jdRemoverCart.setVisible(true);
+    }//GEN-LAST:event_btRemoverCartelaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(tela.getBingo().pegarCartelaPeloId((int) jsId.getValue()) == null){
+            lbInfo.setText("cartela nao encontrada");
+            
+        }
+        else{
+            tela.getBingo().removerCartela((int) (jsId.getValue()));
+            lbInfo.setText("Removido com sucesso");
+            tela.irTelaInicial();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btCompraCartela;
     private javax.swing.JButton btConfirmar;
+    private javax.swing.JButton btRemoverCartela;
     private javax.swing.JButton btSortear;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JDialog jdCompra;
+    private javax.swing.JDialog jdRemoverCart;
+    private javax.swing.JSpinner jsId;
     private javax.swing.JTextField jtNome;
+    private javax.swing.JLabel lbInfo;
     private javax.swing.JLabel lbQtCartelas;
     private javax.swing.JLabel lbQtJogadores;
     private javax.swing.JSpinner qtCartelasComprar;

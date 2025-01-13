@@ -9,6 +9,8 @@ public class Bingo{
     private ArrayList<Jogador> jogadores= new ArrayList<Jogador>();
     private ArrayList<Jogador> ganhadores= new ArrayList<Jogador>();
     
+    private int qtCartelasValidas =0;
+    
     private int qtNumsSorteados;
 
     Random rand= new Random();
@@ -28,6 +30,7 @@ public class Bingo{
     }
 
     public void venderCartela(Jogador comprador){
+        qtCartelasValidas++;
         Cartela c= new Cartela(this);
         
         comprador.addCartela(c);
@@ -40,6 +43,9 @@ public class Bingo{
     
     public boolean containsCartela(Cartela c){ //verifica se os numeros da cartela sao iguais as que ja tem
         for (Cartela cartela : cartelasVendidas) {
+            if(cartela==null){
+                continue;
+            }
             if(c.equals(cartela) && c!=cartela){ //se tiver alguma cartela com o mesmo numero e a referencia for diferente
                 return true;
             }
@@ -89,6 +95,10 @@ public class Bingo{
 
     private void atualizarCartelas(int numSorteado){
         for(Cartela cartela : cartelasVendidas){
+            if(cartela==null){
+                continue;
+            }
+            
             cartela.inserirNumSorteado(numSorteado);
         }
     }
@@ -113,6 +123,10 @@ public class Bingo{
         if(id>cartelasVendidas.size() || id<1){
             return null;
         }
+        if(cartelasVendidas.get(id-1) == null){
+            return null;
+        }
+        
         return cartelasVendidas.get(id-1);
     }
     
@@ -120,6 +134,10 @@ public class Bingo{
         this.qtNumsSorteados=0;
         
         for(Cartela cartela : this.cartelasVendidas){
+            if(cartela==null){
+                continue;
+            }
+            
             cartela.reiniciarCartela();
         }
         
@@ -135,15 +153,61 @@ public class Bingo{
         }
     }
     
+    public void removerCartela(int id){
+        Cartela c= cartelasVendidas.get(id-1);
+        
+        for(Jogador jogador : jogadores){
+            if(jogador==null){
+                continue;
+            }
+            if(jogador.containsThisCartela(c)){
+                jogador.removerCartela(c);
+                break;
+            }
+        }
+        
+        for(Jogador jogador : ganhadores){
+            if(jogador.containsThisCartela(c)){
+                jogador.removerCartela(c);
+                break;
+            }
+        }
+        
+        
+        cartelasVendidas.set(id-1, null);
+        qtCartelasValidas--;
+        
+    }
+    
     public int getQtNumsSorteados(){
         return qtNumsSorteados;
     }
     
     public int getQtJogadores(){
-        return jogadores.size();
+        for(int i=0; i<jogadores.size(); i++){
+            if(jogadores.get(i)==null){
+                continue;
+            }
+            
+            if(jogadores.get(i).cartelasVazias()){
+                jogadores.set(i, null);
+            }
+        }
+        
+        int qtJogadores= 0;
+        for(int i=0; i<jogadores.size(); i++){
+            if(jogadores.get(i)!=null){
+                qtJogadores++;
+            }
+        }
+        return qtJogadores;
     }
     
    public int getQtCartelas(){
        return cartelasVendidas.size();
+   }
+   
+   public int getQtCartelasValidas(){
+       return qtCartelasValidas;
    }
 }

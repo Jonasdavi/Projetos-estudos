@@ -67,7 +67,7 @@ public class Tela extends javax.swing.JFrame {
     }
     
     public void irTelaInicial(){
-        int qtCartelas= bingo.getQtCartelas();
+        int qtCartelas= bingo.getQtCartelasValidas();
         int qtJogadores= bingo.getQtJogadores();
         
         
