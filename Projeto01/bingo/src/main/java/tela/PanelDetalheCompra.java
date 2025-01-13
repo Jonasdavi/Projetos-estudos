@@ -9,6 +9,7 @@ import LogicaBingo.Jogador;
 import baixarhtml.FileUploader;
 import baixarhtml.GeradorDeQr;
 import cartelahtml.ManipularCart;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -147,7 +148,7 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
         btImprimir = new javax.swing.JButton();
 
         jdCartela.setModal(true);
-        jdCartela.setSize(new java.awt.Dimension(320, 410));
+        jdCartela.setSize(new java.awt.Dimension(320, 450));
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
@@ -166,11 +167,12 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.setLayout(new java.awt.GridLayout(4, 1));
 
-        txtId.setFont(new java.awt.Font("Sitka Display", 0, 18)); // NOI18N
+        txtId.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
         txtId.setText("ID: ");
+        txtId.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel5.add(txtId);
 
-        txtNomeJogador.setFont(new java.awt.Font("Sitka Text", 0, 18)); // NOI18N
+        txtNomeJogador.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
         txtNomeJogador.setText("Jogador: ");
         jPanel5.add(txtNomeJogador);
 
@@ -365,8 +367,9 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
                 lbNumeros[l][c].setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 1));
                 
                 //almentando tamanho da fonte
-                lbNumeros[l][c].setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+                lbNumeros[l][c].setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
                 
+                lbNumeros[l][c].setForeground(Color.black);
                 //jpNumeros.add(lbNumeros[l][c]);
             }
         }
@@ -375,9 +378,11 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
     
     private void setLbId(int id){
         txtId.setText(("ID: " + String.valueOf(id)));
+        txtId.setForeground(Color.black);
     }
     private void setLbJogador(String nome){
         txtNomeJogador.setText("Jogador: " + nome);
+        txtNomeJogador.setForeground(Color.black);
     }                                            
 
     

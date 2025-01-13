@@ -5,6 +5,7 @@
 package tela;
 
 import LogicaBingo.Jogador;
+import java.awt.Color;
 
 /**
  *
@@ -26,6 +27,7 @@ public class PanelInicial extends javax.swing.JPanel {
         
         //deixando o jdialog no centro:
         jdCompra.setLocationRelativeTo(null);
+        jdRemoverCart.setLocationRelativeTo(null);
     }
 
     /**
@@ -96,14 +98,21 @@ public class PanelInicial extends javax.swing.JPanel {
         jdCompra.getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         jdRemoverCart.setModal(true);
-        jdRemoverCart.setSize(new java.awt.Dimension(400, 300));
+        jdRemoverCart.setSize(new java.awt.Dimension(200, 150));
 
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
+        jPanel4.setOpaque(false);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Id:");
 
         jsId.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 204));
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jButton1.setText("Remover");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +120,7 @@ public class PanelInicial extends javax.swing.JPanel {
             }
         });
 
+        lbInfo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         lbInfo.setText(" ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -120,25 +130,25 @@ public class PanelInicial extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jsId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbInfo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jsId))
+                    .addComponent(lbInfo)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jsId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jsId, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbInfo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -278,11 +288,13 @@ public class PanelInicial extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(tela.getBingo().pegarCartelaPeloId((int) jsId.getValue()) == null){
+            lbInfo.setForeground(Color.red);
             lbInfo.setText("cartela nao encontrada");
             
         }
         else{
             tela.getBingo().removerCartela((int) (jsId.getValue()));
+            lbInfo.setForeground(Color.YELLOW);
             lbInfo.setText("Removido com sucesso");
             tela.irTelaInicial();
         }
