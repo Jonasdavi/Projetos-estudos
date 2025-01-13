@@ -47,7 +47,7 @@ public class GeradorDeQr {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
             // Gera a matriz do QR Code com base nos dados fornecidos.
-            BitMatrix bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, width, height, hints);
+            BitMatrix bitMatrix = qrCodeWriter.encode(data /*<- erro aqui */, BarcodeFormat.QR_CODE, width, height, hints);
 
             // Define o caminho do arquivo onde o QR Code será salvo.
             Path path = new File(filePath).toPath();

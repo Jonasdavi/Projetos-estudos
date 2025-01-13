@@ -3,6 +3,8 @@ package baixarhtml;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FileUploader {
@@ -62,12 +64,14 @@ public class FileUploader {
                 JSONObject jsonResponse = new JSONObject(response.toString());
                 String downloadLink = jsonResponse.getString("link");
 
+                //System.out.println(downloadLink);
+
                 // Exibe o link gerado
                 return downloadLink;
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } 
         return "";
     }
 }

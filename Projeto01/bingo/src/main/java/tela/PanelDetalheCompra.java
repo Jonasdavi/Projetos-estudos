@@ -284,6 +284,7 @@ public class PanelDetalheCompra extends javax.swing.JPanel {
 
     private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
         // TODO add your handling code here:
+        tela.irTelaInicial();
     }//GEN-LAST:event_btImprimirActionPerformed
 
     

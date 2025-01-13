@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         TelaJogo tJogo= new TelaJogo();
         Jogo jogo= new Jogo(40, 40, tJogo);
+        //jogo.setTempoAndar(22);
         
         //pega tecla clicada:
         tJogo.addKeyListener(new KeyAdapter() {
